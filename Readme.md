@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов»
 
 * Студент: [Алина Вдовиченко](https://up.htmlacademy.ru/react/15/user/1837789).
-* Наставник: [Иван Некипелов](https://htmlacademy.ru/profile/jedi).
+* Наставник: [Иван Некипелов](https://htmlacademy.ru/profile/jedi)!
 
 ---
 
