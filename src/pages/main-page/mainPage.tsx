@@ -1,10 +1,10 @@
 import CitiesCard from '../../components/cities-card/citiesCard';
 
-type MainScreenProps = {
+type MainPageProps = {
   placesCount: number;
 }
 
-function MainScreen({placesCount}: MainScreenProps): JSX.Element {
+function MainPage({placesCount}: MainPageProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -132,4 +132,4 @@ function MainScreen({placesCount}: MainScreenProps): JSX.Element {
   );
 }
 
-export default MainScreen;
+export default MainPage;

@@ -1,12 +1,12 @@
-import MainScreen from '../../pages/main-screen/mainScreen';
+import MainPage from '../../pages/main-page/mainPage';
 
-type AppScreenProps = {
+type AppPageProps = {
   placesCount: number;
 }
 
-function App({placesCount}: AppScreenProps): JSX.Element {
+function App({placesCount}: AppPageProps): JSX.Element {
   return (
-    <MainScreen placesCount={placesCount} />
+    <MainPage placesCount={placesCount} />
   );
 }
 
