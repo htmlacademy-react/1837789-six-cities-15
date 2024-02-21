@@ -1,6 +1,11 @@
 import Logo from '../../components/logo/logo';
+import {useParams} from 'react-router-dom';
 
 function OfferPage(): JSX.Element {
+  const params = useParams();
+  // eslint-disable-next-line no-console
+  console.log(params);
+
   return (
     <div className="page">
       <header className="header">
