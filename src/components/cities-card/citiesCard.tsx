@@ -1,6 +1,25 @@
-function CitiesCard(): JSX.Element {
+import {useState} from 'react';
+import {Offer} from '../../types/offer';
+
+type CitiesCardProps = {
+  offerCard: Offer;
+  setCardHoverId(id: string | null): void;
+}
+
+function CitiesCard({offerCard, setCardHoverId}: CitiesCardProps): JSX.Element {
+  const {title, price, type, isFavorite, id} = offerCard;
+  const [favorite, setFavorite] = useState(isFavorite);
+
+  const handleMouseOver = () => {
+    setCardHoverId(id);
+  };
+
+  const handleMouseOut = () => {
+    setCardHoverId(null);
+  };
+
   return (
-    <article className="cities__card place-card">
+    <article className="cities__card place-card" onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
       <div className="place-card__mark">
         <span>Premium</span>
       </div>
@@ -18,11 +37,11 @@ function CitiesCard(): JSX.Element {
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
-            <b className="place-card__price-value">€500</b>
+            <b className="place-card__price-value">€{price}</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
-          <button
-            className="place-card__bookmark-button button"
+          <button onClick = {() => setFavorite(!favorite)}
+            className={`place-card__bookmark-button ${favorite ? 'place-card__bookmark-button--active' : ''} button`}
             type="button"
           >
             <svg
@@ -43,10 +62,10 @@ function CitiesCard(): JSX.Element {
         </div>
         <h2 className="place-card__name">
           <a href="#">
-            Beautiful &amp; luxurious apartment at great location
+            {title}
           </a>
         </h2>
-        <p className="place-card__type">Apartment</p>
+        <p className="place-card__type">{type}</p>
       </div>
     </article>
   );

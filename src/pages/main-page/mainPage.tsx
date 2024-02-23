@@ -1,11 +1,16 @@
-import CitiesCard from '../../components/cities-card/citiesCard';
+import {useState} from 'react';
+import CitiesPlacesList from '../../components/cities-places-list/citiesPlacesList';
 import Logo from '../../components/logo/logo';
+import {Offers} from '../../types/offer';
 
 type MainPageProps = {
   placesCount: number;
+  offers: Offers;
 }
 
-function MainPage({placesCount}: MainPageProps): JSX.Element {
+function MainPage({placesCount, offers}: MainPageProps): JSX.Element {
+  const [cardHoverId, setCardHoverId] = useState<string | null>(null);
+
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -107,16 +112,10 @@ function MainPage({placesCount}: MainPageProps): JSX.Element {
                   </li>
                 </ul>
               </form>
-              <div className="cities__places-list places__list tabs__content">
-                <CitiesCard/>
-                <CitiesCard/>
-                <CitiesCard/>
-                <CitiesCard/>
-                <CitiesCard/>
-              </div>
+              <CitiesPlacesList offerList = {offers} setCardHoverId = {setCardHoverId}/>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map" />
+              <section className="cities__map map">{cardHoverId}</section>
             </div>
           </div>
         </div>

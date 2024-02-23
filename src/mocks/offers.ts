@@ -1,6 +1,6 @@
-import {Offer} from '../types/offer';
+import {Offers} from '../types/offer';
 
-export const offers: Offer[] = [
+export const offers: Offers = [
   {
     id: '1',
     title: 'Beautiful & luxurious studio at great location',
@@ -14,11 +14,12 @@ export const offers: Offer[] = [
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     previewImage: 'https://15.design.htmlacademy.pro/static/hotel/4.jpg',
     images: [
-      'https://15.design.htmlacademy.pro/static/hotel/8.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/1.jpg',
       'https://15.design.htmlacademy.pro/static/hotel/2.jpg',
       'https://15.design.htmlacademy.pro/static/hotel/4.jpg',
       'https://15.design.htmlacademy.pro/static/hotel/10.jpg',
-      'https://15.design.htmlacademy.pro/static/hotel/6.jpg'
+      'https://15.design.htmlacademy.pro/static/hotel/6.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/1.jpg'
     ],
     location: {
       latitude: 52.35514938496378,

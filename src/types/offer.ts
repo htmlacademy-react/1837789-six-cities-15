@@ -20,3 +20,5 @@ export type Offer = {
   host: Host;
   goods: string[];
 };
+
+export type Offers = Offer[];

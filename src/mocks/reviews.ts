@@ -1,6 +1,8 @@
-import {Review} from '../types/review';
+import {Reviews} from '../types/review';
 
-export const reviews: Review[] = [
+const AVATAR_URL = 'https://15.design.htmlacademy.pro/static/avatar/';
+
+export const reviews: Reviews = [
   {
     id: '1380fbcc-414b-484a-b5cb-60022a231f40',
     comment: 'Beautiful space, fantastic location and atmosphere, really a wonderful place to spend a few days. Will be back.',
@@ -8,7 +10,7 @@ export const reviews: Review[] = [
     rating: 2,
     user: {
       name: 'Christina',
-      avatarUrl: 'https://15.design.htmlacademy.pro/static/avatar/1.jpg',
+      avatarUrl: `${AVATAR_URL}${Math.random()}.jpg`,
       isPro: false
     }
   },
@@ -19,7 +21,7 @@ export const reviews: Review[] = [
     rating: 2,
     user: {
       name: 'Mollie',
-      avatarUrl: 'https://15.design.htmlacademy.pro/static/avatar/3.jpg',
+      avatarUrl: `${AVATAR_URL}${Math.random()}.jpg`,
       isPro: true
     }
   },
