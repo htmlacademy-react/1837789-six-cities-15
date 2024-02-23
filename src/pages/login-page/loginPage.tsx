@@ -1,13 +1,18 @@
+import {Link} from 'react-router-dom';
+import {Helmet} from 'react-helmet-async';
+
 function LoginPage(): JSX.Element {
   return (
     <div className="page page--gray page--login">
+      <Helmet>
+        <title>Шесть городов. Зарегистрируйся!</title>
+      </Helmet>
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <a
+              <Link to="/"
                 className="header__logo-link"
-                href="main.html"
               >
                 <img
                   alt="6 cities logo"
@@ -16,7 +21,7 @@ function LoginPage(): JSX.Element {
                   src="img/logo.svg"
                   width="81"
                 />
-              </a>
+              </Link>
             </div>
           </div>
         </div>
