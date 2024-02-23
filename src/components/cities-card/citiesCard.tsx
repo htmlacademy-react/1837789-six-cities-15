@@ -1,5 +1,6 @@
 import {useState} from 'react';
 import {Offer} from '../../types/offer';
+import {handleStars} from '../../const';
 
 type CitiesCardProps = {
   offerCard: Offer;
@@ -7,7 +8,7 @@ type CitiesCardProps = {
 }
 
 function CitiesCard({offerCard, setCardHoverId}: CitiesCardProps): JSX.Element {
-  const {title, price, type, isFavorite, id} = offerCard;
+  const {title, price, type, isFavorite, id, isPremium, previewImage, rating} = offerCard;
   const [favorite, setFavorite] = useState(isFavorite);
 
   const handleMouseOver = () => {
@@ -20,14 +21,12 @@ function CitiesCard({offerCard, setCardHoverId}: CitiesCardProps): JSX.Element {
 
   return (
     <article className="cities__card place-card" onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
-      <div className="place-card__mark">
-        <span>Premium</span>
-      </div>
+      {isPremium && <div className="place-card__mark"><span>Premium</span></div>}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <a href="#">
           <img
             className="place-card__image"
-            src="img/apartment-01.jpg"
+            src={previewImage}
             width={260}
             height={200}
             alt="Place image"
@@ -56,7 +55,7 @@ function CitiesCard({offerCard, setCardHoverId}: CitiesCardProps): JSX.Element {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: '80%' }} />
+            <span style={{ width: `${handleStars(rating)}`}} />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
