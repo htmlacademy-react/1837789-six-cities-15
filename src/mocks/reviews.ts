@@ -7,7 +7,7 @@ export const reviews: Reviews = [
     date: '2024-02-02T21:00:00.342Z',
     rating: 2,
     user: {
-      name: 'Christina',
+      name: 'Ben',
       avatarUrl: 'https://15.design.htmlacademy.pro/static/avatar/1.jpg',
       isPro: false
     }
@@ -18,7 +18,7 @@ export const reviews: Reviews = [
     date: '2024-01-31T21:00:00.342Z',
     rating: 2,
     user: {
-      name: 'Mollie',
+      name: 'Pol',
       avatarUrl: 'https://15.design.htmlacademy.pro/static/avatar/2.jpg',
       isPro: true
     }

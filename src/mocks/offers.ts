@@ -14,7 +14,7 @@ export const offers: Offers = [
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     previewImage: 'https://15.design.htmlacademy.pro/static/hotel/4.jpg',
     images: [
-      'https://15.design.htmlacademy.pro/static/hotel/1.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/8.jpg',
       'https://15.design.htmlacademy.pro/static/hotel/2.jpg',
       'https://15.design.htmlacademy.pro/static/hotel/4.jpg',
       'https://15.design.htmlacademy.pro/static/hotel/10.jpg',
@@ -35,9 +35,9 @@ export const offers: Offers = [
       }
     },
     host: {
-      name: 'Angelina',
+      name: 'Rick',
       isPro: true,
-      avatarUrl: 'img/avatar-angelina.jpg'
+      avatarUrl: 'https://15.design.htmlacademy.pro/static/avatar/4.jpg'
     },
     goods: [
       'Heating'
@@ -56,6 +56,7 @@ export const offers: Offers = [
     description: 'A cozy and warm apartment located in the heart of Paris, perfect for a romantic getaway.',
     previewImage: 'https://15.design.htmlacademy.pro/static/hotel/1.jpg',
     images: [
+      'https://15.design.htmlacademy.pro/static/hotel/1.jpg',
       'https://15.design.htmlacademy.pro/static/hotel/2.jpg',
       'https://15.design.htmlacademy.pro/static/hotel/3.jpg',
       'https://15.design.htmlacademy.pro/static/hotel/4.jpg',
@@ -76,9 +77,9 @@ export const offers: Offers = [
       }
     },
     host: {
-      name: 'John',
+      name: 'Eva',
       isPro: false,
-      avatarUrl: 'img/avatar-angelina.jpg'
+      avatarUrl: 'https://15.design.htmlacademy.pro/static/avatar/8.jpg'
     },
     goods: [
       'Wi-Fi',
@@ -99,6 +100,7 @@ export const offers: Offers = [
     description: 'A spacious and modern apartment located in the heart of New York City, perfect for a family vacation.',
     previewImage: 'https://15.design.htmlacademy.pro/static/hotel/2.jpg',
     images: [
+      'https://15.design.htmlacademy.pro/static/hotel/12.jpg',
       'https://15.design.htmlacademy.pro/static/hotel/7.jpg',
       'https://15.design.htmlacademy.pro/static/hotel/8.jpg',
       'https://15.design.htmlacademy.pro/static/hotel/9.jpg',
@@ -121,7 +123,7 @@ export const offers: Offers = [
     host: {
       name: 'Sarah',
       isPro: true,
-      avatarUrl: 'img/avatar-angelina.jpg'
+      avatarUrl: 'https://15.design.htmlacademy.pro/static/avatar/6.jpg'
     },
     goods: [
       'Wi-Fi',
@@ -144,6 +146,7 @@ export const offers: Offers = [
     description: 'A charming and cozy cottage located in the beautiful countryside, perfect for a peaceful retreat.',
     previewImage: 'https://15.design.htmlacademy.pro/static/hotel/5.jpg',
     images: [
+      'https://15.design.htmlacademy.pro/static/hotel/7.jpg',
       'https://15.design.htmlacademy.pro/static/hotel/4.jpg',
       'https://15.design.htmlacademy.pro/static/hotel/3.jpg',
       'https://15.design.htmlacademy.pro/static/hotel/2.jpg',
@@ -164,9 +167,9 @@ export const offers: Offers = [
       }
     },
     host: {
-      name: 'David',
+      name: 'Ann',
       isPro: false,
-      avatarUrl: 'img/avatar-angelina.jpg'
+      avatarUrl: 'https://15.design.htmlacademy.pro/static/avatar/9.jpg'
     },
     goods: [
       'Fireplace',
