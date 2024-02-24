@@ -12,7 +12,7 @@ function CitiesPlacesList({offerList, setCardHoverId}: CitiesPlacesListProps): J
       {offerList.map((offer) => {
         const keyValue = offer.id;
         return (
-          <CitiesCard key={keyValue} offerCard = {offer} setCardHoverId = {setCardHoverId} />
+          <CitiesCard key={keyValue} offerCard = {offer} setCardHoverId = {setCardHoverId}/>
         );
       })}
     </div>

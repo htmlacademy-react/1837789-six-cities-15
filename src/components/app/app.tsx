@@ -8,15 +8,17 @@ import LoginPage from '../../pages/login-page/loginPage';
 import NotFoundPage from '../../pages/not-found-page/NotFoundPage';
 import PrivateRoute from '../private-route/privateRoute';
 import {Offers} from '../../types/offer';
+import {Reviews} from '../../types/review';
 
 
 type AppPageProps = {
   placesCount: number;
   offers: Offers;
+  reviews: Reviews;
 }
 
-function App({placesCount, offers}: AppPageProps): JSX.Element {
-  const [firstOffer] = offers;
+function App({placesCount, offers, reviews}: AppPageProps): JSX.Element {
+
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -31,7 +33,7 @@ function App({placesCount, offers}: AppPageProps): JSX.Element {
               <PrivateRoute
                 authorizationStatus={AuthorizationStatus.Auth}
               >
-                <FavoritesPage />
+                <FavoritesPage offers = {offers}/>
               </PrivateRoute>
             }
           />
@@ -41,7 +43,9 @@ function App({placesCount, offers}: AppPageProps): JSX.Element {
           />
           <Route
             path={AppRoute.Offer}
-            element={<OfferPage offer = {firstOffer} />}
+            element={
+              <OfferPage offers = {offers} reviews = {reviews}/>
+            }
           />
           <Route
             path="*"

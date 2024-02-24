@@ -1,6 +1,7 @@
-import {useState} from 'react';
 import {Offer} from '../../types/offer';
 import {handleStars} from '../../const';
+import {useState} from 'react';
+import {Link} from 'react-router-dom';
 
 type CitiesCardProps = {
   offerCard: Offer;
@@ -9,7 +10,7 @@ type CitiesCardProps = {
 
 function CitiesCard({offerCard, setCardHoverId}: CitiesCardProps): JSX.Element {
   const {title, price, type, isFavorite, id, isPremium, previewImage, rating} = offerCard;
-  const [favorite, setFavorite] = useState(isFavorite);
+  const [isFavoriteCard, setIsFavoriteCard] = useState(isFavorite);
 
   const handleMouseOver = () => {
     setCardHoverId(id);
@@ -23,7 +24,7 @@ function CitiesCard({offerCard, setCardHoverId}: CitiesCardProps): JSX.Element {
     <article className="cities__card place-card" onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
       {isPremium && <div className="place-card__mark"><span>Premium</span></div>}
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href="#">
+        <Link to = {`offer/${id}`}>
           <img
             className="place-card__image"
             src={previewImage}
@@ -31,7 +32,7 @@ function CitiesCard({offerCard, setCardHoverId}: CitiesCardProps): JSX.Element {
             height={200}
             alt="Place image"
           />
-        </a>
+        </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
@@ -39,8 +40,8 @@ function CitiesCard({offerCard, setCardHoverId}: CitiesCardProps): JSX.Element {
             <b className="place-card__price-value">€{price}</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
-          <button onClick = {() => setFavorite(!favorite)}
-            className={`place-card__bookmark-button ${favorite ? 'place-card__bookmark-button--active' : ''} button`}
+          <button onClick = {() => setIsFavoriteCard(!isFavoriteCard)}
+            className={`place-card__bookmark-button ${isFavoriteCard ? 'place-card__bookmark-button--active' : ''} button`}
             type="button"
           >
             <svg
@@ -60,9 +61,9 @@ function CitiesCard({offerCard, setCardHoverId}: CitiesCardProps): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">
+          <Link to = {`offer/${id}`}>
             {title}
-          </a>
+          </Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
