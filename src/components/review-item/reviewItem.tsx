@@ -6,8 +6,12 @@ type ReviewProps = {
 }
 
 function ReviewItem({reviewItem}: ReviewProps): JSX.Element {
-  const {id, comment, user, rating} = reviewItem;
+  const {id, comment, user, rating, date} = reviewItem;
   const {name, avatarUrl} = user;
+  const dueDate = new Intl.DateTimeFormat('en-GB', {
+    month: 'long',
+    year: 'numeric'
+  }).format(new Date(date.split('T')[0]));
 
   return (
     <div>
@@ -38,8 +42,8 @@ function ReviewItem({reviewItem}: ReviewProps): JSX.Element {
             <p className="reviews__text">
               {comment}
             </p>
-            <time className="reviews__time" dateTime="2019-04-24">
-              April 2019
+            <time className="reviews__time" dateTime={date.split('T')[0]}>
+              {dueDate}
             </time>
           </div>
         </li>
