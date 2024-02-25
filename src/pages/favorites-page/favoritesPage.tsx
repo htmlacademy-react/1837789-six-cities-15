@@ -61,7 +61,7 @@ function FavoritesPage({offers}: FavoritesPageProps): JSX.Element {
                     <div className="favorites__places">
                       <article className="favorites__card place-card">
 
-                        {card.isPremium === true && <div className="place-card__mark"><span>Premium</span></div>}
+                        {card.isPremium && <div className="place-card__mark"><span>Premium</span></div>}
 
                         <div className="favorites__image-wrapper place-card__image-wrapper">
                           <a href="#">
