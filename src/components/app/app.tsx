@@ -7,28 +7,33 @@ import OfferPage from '../../pages/offer-page/offerPage';
 import LoginPage from '../../pages/login-page/loginPage';
 import NotFoundPage from '../../pages/not-found-page/NotFoundPage';
 import PrivateRoute from '../private-route/privateRoute';
+import {Offers} from '../../types/offer';
+import {Reviews} from '../../types/review';
 
 
 type AppPageProps = {
   placesCount: number;
+  offers: Offers;
+  reviews: Reviews;
 }
 
-function App({placesCount}: AppPageProps): JSX.Element {
+function App({placesCount, offers, reviews}: AppPageProps): JSX.Element {
+
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
           <Route
             path={AppRoute.Main}
-            element={<MainPage placesCount={placesCount} />}
+            element={<MainPage placesCount={placesCount} offers = {offers} />}
           />
           <Route
             path={AppRoute.Favorites}
             element={
               <PrivateRoute
-                authorizationStatus={AuthorizationStatus.NoAuth}
+                authorizationStatus={AuthorizationStatus.Auth}
               >
-                <FavoritesPage />
+                <FavoritesPage offers = {offers}/>
               </PrivateRoute>
             }
           />
@@ -38,7 +43,14 @@ function App({placesCount}: AppPageProps): JSX.Element {
           />
           <Route
             path={AppRoute.Offer}
-            element={<OfferPage />}
+            element={
+              <OfferPage offers = {offers} reviews = {reviews}
+                onReview={(rating, comment) => {
+                  // eslint-disable-next-line no-console
+                  console.log(rating, comment);
+                }}
+              />
+            }
           />
           <Route
             path="*"
