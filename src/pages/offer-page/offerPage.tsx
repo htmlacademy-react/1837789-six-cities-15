@@ -7,9 +7,10 @@ import {Reviews} from '../../types/review';
 type OfferPageProps = {
   offers: Offers;
   reviews: Reviews;
+  onReview: (rating: string, comment: string) => void;
 };
 
-function OfferPage({offers, reviews}: OfferPageProps): JSX.Element {
+function OfferPage({offers, reviews, onReview}: OfferPageProps): JSX.Element {
 
   const params = useParams();
   const cardId = params.id;
@@ -137,7 +138,7 @@ function OfferPage({offers, reviews}: OfferPageProps): JSX.Element {
                   </p>
                 </div>
               </div>
-              <ReviewsList reviews = {reviews}/>
+              <ReviewsList reviews = {reviews} onReview = {onReview}/>
             </div>
           </div>
           <section className="offer__map map" />

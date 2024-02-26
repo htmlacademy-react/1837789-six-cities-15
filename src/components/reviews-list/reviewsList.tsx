@@ -4,18 +4,19 @@ import ReviewItem from '../review-item/reviewItem';
 
 type ReviewsListProps = {
   reviews: Reviews;
+  onReview: (rating: string, comment: string) => void;
 };
 
-function ReviewsList({reviews}: ReviewsListProps): JSX.Element {
+function ReviewsList({reviews, onReview}: ReviewsListProps): JSX.Element {
   return (
     <section className="offer__reviews reviews">
       {reviews.map((review) => {
         const keyValue = review.id;
         return (
-          <ReviewItem key = {keyValue} reviewItem = {review}/>
+          <ReviewItem key = {keyValue} reviewItem = {review} />
         );
       })}
-      <Form />
+      <Form onReview = {onReview} />
     </section>
   );
 }

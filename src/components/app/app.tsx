@@ -44,7 +44,12 @@ function App({placesCount, offers, reviews}: AppPageProps): JSX.Element {
           <Route
             path={AppRoute.Offer}
             element={
-              <OfferPage offers = {offers} reviews = {reviews}/>
+              <OfferPage offers = {offers} reviews = {reviews}
+                onReview={(rating, comment) => {
+                  // eslint-disable-next-line no-console
+                  console.log(rating, comment);
+                }}
+              />
             }
           />
           <Route
