@@ -2,6 +2,8 @@ import {useState} from 'react';
 import CitiesPlacesList from '../../components/cities-places-list/citiesPlacesList';
 import Logo from '../../components/logo/logo';
 import {Offers} from '../../types/offer';
+import Map from '../../components/map/map.tsx';
+import {city} from '../../mocks/city';
 
 type MainPageProps = {
   placesCount: number;
@@ -115,7 +117,7 @@ function MainPage({placesCount, offers}: MainPageProps): JSX.Element {
               <CitiesPlacesList offerList = {offers} setCardHoverId = {setCardHoverId}/>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map">{cardHoverId}</section>
+              <Map offers={offers} cardHoverId={cardHoverId} city={city}/>
             </div>
           </div>
         </div>
