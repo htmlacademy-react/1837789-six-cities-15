@@ -117,9 +117,7 @@ function MainPage({placesCount, offers}: MainPageProps): JSX.Element {
               <CitiesPlacesList offerList = {offers} setCardHoverId = {setCardHoverId}/>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map">
-                <Map offers={offers} cardHoverId={cardHoverId} city={city}/>
-              </section>
+              <Map offers={offers} cardHoverId={cardHoverId} city={city}/>
             </div>
           </div>
         </div>
