@@ -17,6 +17,7 @@ function OfferPage({offers, reviews, onReview}: OfferPageProps): JSX.Element {
   const selectedCard = offers.filter((offer) => offer.id === cardId)[0];
   const {title, type, images, isPremium, rating, bedrooms, maxAdults, price, isFavorite, host, goods} = selectedCard;
   const {name, isPro, avatarUrl} = host;
+
   return (
     <div className="page">
       <header className="header">
