@@ -10,6 +10,7 @@ import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../const';
 import {Offer, Offers} from '../../types/offer';
 
 type MapProps = {
+  mapType: 'cities' | 'offer';
   city: CityMap;
   offers: Offers;
   cardHoverId: Offer['id'] | null;
@@ -28,7 +29,7 @@ const currentCustomIcon = leaflet.icon({
 });
 
 
-function Map({city, offers, cardHoverId}: MapProps): JSX.Element {
+function Map({mapType, city, offers, cardHoverId}: MapProps): JSX.Element {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
@@ -60,8 +61,16 @@ function Map({city, offers, cardHoverId}: MapProps): JSX.Element {
 
   return (
     <section
-      style={{height: '500px'}}
-      className="cities__map map"
+      style={mapType === 'offer' ?
+        {
+          height: '100%',
+          minHeight: '500px',
+          width: '100%',
+          minWidth: '1144px',
+          margin: '0, auto'
+        }
+        : {height: '500px'}}
+      className={`${mapType}__map map`}
       ref={mapRef}
     >
     </section>
