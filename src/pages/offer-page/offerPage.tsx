@@ -8,6 +8,7 @@ import {Reviews} from '../../types/review';
 import Map from '../../components/map/map.tsx';
 import {city} from '../../mocks/city';
 import GeneralCardList from '../../components/general-card-list/generalCardList';
+import Nav from '../../components/nav/nav';
 
 type OfferPageProps = {
   offers: Offers;
@@ -44,27 +45,7 @@ function OfferPage({offers, nearbyOffers, reviews, onReview}: OfferPageProps): J
             <div className="header__left">
               <Logo/>
             </div>
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <a
-                    className="header__nav-link header__nav-link--profile"
-                    href="#"
-                  >
-                    <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                    <span className="header__user-name user__name">
-                      Oliver.conner@gmail.com
-                    </span>
-                    <span className="header__favorite-count">3</span>
-                  </a>
-                </li>
-                <li className="header__nav-item">
-                  <a className="header__nav-link" href="#">
-                    <span className="header__signout">Sign out</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
+            <Nav/>
           </div>
         </div>
       </header>

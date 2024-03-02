@@ -1,5 +1,6 @@
 import {Link} from 'react-router-dom';
 import {Offer} from '../../types/offer';
+import {useState} from 'react';
 
 type GeneralCardProps = {
   elementType: 'cities' | 'favorite' | 'offers';
@@ -19,7 +20,7 @@ function GeneralCard({elementType, onCardHover, offer}: GeneralCardProps): JSX.E
       className: 'favorites',
       width: '150',
       height: '110',
-      url: ''
+      url: '/offer/'
     },
     offers: {
       className: 'near-places',
@@ -28,6 +29,8 @@ function GeneralCard({elementType, onCardHover, offer}: GeneralCardProps): JSX.E
       url: '/offer/'
     }
   };
+
+  const [isFavoriteCard, setIsFavoriteCard] = useState(offer.isFavorite);
 
   function handleMouseEnter() {
     onCardHover?.(offer.id);
@@ -59,7 +62,10 @@ function GeneralCard({elementType, onCardHover, offer}: GeneralCardProps): JSX.E
             <b className="place-card__price-value">&euro;{offer.price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={`${elementType === 'favorite' ? 'place-card__bookmark-button--active ' : ''}place-card__bookmark-button button`} type="button">
+          <button onClick = {() => setIsFavoriteCard(!isFavoriteCard)}
+            className={`place-card__bookmark-button ${isFavoriteCard ? 'place-card__bookmark-button--active' : ''} ${elementType === 'favorite' ? 'place-card__bookmark-button--active' : ''} button`}
+            type="button"
+          >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
