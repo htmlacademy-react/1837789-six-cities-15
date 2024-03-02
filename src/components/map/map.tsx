@@ -5,7 +5,7 @@ import { useRef, useEffect } from 'react';
 
 import useMap from '../../hooks/useMap';
 import {CityMap} from '../../types/cityMap';
-import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../const';
+import {URL_MARKER_CURRENT, URL_MARKER_DEFAULT} from '../../const';
 
 import {Offer, Offers} from '../../types/offer';
 
@@ -36,27 +36,36 @@ function Map({mapType, city, offers, cardHoverId}: MapProps): JSX.Element {
   useEffect(() => {
     if (map) {
       const markerLayer = layerGroup().addTo(map);
-      offers.forEach((offer) => {
+      offers.forEach((offer, index) => {
         const marker = new Marker({
           lat: offer.location.latitude,
           lng: offer.location.longitude
         });
 
-        marker
-          .setIcon(
-            cardHoverId !== undefined && offer.id === cardHoverId
-              ? currentCustomIcon
-              : defaultCustomIcon
-          )
-          .addTo(markerLayer);
-
+        if(mapType === 'offer') {
+          marker
+            .setIcon(
+              index === 0
+                ? currentCustomIcon
+                : defaultCustomIcon
+            )
+            .addTo(markerLayer);
+        } else {
+          marker
+            .setIcon(
+              cardHoverId !== undefined && offer.id === cardHoverId
+                ? currentCustomIcon
+                : defaultCustomIcon
+            )
+            .addTo(markerLayer);
+        }
       });
 
       return () => {
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, offers, cardHoverId]);
+  }, [map, offers, cardHoverId, mapType]);
 
 
   return (

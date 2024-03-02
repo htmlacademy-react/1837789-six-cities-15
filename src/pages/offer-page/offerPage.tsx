@@ -21,6 +21,7 @@ function OfferPage({offers, nearbyOffers, reviews, onReview}: OfferPageProps): J
   const params = useParams();
   const cardId = params.id;
   const selectedCard = offers.filter((offer) => offer.id === cardId)[0];
+
   const [nearbyCardHoverId, setNearbyCardHoverId] = useState<string | null>(null);
 
   function handleCardHover(nearOfferId: string | null) {
@@ -33,6 +34,7 @@ function OfferPage({offers, nearbyOffers, reviews, onReview}: OfferPageProps): J
 
   const {title, type, images, isPremium, rating, bedrooms, maxAdults, price, isFavorite, host, goods} = selectedCard;
   const {name, isPro, avatarUrl} = host;
+  const generalOffers = [selectedCard, ...nearbyOffers];
 
   return (
     <div className="page">
@@ -158,7 +160,7 @@ function OfferPage({offers, nearbyOffers, reviews, onReview}: OfferPageProps): J
               <ReviewsList reviews = {reviews} onReview = {onReview}/>
             </div>
           </div>
-          <Map mapType={'offer'} offers={nearbyOffers} cardHoverId={nearbyCardHoverId} city={city}/>
+          <Map mapType={'offer'} offers={generalOffers} cardHoverId={nearbyCardHoverId} city={city}/>
         </section>
         <div className="container">
           <section className="near-places places">
