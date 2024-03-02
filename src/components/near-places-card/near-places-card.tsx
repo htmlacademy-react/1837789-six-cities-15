@@ -1,8 +1,7 @@
 import {Offer} from '../../types/offer';
 import {handleStars} from '../../const';
 import {useState} from 'react';
-import {Link, Navigate} from 'react-router-dom';
-import {AppRoute} from '../../const';
+import {Link} from 'react-router-dom';
 
 type NearPlacesCardProps = {
   nearbyOffer: Offer;
