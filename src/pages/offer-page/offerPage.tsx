@@ -5,9 +5,9 @@ import Logo from '../../components/logo/logo';
 import {Offers} from '../../types/offer';
 import ReviewsList from '../../components/reviews-list/reviewsList';
 import {Reviews} from '../../types/review';
-import NearPlacesList from '../../components/near-places-list/nearPlacesList';
 import Map from '../../components/map/map.tsx';
 import {city} from '../../mocks/city';
+import GeneralCardList from '../../components/general-card-list/generalCardList';
 
 type OfferPageProps = {
   offers: Offers;
@@ -165,7 +165,9 @@ function OfferPage({offers, nearbyOffers, reviews, onReview}: OfferPageProps): J
             <h2 className="near-places__title">
               Other places in the neighbourhood
             </h2>
-            <NearPlacesList nearbyOffers = {nearbyOffers} hoveredOfferId = {handleCardHover}/>
+            <div className="near-places__list places__list">
+              <GeneralCardList elementType={'offers'} offers = {nearbyOffers} onCardHover = {handleCardHover}/>
+            </div>
           </section>
         </div>
       </main>

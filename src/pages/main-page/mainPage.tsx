@@ -1,9 +1,9 @@
 import {useState} from 'react';
-import CitiesPlacesList from '../../components/cities-places-list/citiesPlacesList';
 import Logo from '../../components/logo/logo';
 import {Offers} from '../../types/offer';
 import Map from '../../components/map/map.tsx';
 import {city} from '../../mocks/city';
+import GeneralCardList from '../../components/general-card-list/generalCardList';
 
 type MainPageProps = {
   placesCount: number;
@@ -114,7 +114,9 @@ function MainPage({placesCount, offers}: MainPageProps): JSX.Element {
                   </li>
                 </ul>
               </form>
-              <CitiesPlacesList offerList = {offers} setCardHoverId = {setCardHoverId}/>
+              <div className="cities__places-list places__list tabs__content">
+                <GeneralCardList elementType={'cities'} offers = {offers} onCardHover = {setCardHoverId}/>
+              </div>
             </section>
             <div className="cities__right-section">
               <Map mapType={'cities'} offers={offers} cardHoverId={cardHoverId} city={city}/>
