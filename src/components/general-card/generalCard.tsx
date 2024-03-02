@@ -25,7 +25,7 @@ function GeneralCard({elementType, onCardHover, offer}: GeneralCardProps): JSX.E
       className: 'near-places',
       width: '260',
       height: '200',
-      url: ''
+      url: '/offer/'
     }
   };
 

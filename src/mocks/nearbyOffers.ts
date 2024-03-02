@@ -2,10 +2,10 @@ import {Offers} from '../types/offer';
 
 export const nearbyOffers: Offers = [
   {
-    id: '5',
-    title: 'The Pondhouse - A Magical Place',
-    type: 'house',
-    price: 401,
+    id: '1',
+    title: 'Beautiful & luxurious studio at great location',
+    type: 'apartment',
+    price: 120,
     rating: 3.8,
     bedrooms: 3,
     maxAdults: 4,
@@ -44,11 +44,11 @@ export const nearbyOffers: Offers = [
     ]
   },
   {
-    id: '6',
-    title: 'Canal View Prinsengracht',
-    type: 'hotel',
-    price: 234,
-    rating: 3.5,
+    id: '2',
+    title: 'Cozy and warm apartment in the heart of Paris',
+    type: 'apartment',
+    price: 80,
+    rating: 2.5,
     bedrooms: 2,
     maxAdults: 3,
     isPremium: true,
@@ -88,12 +88,12 @@ export const nearbyOffers: Offers = [
     ]
   },
   {
-    id: '7',
-    title: 'The Joshua Tree House',
-    type: 'room',
+    id: '3',
+    title: 'Spacious and modern apartment in New York',
+    type: 'apartment',
     price: 200,
-    rating: 4.1,
-    bedrooms: 3,
+    rating: 4.9,
+    bedrooms: 4,
     maxAdults: 6,
     isPremium: true,
     isFavorite: true,
