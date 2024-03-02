@@ -2,7 +2,7 @@ import {Offers} from '../types/offer';
 
 export const nearbyOffers: Offers = [
   {
-    id: '1',
+    id: '5',
     title: 'The Pondhouse - A Magical Place',
     type: 'house',
     price: 401,
@@ -44,7 +44,7 @@ export const nearbyOffers: Offers = [
     ]
   },
   {
-    id: '2',
+    id: '6',
     title: 'Canal View Prinsengracht',
     type: 'hotel',
     price: 234,
@@ -88,7 +88,7 @@ export const nearbyOffers: Offers = [
     ]
   },
   {
-    id: '3',
+    id: '7',
     title: 'The Joshua Tree House',
     type: 'room',
     price: 200,

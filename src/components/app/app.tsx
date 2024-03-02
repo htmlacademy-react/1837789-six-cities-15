@@ -9,19 +9,22 @@ import NotFoundPage from '../../pages/not-found-page/NotFoundPage';
 import PrivateRoute from '../private-route/privateRoute';
 import {Offers} from '../../types/offer';
 import {Reviews} from '../../types/review';
+import ScrollToTop from '../scroll-to-top/scrollToTop';
 
 
 type AppPageProps = {
   placesCount: number;
   offers: Offers;
+  nearbyOffers: Offers;
   reviews: Reviews;
 }
 
-function App({placesCount, offers, reviews}: AppPageProps): JSX.Element {
+function App({placesCount, nearbyOffers, offers, reviews}: AppPageProps): JSX.Element {
 
   return (
     <HelmetProvider>
       <BrowserRouter>
+        <ScrollToTop/>
         <Routes>
           <Route
             path={AppRoute.Main}
@@ -41,19 +44,28 @@ function App({placesCount, offers, reviews}: AppPageProps): JSX.Element {
             path={AppRoute.Login}
             element={<LoginPage />}
           />
-          <Route
-            path={AppRoute.Offer}
-            element={
-              <OfferPage offers = {offers} reviews = {reviews}
+          <Route path={AppRoute.Offer}>
+            <Route index element={
+              <OfferPage offers = {offers} nearbyOffers={nearbyOffers} reviews = {reviews}
                 onReview={(rating, comment) => {
                   // eslint-disable-next-line no-console
                   console.log(rating, comment);
                 }}
               />
             }
-          />
+            />
+            <Route path={':id'} element={
+              <OfferPage offers={nearbyOffers} nearbyOffers={nearbyOffers} reviews = {reviews}
+                onReview={(rating, comment) => {
+                  // eslint-disable-next-line no-console
+                  console.log(rating, comment);
+                }}
+              />
+            }
+            />
+          </Route>
           <Route
-            path="*"
+            path={AppRoute.NotFound}
             element={<NotFoundPage />}
           />
         </Routes>
