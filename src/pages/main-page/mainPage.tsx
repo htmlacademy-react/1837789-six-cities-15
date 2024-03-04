@@ -1,16 +1,19 @@
 import {useState} from 'react';
-import CitiesPlacesList from '../../components/cities-places-list/citiesPlacesList';
 import Logo from '../../components/logo/logo';
+import Nav from '../../components/nav/nav';
 import {Offers} from '../../types/offer';
-import Map from '../../components/map/map.tsx';
+import Map from '../../components/map/map';
 import {city} from '../../mocks/city';
+import GeneralCardList from '../../components/general-card-list/generalCardList';
+import LocationsList from '../../components/locations-list/locationsList';
 
 type MainPageProps = {
   placesCount: number;
   offers: Offers;
+  citiesList: string[];
 }
 
-function MainPage({placesCount, offers}: MainPageProps): JSX.Element {
+function MainPage({placesCount, offers, citiesList}: MainPageProps): JSX.Element {
   const [cardHoverId, setCardHoverId] = useState<string | null>(null);
 
   return (
@@ -21,68 +24,13 @@ function MainPage({placesCount, offers}: MainPageProps): JSX.Element {
             <div className="header__left">
               <Logo/>
             </div>
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <a
-                    className="header__nav-link header__nav-link--profile"
-                    href="#"
-                  >
-                    <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                    <span className="header__user-name user__name">
-                      Oliver.conner@gmail.com
-                    </span>
-                    <span className="header__favorite-count">3</span>
-                  </a>
-                </li>
-                <li className="header__nav-item">
-                  <a className="header__nav-link" href="#">
-                    <span className="header__signout">Sign out</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
+            <Nav/>
           </div>
         </div>
       </header>
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
-        <div className="tabs">
-          <section className="locations container">
-            <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Paris</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Cologne</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Brussels</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active">
-                  <span>Amsterdam</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Hamburg</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Dusseldorf</span>
-                </a>
-              </li>
-            </ul>
-          </section>
-        </div>
+        <LocationsList cities = {citiesList} />
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
@@ -114,10 +62,12 @@ function MainPage({placesCount, offers}: MainPageProps): JSX.Element {
                   </li>
                 </ul>
               </form>
-              <CitiesPlacesList offerList = {offers} setCardHoverId = {setCardHoverId}/>
+              <div className="cities__places-list places__list tabs__content">
+                <GeneralCardList elementType={'cities'} offers = {offers} setActivePlaceCard = {setCardHoverId}/>
+              </div>
             </section>
             <div className="cities__right-section">
-              <Map offers={offers} cardHoverId={cardHoverId} city={city}/>
+              <Map mapType={'cities'} offers={offers} cardHoverId={cardHoverId} city={city}/>
             </div>
           </div>
         </div>

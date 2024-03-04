@@ -5,11 +5,12 @@ import { useRef, useEffect } from 'react';
 
 import useMap from '../../hooks/useMap';
 import {CityMap} from '../../types/cityMap';
-import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../const';
+import {URL_MARKER_CURRENT, URL_MARKER_DEFAULT} from '../../const';
 
 import {Offer, Offers} from '../../types/offer';
 
 type MapProps = {
+  mapType: 'cities' | 'offer';
   city: CityMap;
   offers: Offers;
   cardHoverId: Offer['id'] | null;
@@ -28,40 +29,57 @@ const currentCustomIcon = leaflet.icon({
 });
 
 
-function Map({city, offers, cardHoverId}: MapProps): JSX.Element {
+function Map({mapType, city, offers, cardHoverId}: MapProps): JSX.Element {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
   useEffect(() => {
     if (map) {
       const markerLayer = layerGroup().addTo(map);
-      offers.forEach((offer) => {
+      offers.forEach((offer, index) => {
         const marker = new Marker({
           lat: offer.location.latitude,
           lng: offer.location.longitude
         });
 
-        marker
-          .setIcon(
-            cardHoverId !== undefined && offer.id === cardHoverId
-              ? currentCustomIcon
-              : defaultCustomIcon
-          )
-          .addTo(markerLayer);
-
+        if(mapType === 'offer') {
+          marker
+            .setIcon(
+              index === 0
+                ? currentCustomIcon
+                : defaultCustomIcon
+            )
+            .addTo(markerLayer);
+        } else {
+          marker
+            .setIcon(
+              cardHoverId !== undefined && offer.id === cardHoverId
+                ? currentCustomIcon
+                : defaultCustomIcon
+            )
+            .addTo(markerLayer);
+        }
       });
 
       return () => {
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, offers, cardHoverId]);
+  }, [map, offers, cardHoverId, mapType]);
 
 
   return (
     <section
-      style={{height: '500px'}}
-      className="cities__map map"
+      style={mapType === 'offer' ?
+        {
+          height: '100%',
+          minHeight: '500px',
+          width: '100%',
+          minWidth: '1144px',
+          margin: '0, auto'
+        }
+        : {height: '500px'}}
+      className={`${mapType}__map map`}
       ref={mapRef}
     >
     </section>
