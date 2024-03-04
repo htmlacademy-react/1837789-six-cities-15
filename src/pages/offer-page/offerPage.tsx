@@ -149,7 +149,7 @@ function OfferPage({offers, nearbyOffers, reviews, onReview}: OfferPageProps): J
               Other places in the neighbourhood
             </h2>
             <div className="near-places__list places__list">
-              <GeneralCardList elementType={'offers'} offers = {nearbyOffers} onCardHover = {handleCardHover}/>
+              <GeneralCardList elementType={'offers'} offers = {nearbyOffers} setActivePlaceCard = {handleCardHover}/>
             </div>
           </section>
         </div>

@@ -63,7 +63,7 @@ function MainPage({placesCount, offers, citiesList}: MainPageProps): JSX.Element
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <GeneralCardList elementType={'cities'} offers = {offers} onCardHover = {setCardHoverId}/>
+                <GeneralCardList elementType={'cities'} offers = {offers} setActivePlaceCard = {setCardHoverId}/>
               </div>
             </section>
             <div className="cities__right-section">

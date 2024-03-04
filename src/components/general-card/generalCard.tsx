@@ -1,14 +1,15 @@
 import {Link} from 'react-router-dom';
 import {Offer} from '../../types/offer';
 import {useState} from 'react';
+import {Card} from '../../types/card';
 
 type GeneralCardProps = {
-  elementType: 'cities' | 'favorite' | 'offers';
+  elementType: Card;
   offer: Offer;
-  onCardHover?: (id: string | null) => void;
+  setActivePlaceCard?: (id: string | null) => void;
 }
 
-function GeneralCard({elementType, onCardHover, offer}: GeneralCardProps): JSX.Element {
+function GeneralCard({elementType, setActivePlaceCard, offer}: GeneralCardProps): JSX.Element {
   const options = {
     cities: {
       className: 'cities',
@@ -33,11 +34,11 @@ function GeneralCard({elementType, onCardHover, offer}: GeneralCardProps): JSX.E
   const [isFavoriteCard, setIsFavoriteCard] = useState(offer.isFavorite);
 
   function handleMouseEnter() {
-    onCardHover?.(offer.id);
+    setActivePlaceCard?.(offer.id);
   }
 
   function handleMouseLeave() {
-    onCardHover?.(null);
+    setActivePlaceCard?.(null);
   }
   return (
     <article className={`${options[elementType].className}__card place-card`}

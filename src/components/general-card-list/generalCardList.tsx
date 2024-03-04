@@ -1,15 +1,15 @@
 import GeneralCard from '../general-card/generalCard';
-
+import {Card} from '../../types/card';
 import {Offers} from '../../types/offer';
 
 
 type GeneralCardListProps = {
-  elementType: 'cities' | 'favorite' | 'offers';
+  elementType: Card;
   offers: Offers;
-  onCardHover?: (id: string | null) => void;
+  setActivePlaceCard?: (id: string | null) => void;
 }
 
-function GeneralCardList({ elementType, onCardHover, offers }: GeneralCardListProps) {
+function GeneralCardList({ elementType, setActivePlaceCard, offers }: GeneralCardListProps) {
   return (
     <>
       {
@@ -18,7 +18,7 @@ function GeneralCardList({ elementType, onCardHover, offers }: GeneralCardListPr
             elementType={elementType}
             offer={offer}
             key={offer.id}
-            onCardHover={onCardHover}
+            setActivePlaceCard={setActivePlaceCard}
           />
         ))
       }
