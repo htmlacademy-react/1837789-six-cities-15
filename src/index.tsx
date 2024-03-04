@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 import {Setting} from './const';
+import {citiesList} from './const';
 import {offers} from './mocks/offers';
 import {nearbyOffers} from './mocks/nearbyOffers';
 import {reviews} from './mocks/reviews';
@@ -17,6 +18,7 @@ root.render(
       offers = {offers}
       nearbyOffers = {nearbyOffers}
       reviews = {reviews}
+      citiesList={citiesList}
     />
   </React.StrictMode>,
 );

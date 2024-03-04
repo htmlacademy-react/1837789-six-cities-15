@@ -23,3 +23,5 @@ export const URL_MARKER_CURRENT =
   'img/pin-active.svg';
 
 export const handleStars = (width: number) => `${String(Math.round(width) * 20)}%`;
+
+export const citiesList: string[] = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
