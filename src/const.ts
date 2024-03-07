@@ -1,8 +1,5 @@
 import {CityList} from './types/city';
-
-export const Setting = {
-  PlacesCount: 312
-};
+import {CityMap} from './types/cityMap';
 
 export enum AppRoute {
   Login = '/login',
@@ -39,53 +36,43 @@ export const citiesList = [CITY_LIST.Paris, CITY_LIST.Cologne, CITY_LIST.Brussel
 
 export const DEFAULT_CITY = CITY_LIST.Paris;
 
-export const CityMap = [
+export const cityMap: CityMap[] = [
   {
-    name: 'Amsterdam',
-    location: {
-      latitude: 52.37454,
-      longitude: 4.897976,
-      zoom: 13
-    }
+    title: 'Amsterdam',
+    lat: 52.37454,
+    lng: 4.897976,
+    zoom: 12
   },
   {
-    name: 'Paris',
-    location: {
-      latitude: 48.85661,
-      longitude: 2.351499,
-      zoom: 13
-    }
+    title: 'Paris',
+    lat: 48.85661,
+    lng: 2.351499,
+    zoom: 12
   },
   {
-    name: 'Cologne',
-    location: {
-      latitude: 50.938361,
-      longitude: 6.959974,
-      zoom: 13
-    }
+    title: 'Cologne',
+    lat: 50.938361,
+    lng: 6.959974,
+    zoom: 12
   },
   {
-    name: 'Brussels',
-    location: {
-      latitude: 50.846557,
-      longitude:4.351697,
-      zoom: 13
-    }
+    title: 'Brussels',
+    lat: 50.846557,
+    lng:4.351697,
+    zoom: 12
   },
   {
-    name: 'Hamburg',
-    location: {
-      latitude: 53.550341,
-      longitude: 10.000654,
-      zoom: 13
-    }
+    title: 'Hamburg',
+    lat: 53.550341,
+    lng: 10.000654,
+    zoom: 12
   },
   {
-    name: 'Dusseldorf',
-    location: {
-      latitude: 51.225402,
-      longitude: 6.776314,
-      zoom: 13
-    }
+    title: 'Dusseldorf',
+    lat: 51.225402,
+    lng: 6.776314,
+    zoom: 12
   },
 ];
+
+export const [defaultLocation] = cityMap.filter((item) => item.title === DEFAULT_CITY);

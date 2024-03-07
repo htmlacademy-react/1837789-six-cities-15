@@ -1,12 +1,9 @@
 import {useState} from 'react';
 import {Helmet} from 'react-helmet-async';
-
 import Logo from '../../components/logo/logo';
 import {useAppSelector} from '../../hooks/index';
-//import {AppRoute, CITY_LIST} from '../../const';
 import Nav from '../../components/nav/nav';
 import Map from '../../components/map/map';
-import {city} from '../../mocks/city';
 import GeneralCardList from '../../components/general-card-list/generalCardList';
 import LocationsList from '../../components/locations-list/locationsList';
 
@@ -18,6 +15,7 @@ function MainPage({citiesList}: MainPageProps): JSX.Element {
   const [cardHoverId, setCardHoverId] = useState<string | null>(null);
   const cityActive = useAppSelector((state) => state.cityActive);
   const offersActive = useAppSelector((state) => state.offers);
+  const cityMapActive = useAppSelector((state) => state.city);
   const placesCount = offersActive.length;
 
   return (
@@ -74,7 +72,7 @@ function MainPage({citiesList}: MainPageProps): JSX.Element {
               </div>
             </section>
             <div className="cities__right-section">
-              <Map mapType={'cities'} offers={offersActive} cardHoverId={cardHoverId} city={city}/>
+              <Map mapType={'cities'} offers={offersActive} cardHoverId={cardHoverId} city={cityMapActive}/>
             </div>
           </div>
         </div>

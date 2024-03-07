@@ -32,6 +32,7 @@ const currentCustomIcon = leaflet.icon({
 function Map({mapType, city, offers, cardHoverId}: MapProps): JSX.Element {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
+  //console.log(city);
 
   useEffect(() => {
     if (map) {
@@ -65,7 +66,7 @@ function Map({mapType, city, offers, cardHoverId}: MapProps): JSX.Element {
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, offers, cardHoverId, mapType]);
+  }, [city, map, offers, cardHoverId, mapType]);
 
 
   return (

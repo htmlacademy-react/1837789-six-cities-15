@@ -1,5 +1,6 @@
 import {useAppDispatch, useAppSelector} from '../../hooks/index';
-import {setCityActive, getOffers} from '../../store/action';
+import {setCityActive, getOffers, setChangeMap} from '../../store/action';
+import {cityMap} from '../../const';
 
 
 type LocationsListProps = {
@@ -11,8 +12,11 @@ function LocationsList({cities}: LocationsListProps): JSX.Element {
   const dispatch = useAppDispatch();
 
   function changeCity (city:string) {
+    const [cityMapActive] = cityMap.filter((item) => item.title === city);
+
     dispatch(setCityActive(city));
     dispatch(getOffers());
+    dispatch(setChangeMap(cityMapActive));
   }
 
   return (
