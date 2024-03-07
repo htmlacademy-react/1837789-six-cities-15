@@ -2,23 +2,23 @@ import {useState} from 'react';
 import {Helmet} from 'react-helmet-async';
 
 import Logo from '../../components/logo/logo';
-//import {setCityActive} from '../../store/action';
+import {useAppSelector} from '../../hooks/index';
 //import {AppRoute, CITY_LIST} from '../../const';
 import Nav from '../../components/nav/nav';
-import {Offers} from '../../types/offer';
 import Map from '../../components/map/map';
 import {city} from '../../mocks/city';
 import GeneralCardList from '../../components/general-card-list/generalCardList';
 import LocationsList from '../../components/locations-list/locationsList';
 
 type MainPageProps = {
-  placesCount: number;
-  offers: Offers;
   citiesList: string[];
 }
 
-function MainPage({placesCount, offers, citiesList}: MainPageProps): JSX.Element {
+function MainPage({citiesList}: MainPageProps): JSX.Element {
   const [cardHoverId, setCardHoverId] = useState<string | null>(null);
+  const cityActive = useAppSelector((state) => state.cityActive);
+  const offersActive = useAppSelector((state) => state.offers);
+  const placesCount = offersActive.length;
 
   return (
     <div className="page page--gray page--main">
@@ -42,7 +42,7 @@ function MainPage({placesCount, offers, citiesList}: MainPageProps): JSX.Element
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{placesCount} places to stay in Amsterdam</b>
+              <b className="places__found">{placesCount} places to stay in {cityActive}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -70,11 +70,11 @@ function MainPage({placesCount, offers, citiesList}: MainPageProps): JSX.Element
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <GeneralCardList elementType={'cities'} offers = {offers} setActivePlaceCard = {setCardHoverId}/>
+                <GeneralCardList elementType={'cities'} offers = {offersActive} setActivePlaceCard = {setCardHoverId}/>
               </div>
             </section>
             <div className="cities__right-section">
-              <Map mapType={'cities'} offers={offers} cardHoverId={cardHoverId} city={city}/>
+              <Map mapType={'cities'} offers={offersActive} cardHoverId={cardHoverId} city={city}/>
             </div>
           </div>
         </div>
