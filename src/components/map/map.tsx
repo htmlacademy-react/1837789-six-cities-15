@@ -68,6 +68,11 @@ function Map({mapType, city, offers, cardHoverId}: MapProps): JSX.Element {
     }
   }, [city, map, offers, cardHoverId, mapType]);
 
+  useEffect(() => {
+    if (map) {
+      map.setView([city.lat, city.lng], city.zoom);
+    }
+  }, [map, city]);
 
   return (
     <section
