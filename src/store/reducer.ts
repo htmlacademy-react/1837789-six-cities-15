@@ -3,10 +3,10 @@ import {setCityActive} from './action';
 import {offers} from '../mocks/offers';
 import {getOffers} from './action';
 import {DEFAULT_CITY} from '../const';
-import {InitState} from '../types/initState';
+//import {InitState} from '../types/initState';
 
 
-const initialState: InitState = {
+const initialState = {
   cityActive: DEFAULT_CITY,
   offers: offers.filter(
     (item) => item?.city?.name === DEFAULT_CITY
