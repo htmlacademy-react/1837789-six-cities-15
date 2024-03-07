@@ -84,7 +84,6 @@ function Map({mapType, city, offers, cardHoverId}: MapProps): JSX.Element {
     >
     </section>
   );
-
 }
 
 export default Map;
