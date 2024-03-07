@@ -3,9 +3,6 @@ import {setCityActive} from './action';
 import {offers} from '../mocks/offers';
 import {getOffers} from './action';
 import {DEFAULT_CITY} from '../const';
-//import {InitState} from '../types/initState';
-//import {State} from '../types/state';
-
 
 const initialState = {
   cityActive: DEFAULT_CITY,
