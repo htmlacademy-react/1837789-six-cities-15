@@ -1,5 +1,9 @@
 import {useState} from 'react';
+import {Helmet} from 'react-helmet-async';
+
 import Logo from '../../components/logo/logo';
+//import {setCityActive} from '../../store/action';
+//import {AppRoute, CITY_LIST} from '../../const';
 import Nav from '../../components/nav/nav';
 import {Offers} from '../../types/offer';
 import Map from '../../components/map/map';
@@ -18,6 +22,9 @@ function MainPage({placesCount, offers, citiesList}: MainPageProps): JSX.Element
 
   return (
     <div className="page page--gray page--main">
+      <Helmet>
+        <title>Main</title>
+      </Helmet>
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
@@ -30,7 +37,7 @@ function MainPage({placesCount, offers, citiesList}: MainPageProps): JSX.Element
       </header>
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
-        <LocationsList cities = {citiesList} />
+        <LocationsList cities = {citiesList}/>
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">

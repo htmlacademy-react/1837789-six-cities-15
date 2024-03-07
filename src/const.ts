@@ -1,3 +1,5 @@
+import {CityList} from './types/city';
+
 export const Setting = {
   PlacesCount: 312
 };
@@ -24,9 +26,7 @@ export const URL_MARKER_CURRENT =
 
 export const handleStars = (width: number) => `${String(Math.round(width) * 20)}%`;
 
-export const citiesList: string[] = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
-
-export const CITY_LIST = {
+export const CITY_LIST: CityList = {
   Paris: 'Paris',
   Cologne: 'Cologne',
   Brussels: 'Brussels',
@@ -34,6 +34,8 @@ export const CITY_LIST = {
   Hamburg: 'Hamburg',
   Dusseldorf: 'Dusseldorf',
 } as const;
+
+export const citiesList = [CITY_LIST.Paris, CITY_LIST.Cologne, CITY_LIST.Brussels, CITY_LIST.Amsterdam, CITY_LIST.Hamburg, CITY_LIST.Dusseldorf];
 
 export const DEFAULT_CITY = CITY_LIST.Paris;
 

@@ -4,6 +4,7 @@ import {offers} from '../mocks/offers';
 import {getOffers} from './action';
 import {DEFAULT_CITY} from '../const';
 //import {InitState} from '../types/initState';
+//import {State} from '../types/state';
 
 
 const initialState = {
@@ -15,8 +16,8 @@ const initialState = {
 
 const reducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(setCityActive, (state) => {
-      state.cityActive = DEFAULT_CITY;
+    .addCase(setCityActive, (state, action) => {
+      state.cityActive = action.payload;
     })
 
     .addCase(getOffers, (state) => {
