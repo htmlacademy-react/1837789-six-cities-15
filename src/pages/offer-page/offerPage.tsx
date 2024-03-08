@@ -1,12 +1,12 @@
 import {useParams, Navigate} from 'react-router-dom';
 import {AppRoute} from '../../const';
 import {useState} from 'react';
+import {useAppSelector} from '../../hooks/index';
 import Logo from '../../components/logo/logo';
 import {Offers} from '../../types/offer';
 import ReviewsList from '../../components/reviews-list/reviewsList';
 import {Reviews} from '../../types/review';
 import Map from '../../components/map/map.tsx';
-import {city} from '../../mocks/city';
 import GeneralCardList from '../../components/general-card-list/generalCardList';
 import Nav from '../../components/nav/nav';
 
@@ -18,7 +18,7 @@ type OfferPageProps = {
 };
 
 function OfferPage({offers, nearbyOffers, reviews, onReview}: OfferPageProps): JSX.Element {
-
+  const cityMapActive = useAppSelector((state) => state.city);
   const params = useParams();
   const cardId = params.id;
   const selectedCard = offers.filter((offer) => offer.id === cardId)[0];
@@ -141,7 +141,7 @@ function OfferPage({offers, nearbyOffers, reviews, onReview}: OfferPageProps): J
               <ReviewsList reviews = {reviews} onReview = {onReview}/>
             </div>
           </div>
-          <Map mapType={'offer'} offers={generalOffers} cardHoverId={nearbyCardHoverId} city={city}/>
+          <Map mapType={'offer'} offers={generalOffers} cardHoverId={nearbyCardHoverId} city={cityMapActive}/>
         </section>
         <div className="container">
           <section className="near-places places">

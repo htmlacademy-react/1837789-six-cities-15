@@ -4,9 +4,3 @@ export type CityMap = {
   lng: number;
   zoom: number;
 }
-
-export type Point = {
-  title: string;
-  lat: number;
-  lng: number;
-}
