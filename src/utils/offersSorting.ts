@@ -1,13 +1,13 @@
 import {Offers} from '../types/offer';
 import {SortType} from '../const';
 
-export function offersSorting(sortType: SortType, list: Offers) {
-  switch (sortType) {
-    case 'Price: low to high':
+export function offersSorting(type: SortType, list: Offers) {
+  switch (type) {
+    case SortType.LowToHigh:
       return list.sort((a, b) => a.price - b.price);
-    case 'Price: high to low':
+    case SortType.HighToLow:
       return list.sort((a, b) => b.price - a.price);
-    case 'Top rated first':
+    case SortType.TopRated:
       return list.sort((a, b) => b.rating - a.rating);
     default:
       return list;
