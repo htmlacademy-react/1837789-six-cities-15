@@ -7,6 +7,7 @@ import {offers} from './mocks/offers';
 import {nearbyOffers} from './mocks/nearbyOffers';
 import {reviews} from './mocks/reviews';
 import {store} from './store';
+import ErrorMessage from './components/error-message/error-message';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -15,6 +16,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store = {store}>
+      <ErrorMessage />
       <App
         offers = {offers}
         nearbyOffers = {nearbyOffers}
