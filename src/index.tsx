@@ -8,6 +8,10 @@ import {nearbyOffers} from './mocks/nearbyOffers';
 import {reviews} from './mocks/reviews';
 import {store} from './store';
 import ErrorMessage from './components/error-message/error-message';
+import {fetchOfferAction, checkAuthAction} from './store/api-actions';
+
+store.dispatch(fetchOfferAction());
+store.dispatch(checkAuthAction());
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
