@@ -9,20 +9,24 @@ import {Reviews} from '../../types/review';
 import Map from '../../components/map/map.tsx';
 import GeneralCardList from '../../components/general-card-list/generalCardList';
 import Nav from '../../components/nav/nav';
+import {store} from '../../store';
+import {fetchOfferAction} from '../../store/api-actions';
 
 type OfferPageProps = {
-  offers: Offers;
   nearbyOffers: Offers;
   reviews: Reviews;
   onReview: (rating: string, comment: string) => void;
 };
 
-function OfferPage({offers, nearbyOffers, reviews, onReview}: OfferPageProps): JSX.Element {
+function OfferPage({nearbyOffers, reviews, onReview}: OfferPageProps): JSX.Element {
   const cityMapActive = useAppSelector((state) => state.city);
+  const offers = useAppSelector((state) => state.allOffers);
   const params = useParams();
   const cardId = params.id;
-  const selectedCard = offers.filter((offer) => offer.id === cardId)[0];
 
+  store.dispatch(fetchOfferAction(cardId));
+
+  const selectedCard = offers.filter((offer) => offer.id === cardId)[0];
   const [nearbyCardHoverId, setNearbyCardHoverId] = useState<string | null>(null);
 
   function handleCardHover(nearOfferId: string | null) {
@@ -33,8 +37,7 @@ function OfferPage({offers, nearbyOffers, reviews, onReview}: OfferPageProps): J
     return <Navigate to={AppRoute.NotFound} />;
   }
 
-  const {title, type, images, isPremium, rating, bedrooms, maxAdults, price, isFavorite, host, goods} = selectedCard;
-  const {name, isPro, avatarUrl} = host;
+  const {title, type, isPremium, rating, bedrooms, maxAdults, price, isFavorite, goods} = selectedCard;
   const generalOffers = [selectedCard, ...nearbyOffers];
 
   return (
@@ -53,7 +56,8 @@ function OfferPage({offers, nearbyOffers, reviews, onReview}: OfferPageProps): J
         <section className="offer">
           <div className="offer__gallery-container container">
             <div className="offer__gallery">
-              {images.map((url, id) => {
+              {selectedCard.images?.length > 0 &&
+              selectedCard.images.map((url, id) => {
                 const keyValue = `${id}-${url}`;
                 return (
                   <div key={keyValue} className="offer__image-wrapper">
@@ -101,29 +105,37 @@ function OfferPage({offers, nearbyOffers, reviews, onReview}: OfferPageProps): J
                 <b className="offer__price-value">€{price}</b>
                 <span className="offer__price-text">&nbsp;night</span>
               </div>
-              <div className="offer__inside">
-                <h2 className="offer__inside-title">Whats inside</h2>
-                <ul className="offer__inside-list">
-                  {goods.map((good) => {
-                    const keyValue = good;
-                    return (<li key = {keyValue} className="offer__inside-item">{good}</li>);
-                  })}
-                </ul>
-              </div>
+              {selectedCard.goods && (
+                <div className="offer__inside">
+                  <h2 className="offer__inside-title">Whats inside</h2>
+                  <ul className="offer__inside-list">
+                    {goods.map((good) => {
+                      const keyValue = good;
+                      return (<li key = {keyValue} className="offer__inside-item">{good}</li>);
+                    })}
+                  </ul>
+                </div>
+              )}
               <div className="offer__host">
                 <h2 className="offer__host-title">Meet the host</h2>
                 <div className="offer__host-user user">
-                  <div className={`offer__avatar-wrapper ${isPro ? 'offer__avatar-wrapper--pro' : ''} user__avatar-wrapper`}>
-                    <img
-                      className="offer__avatar user__avatar"
-                      src={avatarUrl}
-                      width={74}
-                      height={74}
-                      alt="Host avatar"
-                    />
-                  </div>
-                  <span className="offer__user-name">{name}</span>
-                  <span className="offer__user-status">{isPro ? 'Pro' : ''}</span>
+                  {selectedCard.host?.avatarUrl && (
+                    <div className={`offer__avatar-wrapper ${selectedCard.host.isPro ? 'offer__avatar-wrapper--pro' : ''} user__avatar-wrapper`}>
+                      <img
+                        className="offer__avatar user__avatar"
+                        src={selectedCard.host.avatarUrl}
+                        width={74}
+                        height={74}
+                        alt="Host avatar"
+                      />
+                    </div>
+                  )}
+                  {selectedCard.host?.name && (
+                    <span className="offer__user-name">{selectedCard.host.name}</span>
+                  )}
+                  {selectedCard.host?.isPro && (
+                    <span className="offer__user-status">Pro</span>
+                  )}
                 </div>
                 <div className="offer__description">
                   <p className="offer__text">

@@ -57,7 +57,7 @@ function App({nearbyOffers, offers, reviews, citiesList}: AppPageProps): JSX.Ele
           />
           <Route path={AppRoute.Offer}>
             <Route index element={
-              <OfferPage offers = {offers} nearbyOffers = {nearbyOffers} reviews = {reviews}
+              <OfferPage nearbyOffers = {nearbyOffers} reviews = {reviews}
                 onReview={(rating, comment) => {
                   // eslint-disable-next-line no-console
                   console.log(rating, comment);
