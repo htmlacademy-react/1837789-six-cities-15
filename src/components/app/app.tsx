@@ -1,5 +1,6 @@
 import {Route, BrowserRouter, Routes} from 'react-router-dom';
 import {HelmetProvider} from 'react-helmet-async';
+import {useAppSelector} from '../../hooks';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import MainPage from '../../pages/main-page/mainPage';
 import FavoritesPage from '../../pages/favorites-page/favoritesPage';
@@ -10,6 +11,7 @@ import PrivateRoute from '../private-route/privateRoute';
 import {Offers} from '../../types/offer';
 import {Reviews} from '../../types/review';
 import ScrollToTop from '../scroll-to-top/scrollToTop';
+import Spinner from '../../components/spinner/spinner';
 
 type AppPageProps = {
   offers: Offers;
@@ -19,6 +21,14 @@ type AppPageProps = {
 }
 
 function App({nearbyOffers, offers, reviews, citiesList}: AppPageProps): JSX.Element {
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const isOffersDataLoading = useAppSelector((state) => state.offersIsLoading);
+
+  if (authorizationStatus === AuthorizationStatus.Unknown || isOffersDataLoading) {
+    return (
+      <Spinner />
+    );
+  }
 
   return (
     <HelmetProvider>
@@ -33,7 +43,7 @@ function App({nearbyOffers, offers, reviews, citiesList}: AppPageProps): JSX.Ele
             path={AppRoute.Favorites}
             element={
               <PrivateRoute
-                authorizationStatus={AuthorizationStatus.Auth}
+                authorizationStatus={authorizationStatus}
               >
                 <FavoritesPage offers = {offers}/>
               </PrivateRoute>
