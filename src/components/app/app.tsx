@@ -1,4 +1,4 @@
-import {Route, BrowserRouter, Routes} from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 import {HelmetProvider} from 'react-helmet-async';
 import {useAppSelector} from '../../hooks';
 import {AppRoute, AuthorizationStatus} from '../../const';
@@ -12,6 +12,8 @@ import {Offers} from '../../types/offer';
 import {Reviews} from '../../types/review';
 import ScrollToTop from '../scroll-to-top/scrollToTop';
 import Spinner from '../../components/spinner/spinner';
+import HistoryRouter from '../history-route/history-route';
+import browserHistory from '../../browser-history';
 
 type AppPageProps = {
   offers: Offers;
@@ -32,7 +34,7 @@ function App({nearbyOffers, offers, reviews, citiesList}: AppPageProps): JSX.Ele
 
   return (
     <HelmetProvider>
-      <BrowserRouter>
+      <HistoryRouter history={browserHistory}>
         <ScrollToTop/>
         <Routes>
           <Route
@@ -69,7 +71,7 @@ function App({nearbyOffers, offers, reviews, citiesList}: AppPageProps): JSX.Ele
             element={<NotFoundPage />}
           />
         </Routes>
-      </BrowserRouter>
+      </HistoryRouter>
     </HelmetProvider>
   );
 }
