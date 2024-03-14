@@ -7,12 +7,13 @@ import {setCityActive,
   loadOffers,
   requireAuthorization,
   setOffersIsLoading,
-  setError} from './action';
-//import {offers} from '../mocks/offers';
+  setError,
+  setUser} from './action';
 import {DEFAULT_CITY, defaultLocation, SortType, AuthorizationStatus} from '../const';
 import {offersSorting} from '../utils/offersSorting';
 import {Offers} from '../types/offer';
 import {CityMap} from '../types/cityMap';
+import {User} from '../types/user';
 
 type InitalState = {
   cityActive: string;
@@ -22,6 +23,7 @@ type InitalState = {
   city: CityMap;
   sortType: SortType;
   authorizationStatus: AuthorizationStatus;
+  user: User | null;
   error: string | null;
 }
 
@@ -33,6 +35,7 @@ const initialState: InitalState = {
   city: defaultLocation,
   sortType: SortType.Popular,
   authorizationStatus: AuthorizationStatus.Unknown,
+  user: null,
   error: null,
 };
 
@@ -77,6 +80,10 @@ const reducer = createReducer(initialState, (builder) => {
 
     .addCase(setError, (state, action) => {
       state.error = action.payload;
+    })
+
+    .addCase(setUser, (state, action) => {
+      state.user = action.payload;
     });
 });
 

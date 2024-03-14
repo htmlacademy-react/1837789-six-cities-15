@@ -1,6 +1,8 @@
 import {CityList} from './types/city';
 import {CityMap} from './types/cityMap';
 
+export const PRIVATE_ROUTES: readonly string[] = ['/favorites'];
+
 export enum AppRoute {
   Login = '/login',
   Favorites = '/favorites',
@@ -93,4 +95,13 @@ export enum ApiRoute {
 }
 
 export const TIMEOUT_SHOW_ERROR = 2000;
+
+export enum NameSpace {
+  Offers = 'OFFERS',
+  Favorites = 'FAVORITES',
+  Reviews = 'REVIEWS',
+  User = 'USER',
+  Data = 'DATA',
+  Error = 'ERROR'
+}
 

@@ -1,17 +1,25 @@
 import {Link} from 'react-router-dom';
 import {Helmet} from 'react-helmet-async';
 import {useRef, FormEvent} from 'react';
-import {useNavigate} from 'react-router-dom';
 import {useAppDispatch} from '../../hooks';
 import {loginAction} from '../../store/api-actions';
+import {setCityActive, setChangeMap} from '../../store/action';
+import Logo from '../../components/logo/logo';
 import {AppRoute} from '../../const';
+import {cityMap} from '../../const';
 
 function LoginPage(): JSX.Element {
+  const cityButton = 'Amsterdam';
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
-
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
+
+  function onCityButton (city:string) {
+    const [cityMapActive] = cityMap.filter((item) => item.title === city);
+
+    dispatch(setCityActive(city));
+    dispatch(setChangeMap(cityMapActive));
+  }
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
@@ -33,17 +41,7 @@ function LoginPage(): JSX.Element {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <Link to="/"
-                className="header__logo-link"
-              >
-                <img
-                  alt="6 cities logo"
-                  className="header__logo"
-                  height="41"
-                  src="img/logo.svg"
-                  width="81"
-                />
-              </Link>
+              <Logo />
             </div>
           </div>
         </div>
@@ -87,7 +85,6 @@ function LoginPage(): JSX.Element {
                 />
               </div>
               <button
-                onClick={() => navigate(AppRoute.Main)}
                 className="login__submit form__submit button"
                 type="submit"
               >
@@ -97,14 +94,16 @@ function LoginPage(): JSX.Element {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <a
+              <Link
                 className="locations__item-link"
-                href="#"
+                onClick={() =>
+                  onCityButton(cityButton)}
+                to={AppRoute.Main}
               >
                 <span>
-                  Amsterdam
+                  {cityButton}
                 </span>
-              </a>
+              </Link>
             </div>
           </section>
         </div>

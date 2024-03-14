@@ -27,7 +27,7 @@ function MainPage({citiesList}: MainPageProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <Helmet>
-        <title>Main</title>
+        <title>Шесть городов!</title>
       </Helmet>
       <header className="header">
         <div className="container">
