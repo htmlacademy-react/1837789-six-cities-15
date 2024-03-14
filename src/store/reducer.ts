@@ -13,7 +13,7 @@ import {DEFAULT_CITY, defaultLocation, SortType, AuthorizationStatus} from '../c
 import {offersSorting} from '../utils/offersSorting';
 import {Offers} from '../types/offer';
 import {CityMap} from '../types/cityMap';
-import {User} from '../types/user';
+import {UserConnect} from '../types/user';
 
 type InitalState = {
   cityActive: string;
@@ -23,7 +23,7 @@ type InitalState = {
   city: CityMap;
   sortType: SortType;
   authorizationStatus: AuthorizationStatus;
-  user: User | null;
+  user: UserConnect | null;
   error: string | null;
 }
 

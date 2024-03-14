@@ -2,7 +2,7 @@ import {createAction} from '@reduxjs/toolkit';
 import {CityMap} from '../types/cityMap';
 import {SortType, AuthorizationStatus, AppRoute, NameSpace} from '../const';
 import {Offers} from '../types/offer';
-import {User} from '../types/user';
+import {UserConnect} from '../types/user';
 
 export const setCityActive = createAction('main/CityActive', (value: string)=>({payload: value}));
 
@@ -24,5 +24,5 @@ export const setError = createAction<string | null>('setError');
 
 export const redirectToRoute = createAction<AppRoute>('main/redirectToRoute');
 
-export const setUser = createAction<User | null>(`${NameSpace.User}/setUser`);
+export const setUser = createAction<UserConnect | null>(`${NameSpace.User}/setUser`);
 
