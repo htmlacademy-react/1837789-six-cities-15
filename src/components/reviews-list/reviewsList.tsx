@@ -10,15 +10,18 @@ type ReviewsListProps = {
 };
 
 function ReviewsList({reviews, idOffer}: ReviewsListProps): JSX.Element {
+  const DEFAULT_BEGIN = 0;
+  const MAX_REVIEWS_LENGTH = 10;
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-
+  const maxReviews = reviews.slice(DEFAULT_BEGIN, Math.min(MAX_REVIEWS_LENGTH, reviews.length));
+  const sortedMaxReviews = maxReviews.sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
   return (
     <section className="offer__reviews reviews">
       <div>
         <h2 className="reviews__title">
-          Reviews · <span className="reviews__amount">{reviews.length}</span>
+          Reviews · <span className="reviews__amount">{maxReviews.length}</span>
         </h2>
-        {reviews.map((review) => {
+        {sortedMaxReviews.map((review) => {
           const keyValue = review.id;
           return (
             <ReviewItem key = {keyValue} reviewItem = {review} />
