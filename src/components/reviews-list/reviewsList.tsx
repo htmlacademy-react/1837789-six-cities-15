@@ -6,10 +6,10 @@ import {AuthorizationStatus} from '../../const';
 
 type ReviewsListProps = {
   reviews: Reviews;
-  onReview: (rating: string, comment: string) => void;
+  idOffer: string | undefined;
 };
 
-function ReviewsList({reviews, onReview}: ReviewsListProps): JSX.Element {
+function ReviewsList({reviews, idOffer}: ReviewsListProps): JSX.Element {
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
 
   return (
@@ -25,7 +25,7 @@ function ReviewsList({reviews, onReview}: ReviewsListProps): JSX.Element {
           );
         })}
         {authorizationStatus === AuthorizationStatus.Auth && (
-          <Form onReview = {onReview} />
+          <Form idOffer = {idOffer} />
         )}
       </div>
     </section>

@@ -3,6 +3,7 @@ import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AppDispatch, State} from '../types/state';
 import {Offers, Offer} from '../types/offer';
 import {Reviews} from '../types/review';
+import {CommentData} from '../types/comments';
 import {loadOffers,
   requireAuthorization,
   setOffersIsLoading,
@@ -147,7 +148,7 @@ export const fetchNearPlacesAction = createAsyncThunk<
     state: State;
     extra: AxiosInstance;
   }>(
-    'fetchOffersNearby', async (_arg, { dispatch, extra: api }) => {
+    'fetchNearPlacesAction', async (_arg, { dispatch, extra: api }) => {
       const id = _arg;
 
       dispatch(setNearPlacesIsLoading(true));
@@ -167,5 +168,25 @@ export const fetchNearPlacesAction = createAsyncThunk<
         dispatch(setNearPlacesIsLoading(false));
       }
     });
+
+export const submitCommentAction = createAsyncThunk<
+    void,
+    CommentData,
+    {
+      dispatch: AppDispatch;
+      state: State;
+      extra: AxiosInstance;
+    }
+  >(
+    'submitComment',
+    async ({id, comment, rating}, { dispatch, extra: api }) => {
+      await api.post<CommentData>(`${ApiRoute.Comments}/${id}`, {
+        comment: comment,
+        rating: rating,
+      });
+
+      dispatch(fetchReviewsAction(id));
+    }
+  );
 
 

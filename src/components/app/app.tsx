@@ -54,12 +54,7 @@ function App({ offers, citiesList}: AppPageProps): JSX.Element {
           />
           <Route path={AppRoute.Offer}>
             <Route index element={
-              <OfferPage
-                onReview={(rating, comment) => {
-                  // eslint-disable-next-line no-console
-                  console.log(rating, comment);
-                }}
-              />
+              <OfferPage />
             }
             />
           </Route>

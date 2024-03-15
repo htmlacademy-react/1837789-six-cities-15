@@ -15,11 +15,7 @@ const DEFAULT_BEGIN = 0;
 const MAX_IMAGES_SHOW = 6;
 const NEAR_PLACES_COUNT = 3;
 
-type OfferPageProps = {
-  onReview: (rating: string, comment: string) => void;
-};
-
-function OfferPage({onReview}: OfferPageProps): JSX.Element {
+function OfferPage(): JSX.Element {
   const cityMapActive = useAppSelector((state) => state.city);
   const params = useParams();
   const cardId = params.id;
@@ -162,7 +158,7 @@ function OfferPage({onReview}: OfferPageProps): JSX.Element {
                     </p>
                   </div>
                 </div>
-                {reviewsActive && (<ReviewsList reviews = {reviewsActive} onReview = {onReview}/>)}
+                {reviewsActive && (<ReviewsList reviews = {reviewsActive} idOffer = {cardId} />)}
               </div>
             </div>
             {generalOffers.length > 0 && (
