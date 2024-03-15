@@ -1,6 +1,8 @@
 import Form from '../form/form';
 import {Reviews} from '../../types/review';
 import ReviewItem from '../review-item/reviewItem';
+import {useAppSelector} from '../../hooks';
+import {AuthorizationStatus} from '../../const';
 
 type ReviewsListProps = {
   reviews: Reviews;
@@ -8,6 +10,8 @@ type ReviewsListProps = {
 };
 
 function ReviewsList({reviews, onReview}: ReviewsListProps): JSX.Element {
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+
   return (
     <section className="offer__reviews reviews">
       <div>
@@ -20,7 +24,9 @@ function ReviewsList({reviews, onReview}: ReviewsListProps): JSX.Element {
             <ReviewItem key = {keyValue} reviewItem = {review} />
           );
         })}
-        <Form onReview = {onReview} />
+        {authorizationStatus === AuthorizationStatus.Auth && (
+          <Form onReview = {onReview} />
+        )}
       </div>
     </section>
   );
