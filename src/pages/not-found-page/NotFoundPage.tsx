@@ -1,8 +1,21 @@
 import {Link} from 'react-router-dom';
 import Logo from '../../components/logo/logo';
 import {Helmet} from 'react-helmet-async';
+import {AppRoute, cityMap} from '../../const';
+import {useAppDispatch} from '../../hooks';
+import {setCityActive, setChangeMap} from '../../store/action';
 
 function NotFoundPage(): JSX.Element {
+  const cityButton = 'Paris';
+  const dispatch = useAppDispatch();
+
+  function onCityButton (city:string) {
+    const [cityMapActive] = cityMap.filter((item) => item.title === city);
+
+    dispatch(setCityActive(city));
+    dispatch(setChangeMap(cityMapActive));
+  }
+
   return (
     <div className="page page--gray page--login">
       <Helmet>
@@ -27,14 +40,16 @@ function NotFoundPage(): JSX.Element {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <a
+              <Link
                 className="locations__item-link"
-                href="#"
+                onClick={() =>
+                  onCityButton(cityButton)}
+                to={AppRoute.Main}
               >
                 <span>
-                  Amsterdam
+                  {cityButton}
                 </span>
-              </a>
+              </Link>
             </div>
           </section>
         </div>
