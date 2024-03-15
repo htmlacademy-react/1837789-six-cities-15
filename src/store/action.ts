@@ -17,7 +17,9 @@ export const setSorting = createAction('offers/setSorting');
 
 export const loadOffers = createAction<Offers>('data/loadOffers');
 
-export const loadOffer = createAction<Offer>('data/loadOffer');
+export const loadOffer = createAction<Offer | null>('data/loadOffer');
+
+export const setOfferIsNotFound = createAction<boolean>('setOfferIsNotFound');
 
 export const setOffersIsLoading = createAction<boolean>('setOffersIsLoading');
 
@@ -32,4 +34,10 @@ export const redirectToRoute = createAction<AppRoute>('main/redirectToRoute');
 export const setUser = createAction<UserConnect | null>(`${NameSpace.User}/setUser`);
 
 export const addReviews = createAction<Reviews>('data/addReviews');
+
+export const loadNearPlaces = createAction<Offers>('data/loadNearPlaces');
+
+export const setNearPlacesIsNotFound = createAction<boolean>('setNearPlacesNotFound');
+
+export const setNearPlacesIsLoading = createAction<boolean>('setloadNearIsLoading');
 

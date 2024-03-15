@@ -11,7 +11,11 @@ import {setCityActive,
   setUser,
   loadOffer,
   setOfferIsLoading,
-  addReviews} from './action';
+  addReviews,
+  setOfferIsNotFound,
+  loadNearPlaces,
+  setNearPlacesIsLoading,
+  setNearPlacesIsNotFound} from './action';
 import {DEFAULT_CITY, defaultLocation, SortType, AuthorizationStatus} from '../const';
 import {offersSorting} from '../utils/offersSorting';
 import {Offers, Offer} from '../types/offer';
@@ -26,12 +30,17 @@ type InitalState = {
   offer: Offer | null;
   offersIsLoading: boolean;
   offerIsLoading: boolean;
+  offerIsNotFound: boolean;
+  nearPlaces: Offers;
+  nearPlacesIsLoading: boolean;
+  nearPlacesIsNotFound: boolean;
   city: CityMap;
   sortType: SortType;
   authorizationStatus: AuthorizationStatus;
   user: UserConnect | null;
   reviews: Reviews;
   error: string | null;
+
 }
 
 const initialState: InitalState = {
@@ -41,6 +50,10 @@ const initialState: InitalState = {
   offer: null,
   offersIsLoading: false,
   offerIsLoading: false,
+  offerIsNotFound: false,
+  nearPlaces: [],
+  nearPlacesIsLoading: false,
+  nearPlacesIsNotFound: false,
   city: defaultLocation,
   sortType: SortType.Popular,
   authorizationStatus: AuthorizationStatus.Unknown,
@@ -106,6 +119,22 @@ const reducer = createReducer(initialState, (builder) => {
 
     .addCase(addReviews, (state, action) => {
       state.reviews = action.payload;
+    })
+
+    .addCase(loadNearPlaces, (state, action) => {
+      state.nearPlaces = action.payload;
+    })
+
+    .addCase(setOfferIsNotFound, (state, action) => {
+      state.offerIsNotFound = action.payload;
+    })
+
+    .addCase(setNearPlacesIsLoading, (state, action) => {
+      state.nearPlacesIsLoading = action.payload;
+    })
+
+    .addCase(setNearPlacesIsNotFound, (state, action) => {
+      state.nearPlacesIsNotFound = action.payload;
     });
 });
 

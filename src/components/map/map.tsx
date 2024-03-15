@@ -12,7 +12,7 @@ import {Offer, Offers} from '../../types/offer';
 type MapProps = {
   mapType: 'cities' | 'offer';
   city: CityMap;
-  offers: Offers;
+  offers: Offers | (Offer | null)[];
   cardHoverId: Offer['id'] | null;
 }
 
@@ -38,27 +38,28 @@ function Map({mapType, city, offers, cardHoverId}: MapProps): JSX.Element {
     if (map) {
       const markerLayer = layerGroup().addTo(map);
       offers.forEach((offer, index) => {
-        const marker = new Marker({
-          lat: offer.location.latitude,
-          lng: offer.location.longitude
-        });
-
-        if(mapType === 'offer') {
-          marker
-            .setIcon(
-              index === 0
-                ? currentCustomIcon
-                : defaultCustomIcon
-            )
-            .addTo(markerLayer);
-        } else {
-          marker
-            .setIcon(
-              cardHoverId !== undefined && offer.id === cardHoverId
-                ? currentCustomIcon
-                : defaultCustomIcon
-            )
-            .addTo(markerLayer);
+        if (offer) {
+          const marker = new Marker({
+            lat: offer.location.latitude,
+            lng: offer.location.longitude
+          });
+          if(mapType === 'offer') {
+            marker
+              .setIcon(
+                index === 0
+                  ? currentCustomIcon
+                  : defaultCustomIcon
+              )
+              .addTo(markerLayer);
+          } else {
+            marker
+              .setIcon(
+                cardHoverId !== undefined && offer.id === cardHoverId
+                  ? currentCustomIcon
+                  : defaultCustomIcon
+              )
+              .addTo(markerLayer);
+          }
         }
       });
 

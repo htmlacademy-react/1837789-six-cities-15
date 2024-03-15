@@ -12,7 +12,11 @@ import {loadOffers,
   setUser,
   loadOffer,
   setOfferIsLoading,
-  addReviews} from './action';
+  addReviews,
+  setOfferIsNotFound,
+  loadNearPlaces,
+  setNearPlacesIsLoading,
+  setNearPlacesIsNotFound} from './action';
 import {saveToken, dropToken} from '../services/token';
 import {ApiRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR, AppRoute} from '../const';
 import {AuthData} from '../types/auth-data';
@@ -101,11 +105,21 @@ export const fetchOfferAction = createAsyncThunk<
   'data/fetchOffer',
   async (_arg, {dispatch, extra: api}) => {
     dispatch(setOfferIsLoading(true));
+    dispatch(setOfferIsNotFound(false));
+
     const id = _arg;
 
-    const {data} = await api.get<Offer>(`${ApiRoute.Offers}/${id}`);
-    dispatch(setOfferIsLoading(false));
-    dispatch(loadOffer(data));
+    try {
+      const {data} = await api.get<Offer>(`${ApiRoute.Offers}/${id}`);
+
+      if (data) {
+        dispatch(loadOffer(data));
+      }
+    } catch {
+      dispatch(setOfferIsNotFound(true));
+    } finally {
+      dispatch(setOfferIsLoading(false));
+    }
   },
 );
 
@@ -124,5 +138,34 @@ export const fetchReviewsAction = createAsyncThunk<
 
     dispatch(addReviews(data));
   });
+
+export const fetchNearPlacesAction = createAsyncThunk<
+  void,
+  number | string | undefined,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }>(
+    'fetchOffersNearby', async (_arg, { dispatch, extra: api }) => {
+      const id = _arg;
+
+      dispatch(setNearPlacesIsLoading(true));
+      dispatch(setNearPlacesIsNotFound(false));
+
+      try {
+        const { data } = await api.get<Offers>(
+          `${ApiRoute.Offers}/${id}/nearby`
+        );
+
+        if (data) {
+          dispatch(loadNearPlaces(data));
+        }
+      } catch {
+        dispatch(setNearPlacesIsNotFound(true));
+      } finally {
+        dispatch(setNearPlacesIsLoading(false));
+      }
+    });
 
 
