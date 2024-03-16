@@ -12,7 +12,7 @@ import {Offer, Offers} from '../../types/offer';
 type MapProps = {
   mapType: 'cities' | 'offer';
   city: CityMap;
-  offers: Offers | (Offer | null)[];
+  offers: Offers;
   cardHoverId: Offer['id'] | null;
 }
 
