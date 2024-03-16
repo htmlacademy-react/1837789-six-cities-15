@@ -158,7 +158,7 @@ function OfferPage(): JSX.Element {
                     </p>
                   </div>
                 </div>
-                {reviewsActive && (<ReviewsList reviews = {reviewsActive} idOffer = {cardId} />)}
+                {reviewsActive && (<ReviewsList reviews = {reviewsActive} offerId = {cardId} />)}
               </div>
             </div>
             {generalOffers.length > 0 && (

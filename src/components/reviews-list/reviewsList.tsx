@@ -6,10 +6,10 @@ import {AuthorizationStatus} from '../../const';
 
 type ReviewsListProps = {
   reviews: Reviews;
-  idOffer: string | undefined;
+  offerId?: string;
 };
 
-function ReviewsList({reviews, idOffer}: ReviewsListProps): JSX.Element {
+function ReviewsList({reviews, offerId}: ReviewsListProps): JSX.Element {
   const DEFAULT_BEGIN = 0;
   const MAX_REVIEWS_LENGTH = 10;
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
@@ -28,7 +28,7 @@ function ReviewsList({reviews, idOffer}: ReviewsListProps): JSX.Element {
           );
         })}
         {authorizationStatus === AuthorizationStatus.Auth && (
-          <Form idOffer = {idOffer} />
+          <Form offerId = {offerId} />
         )}
       </div>
     </section>

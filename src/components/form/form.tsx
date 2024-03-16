@@ -1,17 +1,12 @@
-import {useState, ChangeEvent, Fragment, FormEvent, useEffect} from 'react';
+import {useState, ChangeEvent, Fragment, FormEvent} from 'react';
 import { useAppDispatch } from '../../hooks/index';
 import {submitCommentAction} from '../../store/api-actions';
 
 type FormProps = {
-  idOffer: string | undefined;
+  offerId?: string;
 };
 
-function Form({idOffer}: FormProps): JSX.Element {
-  const dispatch = useAppDispatch();
-  const [comment, setComment] = useState('');
-  const [rating, setRating] = useState('0');
-  const [disabled, setDisabled] = useState(true);
-
+function Form({offerId}: FormProps): JSX.Element {
   const ratingMap = {
     'perfect': '5',
     'good': '4',
@@ -20,9 +15,11 @@ function Form({idOffer}: FormProps): JSX.Element {
     'terribly': '1'
   };
 
-  useEffect(() => {
-    setDisabled(comment.length < 50 || rating === null);
-  }, [comment, rating]);
+  const dispatch = useAppDispatch();
+  const [comment, setComment] = useState('');
+  const [rating, setRating] = useState('0');
+
+  const isDisabled = (comment.length < 50 || comment.length > 300 || rating === null);
 
   function handleInputChange(evt: ChangeEvent<HTMLInputElement>) {
     setRating(evt.target.value);
@@ -35,17 +32,15 @@ function Form({idOffer}: FormProps): JSX.Element {
   const resetForm = () => {
     setComment('');
     setRating('0');
-
-    setDisabled(true);
   };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (idOffer && !disabled) {
+    if (offerId && !isDisabled) {
       dispatch(
         submitCommentAction({
-          id: idOffer,
+          id: offerId,
           comment: comment,
           rating: Number(rating),
         })
@@ -106,7 +101,7 @@ function Form({idOffer}: FormProps): JSX.Element {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled = {disabled}
+          disabled = {isDisabled}
         >
           Submit
         </button>
