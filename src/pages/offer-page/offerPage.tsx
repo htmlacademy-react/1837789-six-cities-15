@@ -42,8 +42,9 @@ function OfferPage(): JSX.Element {
   }
 
   const activeNearbyOffers = nearbyOffers.slice(DEFAULT_BEGIN, Math.min(NEAR_PLACES_COUNT, nearbyOffers.length));
+  const generalOffers = [...activeNearbyOffers];
   if(offerActive) {
-    activeNearbyOffers.unshift(offerActive);
+    generalOffers.unshift(offerActive);
   }
 
   return (
@@ -163,8 +164,8 @@ function OfferPage(): JSX.Element {
                 {reviewsActive && (<ReviewsList reviews = {reviewsActive} offerId = {cardId} />)}
               </div>
             </div>
-            {activeNearbyOffers.length > 0 && (
-              <Map mapType='offer' offers={activeNearbyOffers} cardHoverId={nearbyCardHoverId} city={cityMapActive}/>
+            {generalOffers.length > 0 && (
+              <Map mapType='offer' offers={generalOffers} cardHoverId={nearbyCardHoverId} city={cityMapActive}/>
             )}
           </section>
         )}
