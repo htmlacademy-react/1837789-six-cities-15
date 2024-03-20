@@ -5,8 +5,7 @@ import {useAppDispatch} from '../../hooks';
 import {loginAction} from '../../store/api-actions';
 import {setCityActive, setChangeMap} from '../../store/action';
 import Logo from '../../components/logo/logo';
-import {AppRoute} from '../../const';
-import {cityMap} from '../../const';
+import {AppRoute, cityMap} from '../../const';
 
 function LoginPage(): JSX.Element {
   const cityButton = 'Amsterdam';

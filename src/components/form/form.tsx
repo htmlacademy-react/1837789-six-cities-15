@@ -1,13 +1,12 @@
 import {useState, ChangeEvent, Fragment, FormEvent} from 'react';
+import { useAppDispatch } from '../../hooks/index';
+import {submitCommentAction} from '../../store/api-actions';
 
 type FormProps = {
-  onReview: (rating: string, comment: string) => void;
+  offerId?: string;
 };
 
-function Form({onReview}: FormProps): JSX.Element {
-  const [comment, setComment] = useState('');
-  const [rating, setRating] = useState('0');
-
+function Form({offerId}: FormProps): JSX.Element {
   const ratingMap = {
     'perfect': '5',
     'good': '4',
@@ -15,6 +14,12 @@ function Form({onReview}: FormProps): JSX.Element {
     'badly': '2',
     'terribly': '1'
   };
+
+  const dispatch = useAppDispatch();
+  const [comment, setComment] = useState('');
+  const [rating, setRating] = useState('0');
+
+  const isDisabled = (comment.length < 50 || comment.length > 300 || rating === null);
 
   function handleInputChange(evt: ChangeEvent<HTMLInputElement>) {
     setRating(evt.target.value);
@@ -24,12 +29,30 @@ function Form({onReview}: FormProps): JSX.Element {
     setComment(evt.target.value);
   }
 
+  const resetForm = () => {
+    setComment('');
+    setRating('0');
+  };
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    if (offerId && !isDisabled) {
+      dispatch(
+        submitCommentAction({
+          id: offerId,
+          comment: comment,
+          rating: Number(rating),
+        })
+      );
+
+      resetForm();
+    }
+  };
+
   return (
     <form className="reviews__form form" action="#" method="post"
-      onSubmit={(evt: FormEvent<HTMLFormElement>) => {
-        evt.preventDefault();
-        onReview(rating, comment);
-      }}
+      onSubmit={handleSubmit}
     >
       <label className="reviews__label form__label" htmlFor="review">
         Your review
@@ -78,7 +101,7 @@ function Form({onReview}: FormProps): JSX.Element {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          //disabled
+          disabled = {isDisabled}
         >
           Submit
         </button>

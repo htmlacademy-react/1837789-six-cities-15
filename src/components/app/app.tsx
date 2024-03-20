@@ -9,7 +9,6 @@ import LoginPage from '../../pages/login-page/loginPage';
 import NotFoundPage from '../../pages/not-found-page/NotFoundPage';
 import PrivateRoute from '../private-route/privateRoute';
 import {Offers} from '../../types/offer';
-import {Reviews} from '../../types/review';
 import ScrollToTop from '../scroll-to-top/scrollToTop';
 import Spinner from '../../components/spinner/spinner';
 import HistoryRouter from '../history-route/history-route';
@@ -17,12 +16,10 @@ import browserHistory from '../../browser-history';
 
 type AppPageProps = {
   offers: Offers;
-  nearbyOffers: Offers;
-  reviews: Reviews;
   citiesList: string[];
 }
 
-function App({nearbyOffers, offers, reviews, citiesList}: AppPageProps): JSX.Element {
+function App({ offers, citiesList}: AppPageProps): JSX.Element {
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const isOffersDataLoading = useAppSelector((state) => state.offersIsLoading);
 
@@ -57,12 +54,7 @@ function App({nearbyOffers, offers, reviews, citiesList}: AppPageProps): JSX.Ele
           />
           <Route path={AppRoute.Offer}>
             <Route index element={
-              <OfferPage offers = {offers} nearbyOffers = {nearbyOffers} reviews = {reviews}
-                onReview={(rating, comment) => {
-                  // eslint-disable-next-line no-console
-                  console.log(rating, comment);
-                }}
-              />
+              <OfferPage />
             }
             />
           </Route>

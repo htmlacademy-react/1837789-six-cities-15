@@ -1,22 +1,37 @@
 import Form from '../form/form';
 import {Reviews} from '../../types/review';
 import ReviewItem from '../review-item/reviewItem';
+import {useAppSelector} from '../../hooks';
+import {AuthorizationStatus} from '../../const';
 
 type ReviewsListProps = {
   reviews: Reviews;
-  onReview: (rating: string, comment: string) => void;
+  offerId?: string;
 };
 
-function ReviewsList({reviews, onReview}: ReviewsListProps): JSX.Element {
+function ReviewsList({reviews, offerId}: ReviewsListProps): JSX.Element {
+  const DEFAULT_BEGIN = 0;
+  const MAX_REVIEWS_LENGTH = 10;
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const maxReviews = reviews.slice(DEFAULT_BEGIN, Math.min(MAX_REVIEWS_LENGTH, reviews.length))
+    .sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
+
   return (
     <section className="offer__reviews reviews">
-      {reviews.map((review) => {
-        const keyValue = review.id;
-        return (
-          <ReviewItem key = {keyValue} reviewItem = {review} />
-        );
-      })}
-      <Form onReview = {onReview} />
+      <div>
+        <h2 className="reviews__title">
+          Reviews · <span className="reviews__amount">{maxReviews.length}</span>
+        </h2>
+        {maxReviews.map((review) => {
+          const keyValue = review.id;
+          return (
+            <ReviewItem key = {keyValue} reviewItem = {review} />
+          );
+        })}
+        {authorizationStatus === AuthorizationStatus.Auth && (
+          <Form offerId = {offerId} />
+        )}
+      </div>
     </section>
   );
 }
