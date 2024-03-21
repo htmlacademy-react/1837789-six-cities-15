@@ -1,5 +1,5 @@
 import {useState, ChangeEvent, Fragment, FormEvent} from 'react';
-import { useAppDispatch } from '../../hooks/index';
+import {useAppDispatch} from '../../hooks/index';
 import {submitCommentAction} from '../../store/api-actions';
 
 type FormProps = {

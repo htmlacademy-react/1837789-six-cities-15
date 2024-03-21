@@ -1,6 +1,6 @@
 import {createAction} from '@reduxjs/toolkit';
 import {CityMap} from '../types/cityMap';
-import {SortType, AuthorizationStatus, AppRoute, NameSpace} from '../const';
+import {SortType, AuthorizationStatus, AppRoute} from '../const';
 import {Offers, Offer} from '../types/offer';
 import {UserConnect} from '../types/user';
 import {Reviews} from '../types/review';
@@ -31,7 +31,7 @@ export const setError = createAction<string | null>('setError');
 
 export const redirectToRoute = createAction<AppRoute>('main/redirectToRoute');
 
-export const setUser = createAction<UserConnect | null>(`${NameSpace.User}/setUser`);
+export const setUser = createAction<UserConnect | null>('USER/setUser');
 
 export const addReviews = createAction<Reviews>('data/addReviews');
 

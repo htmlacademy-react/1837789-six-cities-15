@@ -9,7 +9,7 @@ import GeneralCardList from '../../components/general-card-list/generalCardList'
 import Nav from '../../components/nav/nav';
 import {fetchOfferAction, fetchReviewsAction, fetchNearPlacesAction} from '../../store/api-actions';
 import Spinner from '../../components/spinner/spinner';
-import { store } from '../../store';
+import {store} from '../../store';
 
 const DEFAULT_BEGIN = 0;
 const MAX_IMAGES_SHOW = 6;
