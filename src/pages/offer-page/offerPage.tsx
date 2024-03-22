@@ -168,9 +168,7 @@ function OfferPage(): JSX.Element {
                 {reviewsActive && (<ReviewsList reviews = {reviewsActive} offerId = {cardId} />)}
               </div>
             </div>
-            {generalOffers.length > 0 && (
-              <Map mapType='offer' offers={generalOffers} cardHoverId={nearbyCardHoverId} city={cityMapActive}/>
-            )}
+            <Map mapType='offer' offers={generalOffers} cardHoverId={nearbyCardHoverId} city={cityMapActive}/>
           </section>
         )}
         <div className="container">
