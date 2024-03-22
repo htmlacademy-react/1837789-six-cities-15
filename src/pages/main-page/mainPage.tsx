@@ -7,6 +7,7 @@ import Map from '../../components/map/map';
 import Sort from '../../components/sort/sort';
 import GeneralCardList from '../../components/general-card-list/generalCardList';
 import LocationsList from '../../components/locations-list/locationsList';
+import {getCityActive, getCity, getOffers} from '../../store/offers-process/selectors';
 
 type MainPageProps = {
   citiesList: string[];
@@ -14,9 +15,9 @@ type MainPageProps = {
 
 function MainPage({citiesList}: MainPageProps): JSX.Element {
   const [cardHoverId, setCardHoverId] = useState<string | null>(null);
-  const cityActive = useAppSelector((state) => state.cityActive);
-  const offers = useAppSelector((state) => state.offers);
-  const cityMapActive = useAppSelector((state) => state.city);
+  const cityActive = useAppSelector(getCityActive);
+  const offers = useAppSelector(getOffers);
+  const cityMapActive = useAppSelector(getCity);
   const placesCount = offers.length;
 
   return (

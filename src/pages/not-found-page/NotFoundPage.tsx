@@ -3,7 +3,7 @@ import Logo from '../../components/logo/logo';
 import {Helmet} from 'react-helmet-async';
 import {AppRoute, cityMap} from '../../const';
 import {useAppDispatch} from '../../hooks';
-import {setCityActive, setChangeMap} from '../../store/action';
+import {setCityActive, setChangeMap} from '../../store/offers-process/offers-process';
 
 function NotFoundPage(): JSX.Element {
   const cityButton = 'Paris';

@@ -1,11 +1,12 @@
 import {useState} from 'react';
-import {getSortType, setSorting} from '../../store/action';
 import {useAppDispatch, useAppSelector} from '../../hooks/index';
 import {SortType} from '../../const';
+import {getSortType} from '../../store/offers-process/selectors';
+import {setSortType, setOffers} from '../../store/offers-process/offers-process';
 
 function Sort(): JSX.Element {
   const [opened, setOpened] = useState<boolean>(false);
-  const activeSortType = useAppSelector((state) => state.sortType);
+  const activeSortType = useAppSelector(getSortType);
   const dispatch = useAppDispatch();
 
   function handleToggle() {
@@ -13,8 +14,8 @@ function Sort(): JSX.Element {
   }
 
   function handleChangeSorting(item: SortType) {
-    dispatch(getSortType(item));
-    dispatch(setSorting());
+    dispatch(setSortType(item));
+    dispatch(setOffers());
     setOpened(false);
   }
 

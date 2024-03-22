@@ -77,7 +77,7 @@ export const cityMap: CityMap[] = [
   },
 ];
 
-export const [defaultLocation] = cityMap.filter((item) => item.title === DEFAULT_CITY);
+export const [DEFAULT_LOCATION] = cityMap.filter((item) => item.title === DEFAULT_CITY);
 
 export enum SortType {
   Popular = 'Popular',
@@ -85,6 +85,8 @@ export enum SortType {
   HighToLow = 'Price: high to low',
   TopRated = 'Top rated first',
 }
+
+export const DEFAULT_SORT = SortType.Popular;
 
 export enum ApiRoute {
   Offers = '/offers',
@@ -100,7 +102,7 @@ export enum NameSpace {
   User = 'USER',
   Offers = 'OFFERS',
   Offer = 'OFFER',
-  Comments = 'COMMENTS',
+  Reviews = 'REVIEWS',
   OffersNearby = 'OFFERSNEARBY',
   ErrorMessage = 'ERRORMESSAGE'
 }

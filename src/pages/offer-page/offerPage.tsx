@@ -7,32 +7,36 @@ import ReviewsList from '../../components/reviews-list/reviewsList';
 import Map from '../../components/map/map.tsx';
 import GeneralCardList from '../../components/general-card-list/generalCardList';
 import Nav from '../../components/nav/nav';
-import {fetchOfferAction, fetchReviewsAction, fetchNearPlacesAction} from '../../store/api-actions';
+import {fetchOfferAction, fetchReviewsAction, fetchOffersNearbyAction} from '../../store/api-actions';
 import Spinner from '../../components/spinner/spinner';
 import {store} from '../../store';
+import {getCity} from '../../store/offers-process/selectors';
+import {getOffer, getOfferIsLoading, getOfferIsNotFound} from '../../store/offer-process/selectors';
+import {getReviews} from '../../store/reviews-process/selectors';
+import {getOffersNearby, getOffersNearbyIsLoading} from '../../store/offers-nearby-process/selectors';
 
 const DEFAULT_BEGIN = 0;
 const MAX_IMAGES_SHOW = 6;
 const NEAR_PLACES_COUNT = 3;
 
 function OfferPage(): JSX.Element {
-  const cityMapActive = useAppSelector((state) => state.city);
+  const cityMapActive = useAppSelector(getCity);
   const params = useParams();
   const cardId = params.id;
 
   useEffect(() => {
     store.dispatch(fetchOfferAction(cardId));
     store.dispatch(fetchReviewsAction(cardId));
-    store.dispatch(fetchNearPlacesAction(cardId));
+    store.dispatch(fetchOffersNearbyAction(cardId));
   }, [cardId]);
 
 
-  const offerActive = useAppSelector((state) => state.offer);
-  const offerIsLoading = useAppSelector((state) => state.offerIsLoading);
-  const reviewsActive = useAppSelector((state) => state.reviews);
-  const offerIsNotFound = useAppSelector((state) => state.offerIsNotFound);
-  const nearbyOffers = useAppSelector((state) => state.nearPlaces);
-  const nearbyOffersIsLoading = useAppSelector((state) => state.nearPlacesIsLoading);
+  const offerActive = useAppSelector(getOffer);
+  const offerIsLoading = useAppSelector(getOfferIsLoading);
+  const reviewsActive = useAppSelector(getReviews);
+  const offerIsNotFound = useAppSelector(getOfferIsNotFound);
+  const nearbyOffers = useAppSelector(getOffersNearby);
+  const nearbyOffersIsLoading = useAppSelector(getOffersNearbyIsLoading);
 
 
   const [nearbyCardHoverId, setNearbyCardHoverId] = useState<string | null>(null);

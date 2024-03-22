@@ -3,6 +3,7 @@ import {Reviews} from '../../types/review';
 import ReviewItem from '../review-item/reviewItem';
 import {useAppSelector} from '../../hooks';
 import {AuthorizationStatus} from '../../const';
+import {getAuthorizationStatus} from '../../store/user-process/selectors';
 
 type ReviewsListProps = {
   reviews: Reviews;
@@ -12,7 +13,7 @@ type ReviewsListProps = {
 function ReviewsList({reviews, offerId}: ReviewsListProps): JSX.Element {
   const DEFAULT_BEGIN = 0;
   const MAX_REVIEWS_LENGTH = 10;
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const maxReviews = reviews.slice(DEFAULT_BEGIN, Math.min(MAX_REVIEWS_LENGTH, reviews.length))
     .sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
 
