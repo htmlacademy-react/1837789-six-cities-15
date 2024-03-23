@@ -3,6 +3,7 @@ import {Helmet} from 'react-helmet-async';
 import Logo from '../../components/logo/logo';
 import {useAppSelector} from '../../hooks/index';
 import Nav from '../../components/nav/nav';
+import MainEmpty from '../../components/main-empty/main-empty';
 import Map from '../../components/map/map';
 import Sort from '../../components/sort/sort';
 import GeneralCardList from '../../components/general-card-list/generalCardList';
@@ -54,18 +55,7 @@ function MainPage({citiesList}: MainPageProps): JSX.Element {
               </div>
             </div>
           ) : (
-            <div className="cities__places-container cities__places-container--empty container">
-              <section className="cities__no-places">
-                <div className="cities__status-wrapper tabs__content">
-                  <b className="cities__status">No places to stay available</b>
-                  <p className="cities__status-description">
-                    We could not find any property available at the moment in
-                    {cityActive}
-                  </p>
-                </div>
-              </section>
-              <div className="cities__right-section" />
-            </div>
+            <MainEmpty cityActive = {cityActive} />
           )}
         </div>
       </main>
