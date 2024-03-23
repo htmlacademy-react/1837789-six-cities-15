@@ -66,6 +66,7 @@ function LoginPage(): JSX.Element {
                   ref={loginRef}
                   className="login__input form__input"
                   name="email"
+                  title="Email, for example test@test.com"
                   placeholder="Email"
                   required
                   type="email"
@@ -79,6 +80,7 @@ function LoginPage(): JSX.Element {
                   ref={passwordRef}
                   className="login__input form__input"
                   name="password"
+                  title="The password must contain at least one digit or letter"
                   placeholder="Password"
                   required
                   type="password"
