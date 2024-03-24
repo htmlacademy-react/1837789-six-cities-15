@@ -5,7 +5,7 @@ import {useAppDispatch} from '../../hooks';
 import {loginAction} from '../../store/api-actions';
 import {setCityActive, setChangeMap} from '../../store/offers-process/offers-process';
 import Logo from '../../components/logo/logo';
-import {AppRoute, cityMap} from '../../const';
+import {AppRoute} from '../../const';
 
 function LoginPage(): JSX.Element {
   const cityButton = 'Amsterdam';
@@ -14,10 +14,8 @@ function LoginPage(): JSX.Element {
   const dispatch = useAppDispatch();
 
   function onCityButton (city:string) {
-    const [cityMapActive] = cityMap.filter((item) => item.title === city);
-
     dispatch(setCityActive(city));
-    dispatch(setChangeMap(cityMapActive));
+    dispatch(setChangeMap());
   }
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {

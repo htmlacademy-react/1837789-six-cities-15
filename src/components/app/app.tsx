@@ -15,11 +15,7 @@ import browserHistory from '../../browser-history';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
 import {getOffersIsLoading} from '../../store/offers-process/selectors';
 
-type AppPageProps = {
-  citiesList: string[];
-}
-
-function App({citiesList}: AppPageProps): JSX.Element {
+function App(): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const isOffersDataLoading = useAppSelector(getOffersIsLoading);
 
@@ -36,7 +32,7 @@ function App({citiesList}: AppPageProps): JSX.Element {
         <Routes>
           <Route
             path={AppRoute.Main}
-            element={<MainPage citiesList = {citiesList} />}
+            element={<MainPage />}
           />
           <Route
             path={AppRoute.Favorites}

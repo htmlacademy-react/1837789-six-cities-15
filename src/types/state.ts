@@ -4,6 +4,8 @@ import {Reviews} from '../types/review';
 import {Offer, Offers} from '../types/offer';
 import {CityMap} from '../types/cityMap';
 import {UserConnect} from '../types/user';
+import {City} from '../types/city';
+
 
 export type State = ReturnType<typeof store.getState>;
 
@@ -38,7 +40,7 @@ export type OffersNearbyProcess = {
 
 export type OffersProcess = {
   cityActive: string;
-  city: CityMap;
+  city: City;
   sortType: SortType;
   allOffers: Offers;
   offers: Offers;

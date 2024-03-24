@@ -4,14 +4,14 @@ import { Marker, layerGroup } from 'leaflet';
 import { useRef, useEffect } from 'react';
 
 import useMap from '../../hooks/useMap';
-import {CityMap} from '../../types/cityMap';
+import {City} from '../../types/city';
 import {URL_MARKER_CURRENT, URL_MARKER_DEFAULT} from '../../const';
 
 import {Offer, Offers} from '../../types/offer';
 
 type MapProps = {
   mapType: 'cities' | 'offer';
-  city: CityMap;
+  city: City;
   offers: Offers;
   cardHoverId: Offer['id'] | null;
 }
@@ -32,7 +32,6 @@ const currentCustomIcon = leaflet.icon({
 function Map({mapType, city, offers, cardHoverId}: MapProps): JSX.Element {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
-  //console.log(city);
 
   useEffect(() => {
     if (map) {
@@ -71,7 +70,7 @@ function Map({mapType, city, offers, cardHoverId}: MapProps): JSX.Element {
 
   useEffect(() => {
     if (map) {
-      map.setView([city.lat, city.lng], city.zoom);
+      map.setView([city.location.latitude, city.location.longitude], city.location.zoom);
     }
   }, [map, city]);
 

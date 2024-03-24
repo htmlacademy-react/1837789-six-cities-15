@@ -1,7 +1,7 @@
 import {Link} from 'react-router-dom';
 import Logo from '../../components/logo/logo';
 import {Helmet} from 'react-helmet-async';
-import {AppRoute, cityMap} from '../../const';
+import {AppRoute} from '../../const';
 import {useAppDispatch} from '../../hooks';
 import {setCityActive, setChangeMap} from '../../store/offers-process/offers-process';
 
@@ -10,10 +10,8 @@ function NotFoundPage(): JSX.Element {
   const dispatch = useAppDispatch();
 
   function onCityButton (city:string) {
-    const [cityMapActive] = cityMap.filter((item) => item.title === city);
-
     dispatch(setCityActive(city));
-    dispatch(setChangeMap(cityMapActive));
+    dispatch(setChangeMap());
   }
 
   return (

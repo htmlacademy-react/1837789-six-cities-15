@@ -2,7 +2,7 @@ import {State} from '../../types/state';
 import {NameSpace} from '../../const';
 import {Offers} from '../../types/offer';
 import {SortType} from '../../const';
-import {CityMap} from '../../types/cityMap';
+import {City} from '../../types/city';
 
 export const getOffers = (state: State): Offers =>
   state[NameSpace.Offers].offers;
@@ -16,7 +16,7 @@ export const getOffersIsNotFound = (state: State): boolean =>
 export const getCityActive = (state: State): string =>
   state[NameSpace.Offers].cityActive;
 
-export const getCity = (state: State): CityMap =>
+export const getCity = (state: State): City =>
   state[NameSpace.Offers].city;
 
 export const getSortType = (state: State): SortType =>
