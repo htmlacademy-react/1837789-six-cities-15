@@ -4,7 +4,7 @@ import {OffersProcess} from '../../types/state';
 import {fetchOffersAction} from '../api-actions';
 import {offersSorting} from '../../utils/offersSorting';
 import {SortType} from '../../const';
-import {Offers} from '../../types/offer';
+import {Offers, Offer} from '../../types/offer';
 import {CityMap} from '../../types/cityMap';
 
 const initialState: OffersProcess = {
@@ -28,6 +28,14 @@ export const offers = createSlice({
         );
         state.offers = offersSorting(state.sortType, offersByCity);
       }
+    },
+
+    setFavoriteOffers(state, action: PayloadAction<Offer>) {
+      const offerFavorite = action.payload;
+
+      state.offers = state.offers.map((item: Offer) =>
+        item.id === offerFavorite.id ? offerFavorite : item
+      );
     },
 
     setCityActive(state, action: PayloadAction<string>) {
@@ -67,5 +75,5 @@ export const offers = createSlice({
   },
 });
 
-export const {setOffers, setCityActive, setSortType, setChangeMap} = offers.actions;
+export const {setOffers, setCityActive, setSortType, setChangeMap, setFavoriteOffers} = offers.actions;
 

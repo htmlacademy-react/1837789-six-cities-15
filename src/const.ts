@@ -104,5 +104,13 @@ export enum NameSpace {
   Offer = 'OFFER',
   Reviews = 'REVIEWS',
   OffersNearby = 'OFFERSNEARBY',
-  ErrorMessage = 'ERRORMESSAGE'
+  ErrorMessage = 'ERRORMESSAGE',
+  Favorites = 'FAVORITES'
+}
+
+export enum FavoritesTriggerUpdate {
+  Offers = 'UpdateOffers',
+  Offer = 'UpdateOffer',
+  Favorites = 'UpdateFavorites',
+  Nearby = 'UpdateNearby',
 }

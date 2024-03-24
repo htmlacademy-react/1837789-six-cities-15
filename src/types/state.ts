@@ -45,3 +45,9 @@ export type OffersProcess = {
   offersIsLoading: boolean;
   offersIsNotFound: boolean;
 };
+
+export type favoritesProcess = {
+  favorites: Offers;
+  favoritesIsLoading: boolean;
+  favoritesIsNotFound: boolean;
+};

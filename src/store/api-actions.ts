@@ -6,9 +6,13 @@ import {Reviews, Review} from '../types/review';
 import {CommentData} from '../types/comments';
 import {redirectToRoute} from './action';
 import {saveToken, dropToken} from '../services/token';
-import {ApiRoute, AppRoute} from '../const';
+import {ApiRoute, AppRoute, FavoritesTriggerUpdate} from '../const';
 import {AuthData} from '../types/auth-data';
 import {UserConnect} from '../types/user';
+import {FavoriteData} from '../types/favorites';
+import {setFavoriteOffers} from './offers-process/offers-process';
+import {setFavoriteOffer} from './offer-process/offer-process';
+import {setFavoriteNearby} from './offers-nearby-process/offers-nearby-process';
 
 export const fetchOffersAction = createAsyncThunk<Offers, undefined, {
   dispatch: AppDispatch;
@@ -117,4 +121,49 @@ export const submitReviewAction = createAsyncThunk<
   }
   );
 
+export const fetchFavoritesAction = createAsyncThunk<
+  Offers,
+  undefined,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>('fetchFavorites', async (_arg, {extra: api}) => {
+  const {data} = await api.get<Offers>(ApiRoute.Favorite);
+
+  return data;
+});
+
+export const setFavoritesAction = createAsyncThunk<
+  Offer,
+  FavoriteData,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>('setFavorites', async (favoriteParams: FavoriteData, {dispatch, extra: api}) => {
+  const {data} = await api.post<Offer>(
+    `${ApiRoute.Favorite}/${favoriteParams.offerId}/${favoriteParams.status}`
+  );
+
+  switch (favoriteParams.triggerUpdate) {
+    case FavoritesTriggerUpdate.Offers:
+      dispatch(setFavoriteOffers(data));
+      break;
+    case FavoritesTriggerUpdate.Offer:
+      dispatch(setFavoriteOffer(data.isFavorite));
+      break;
+    case FavoritesTriggerUpdate.Favorites:
+      dispatch(fetchFavoritesAction());
+      break;
+    case FavoritesTriggerUpdate.Nearby:
+      dispatch(setFavoriteNearby(data));
+      break;
+  }
+
+  return data;
+}
+);
 
