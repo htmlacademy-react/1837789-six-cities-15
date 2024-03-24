@@ -8,20 +8,16 @@ import OfferPage from '../../pages/offer-page/offerPage';
 import LoginPage from '../../pages/login-page/loginPage';
 import NotFoundPage from '../../pages/not-found-page/NotFoundPage';
 import PrivateRoute from '../private-route/privateRoute';
-import {Offers} from '../../types/offer';
 import ScrollToTop from '../scroll-to-top/scrollToTop';
 import Spinner from '../../components/spinner/spinner';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
+import {getAuthorizationStatus} from '../../store/user-process/selectors';
+import {getOffersIsLoading} from '../../store/offers-process/selectors';
 
-type AppPageProps = {
-  offers: Offers;
-  citiesList: string[];
-}
-
-function App({ offers, citiesList}: AppPageProps): JSX.Element {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const isOffersDataLoading = useAppSelector((state) => state.offersIsLoading);
+function App(): JSX.Element {
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const isOffersDataLoading = useAppSelector(getOffersIsLoading);
 
   if (authorizationStatus === AuthorizationStatus.Unknown || isOffersDataLoading) {
     return (
@@ -36,7 +32,7 @@ function App({ offers, citiesList}: AppPageProps): JSX.Element {
         <Routes>
           <Route
             path={AppRoute.Main}
-            element={<MainPage citiesList = {citiesList} />}
+            element={<MainPage />}
           />
           <Route
             path={AppRoute.Favorites}
@@ -44,7 +40,7 @@ function App({ offers, citiesList}: AppPageProps): JSX.Element {
               <PrivateRoute
                 authorizationStatus={authorizationStatus}
               >
-                <FavoritesPage offers = {offers}/>
+                <FavoritesPage />
               </PrivateRoute>
             }
           />

@@ -1,5 +1,4 @@
-import {CityList} from './types/city';
-import {CityMap} from './types/cityMap';
+import {CityList, City} from './types/city';
 
 export const PRIVATE_ROUTES: readonly string[] = ['/favorites'];
 
@@ -25,6 +24,15 @@ export const URL_MARKER_CURRENT =
 
 export const handleStars = (width: number) => `${String(Math.round(width) * 20)}%`;
 
+export const DEFAULT_LOCATION: City = {
+  name: 'Paris',
+  location: {
+    latitude: 48.85661,
+    longitude: 2.351499,
+    zoom: 13
+  }
+} as const;
+
 export const CITY_LIST: CityList = {
   Paris: 'Paris',
   Cologne: 'Cologne',
@@ -38,53 +46,14 @@ export const citiesList = [CITY_LIST.Paris, CITY_LIST.Cologne, CITY_LIST.Brussel
 
 export const DEFAULT_CITY = CITY_LIST.Paris;
 
-export const cityMap: CityMap[] = [
-  {
-    title: 'Amsterdam',
-    lat: 52.37454,
-    lng: 4.897976,
-    zoom: 12
-  },
-  {
-    title: 'Paris',
-    lat: 48.85661,
-    lng: 2.351499,
-    zoom: 12
-  },
-  {
-    title: 'Cologne',
-    lat: 50.938361,
-    lng: 6.959974,
-    zoom: 12
-  },
-  {
-    title: 'Brussels',
-    lat: 50.846557,
-    lng:4.351697,
-    zoom: 12
-  },
-  {
-    title: 'Hamburg',
-    lat: 53.550341,
-    lng: 10.000654,
-    zoom: 12
-  },
-  {
-    title: 'Dusseldorf',
-    lat: 51.225402,
-    lng: 6.776314,
-    zoom: 12
-  },
-];
-
-export const [defaultLocation] = cityMap.filter((item) => item.title === DEFAULT_CITY);
-
 export enum SortType {
   Popular = 'Popular',
   LowToHigh = 'Price: low to high',
   HighToLow = 'Price: high to low',
   TopRated = 'Top rated first',
 }
+
+export const DEFAULT_SORT = SortType.Popular;
 
 export enum ApiRoute {
   Offers = '/offers',
@@ -97,11 +66,18 @@ export enum ApiRoute {
 export const TIMEOUT_SHOW_ERROR = 2000;
 
 export enum NameSpace {
-  Offers = 'OFFERS',
-  Favorites = 'FAVORITES',
-  Reviews = 'REVIEWS',
   User = 'USER',
-  Data = 'DATA',
-  Error = 'ERROR'
+  Offers = 'OFFERS',
+  Offer = 'OFFER',
+  Reviews = 'REVIEWS',
+  OffersNearby = 'OFFERSNEARBY',
+  ErrorMessage = 'ERRORMESSAGE',
+  Favorites = 'FAVORITES'
 }
 
+export enum FavoritesTriggerUpdate {
+  Offers = 'UpdateOffers',
+  Offer = 'UpdateOffer',
+  Favorites = 'UpdateFavorites',
+  Nearby = 'UpdateNearby',
+}

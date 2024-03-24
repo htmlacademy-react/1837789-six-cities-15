@@ -1,34 +1,29 @@
 import {useAppDispatch, useAppSelector} from '../../hooks/index';
-import {setCityActive, getOffers, setChangeMap} from '../../store/action';
-import {cityMap} from '../../const';
+import {citiesList} from '../../const';
+import {getCityActive} from '../../store/offers-process/selectors';
+import {setCityActive, setOffers, setChangeMap} from '../../store/offers-process/offers-process';
 
-
-type LocationsListProps = {
-  cities: string[];
-}
-
-function LocationsList({cities}: LocationsListProps): JSX.Element {
-  const cityActive = useAppSelector((state) => state.cityActive);
+function LocationsList(): JSX.Element {
+  const cityActive = useAppSelector(getCityActive);
   const dispatch = useAppDispatch();
 
-  function changeCity (city:string) {
-    const [cityMapActive] = cityMap.filter((item) => item.title === city);
+  function changeCity (city: string) {
 
     dispatch(setCityActive(city));
-    dispatch(getOffers());
-    dispatch(setChangeMap(cityMapActive));
+    dispatch(setOffers());
+    dispatch(setChangeMap());
   }
 
   return (
     <div className="tabs">
       <section className="locations container">
         <ul className="locations__list tabs__list">
-          {cities.map((city) => {
+          {citiesList.map((city) => {
             const keyValue = city;
             return (
               <li key = {keyValue} className="locations__item">
                 <a className={`locations__item-link tabs__item ${city === cityActive ? 'tabs__item--active' : ''}`}
-                  onClick={()=>changeCity(city)} href="#"
+                  onClick={() => changeCity(city)} href="#"
                 >
                   <span>{city}</span>
                 </a>

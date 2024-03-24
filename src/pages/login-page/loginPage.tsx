@@ -3,9 +3,9 @@ import {Helmet} from 'react-helmet-async';
 import {useRef, FormEvent} from 'react';
 import {useAppDispatch} from '../../hooks';
 import {loginAction} from '../../store/api-actions';
-import {setCityActive, setChangeMap} from '../../store/action';
+import {setCityActive, setChangeMap} from '../../store/offers-process/offers-process';
 import Logo from '../../components/logo/logo';
-import {AppRoute, cityMap} from '../../const';
+import {AppRoute} from '../../const';
 
 function LoginPage(): JSX.Element {
   const cityButton = 'Amsterdam';
@@ -14,10 +14,8 @@ function LoginPage(): JSX.Element {
   const dispatch = useAppDispatch();
 
   function onCityButton (city:string) {
-    const [cityMapActive] = cityMap.filter((item) => item.title === city);
-
     dispatch(setCityActive(city));
-    dispatch(setChangeMap(cityMapActive));
+    dispatch(setChangeMap());
   }
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
@@ -29,6 +27,7 @@ function LoginPage(): JSX.Element {
         password: passwordRef.current.value
       }));
     }
+
   };
 
   return (
@@ -65,6 +64,7 @@ function LoginPage(): JSX.Element {
                   ref={loginRef}
                   className="login__input form__input"
                   name="email"
+                  title="Email, for example test@test.com"
                   placeholder="Email"
                   required
                   type="email"
@@ -78,6 +78,7 @@ function LoginPage(): JSX.Element {
                   ref={passwordRef}
                   className="login__input form__input"
                   name="password"
+                  title="The password must contain at least one digit or letter"
                   placeholder="Password"
                   required
                   type="password"

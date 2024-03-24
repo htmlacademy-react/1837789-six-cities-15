@@ -3,10 +3,11 @@ import {useAppSelector, useAppDispatch} from '../../hooks/index';
 import {AuthorizationStatus, AppRoute, PRIVATE_ROUTES} from '../../const';
 import styles from './nav.module.css';
 import {logoutAction} from '../../store/api-actions';
+import {getAuthorizationStatus, getUser} from '../../store/user-process/selectors';
 
 function Nav(): JSX.Element {
-  const authorizationStatusActive = useAppSelector((state) => state.authorizationStatus);
-  const user = useAppSelector((state) => state.user);
+  const authorizationStatusActive = useAppSelector(getAuthorizationStatus);
+  const user = useAppSelector(getUser);
   const isLogged = authorizationStatusActive === AuthorizationStatus.Auth;
   const dispatch = useAppDispatch();
   const navigate = useNavigate();

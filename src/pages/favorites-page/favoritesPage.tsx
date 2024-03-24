@@ -1,14 +1,19 @@
 import Logo from '../../components/logo/logo';
-import {Offers} from '../../types/offer';
 import Nav from '../../components/nav/nav';
 import GeneralCardList from '../../components/general-card-list/generalCardList';
+import {useAppSelector} from '../../hooks/index';
+import {
+  getFavorites,
+  getFavoritesIsLoading,
+  getFavoritesIsNotFound,
+} from '../../store/favorites-process/selectors';
+import Spinner from '../../components/spinner/spinner';
+import FavoritesEmpty from '../../components/favorites-empty/favorites-empty';
 
-type FavoritesPageProps = {
-  offers: Offers;
-}
-
-function FavoritesPage({offers}: FavoritesPageProps): JSX.Element {
-  const favoriteCards = offers.filter((offer) => offer.isFavorite === true);
+function FavoritesPage(): JSX.Element {
+  const favoriteCards = useAppSelector(getFavorites);
+  const favoritesIsLoading = useAppSelector(getFavoritesIsLoading);
+  const favoritesIsNotFound = useAppSelector(getFavoritesIsNotFound);
 
   return (
     <div className="page">
@@ -24,12 +29,17 @@ function FavoritesPage({offers}: FavoritesPageProps): JSX.Element {
       </header>
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
-          <section className="favorites">
-            <h1 className="favorites__title">Saved listing</h1>
-            <ul className="favorites__list">
-              <GeneralCardList elementType={'favorite'} offers = {favoriteCards}/>
-            </ul>
-          </section>
+          {favoritesIsLoading && <Spinner />}
+          {(favoritesIsNotFound || !favoriteCards.length) ? (
+            <FavoritesEmpty />
+          ) : (
+            <section className="favorites">
+              <h1 className="favorites__title">Saved listing</h1>
+              <ul className="favorites__list">
+                <GeneralCardList elementType={'favorite'} offers = {favoriteCards}/>
+              </ul>
+            </section>
+          )}
         </div>
       </main>
       <footer className="footer container">

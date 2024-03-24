@@ -1,6 +1,6 @@
 import {useState, ChangeEvent, Fragment, FormEvent} from 'react';
-import { useAppDispatch } from '../../hooks/index';
-import {submitCommentAction} from '../../store/api-actions';
+import {useAppDispatch} from '../../hooks/index';
+import {submitReviewAction} from '../../store/api-actions';
 
 type FormProps = {
   offerId?: string;
@@ -39,7 +39,7 @@ function Form({offerId}: FormProps): JSX.Element {
 
     if (offerId && !isDisabled) {
       dispatch(
-        submitCommentAction({
+        submitReviewAction({
           id: offerId,
           comment: comment,
           rating: Number(rating),
