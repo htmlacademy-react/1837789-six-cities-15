@@ -8,7 +8,6 @@ import OfferPage from '../../pages/offer-page/offerPage';
 import LoginPage from '../../pages/login-page/loginPage';
 import NotFoundPage from '../../pages/not-found-page/NotFoundPage';
 import PrivateRoute from '../private-route/privateRoute';
-import {Offers} from '../../types/offer';
 import ScrollToTop from '../scroll-to-top/scrollToTop';
 import Spinner from '../../components/spinner/spinner';
 import HistoryRouter from '../history-route/history-route';
@@ -17,11 +16,10 @@ import {getAuthorizationStatus} from '../../store/user-process/selectors';
 import {getOffersIsLoading} from '../../store/offers-process/selectors';
 
 type AppPageProps = {
-  offers: Offers;
   citiesList: string[];
 }
 
-function App({ offers, citiesList}: AppPageProps): JSX.Element {
+function App({citiesList}: AppPageProps): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const isOffersDataLoading = useAppSelector(getOffersIsLoading);
 
@@ -46,7 +44,7 @@ function App({ offers, citiesList}: AppPageProps): JSX.Element {
               <PrivateRoute
                 authorizationStatus={authorizationStatus}
               >
-                <FavoritesPage offers = {offers}/>
+                <FavoritesPage />
               </PrivateRoute>
             }
           />
