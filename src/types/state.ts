@@ -2,7 +2,6 @@ import {store} from '../store/index';
 import {AuthorizationStatus, SortType} from '../const';
 import {Reviews} from '../types/review';
 import {Offer, Offers} from '../types/offer';
-import {CityMap} from '../types/cityMap';
 import {UserConnect} from '../types/user';
 import {City} from '../types/city';
 
