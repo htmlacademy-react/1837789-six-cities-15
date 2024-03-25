@@ -17,23 +17,24 @@ function GeneralCard({elementType, setActivePlaceCard, offer}: GeneralCardProps)
       className: 'cities',
       width: '260',
       height: '200',
-      url: 'offer/'
+      url: 'offer/',
+      triggerUpdate: FavoritesTriggerUpdate.Offers
     },
     favorite: {
       className: 'favorites',
       width: '150',
       height: '110',
-      url: '/offer/'
+      url: '/offer/',
+      triggerUpdate: FavoritesTriggerUpdate.Favorites
     },
     offers: {
       className: 'near-places',
       width: '260',
       height: '200',
-      url: '/offer/'
+      url: '/offer/',
+      triggerUpdate: FavoritesTriggerUpdate.Nearby
     }
   };
-
-  const isNearby = options[elementType].className === 'near-places';
 
   function handleMouseEnter() {
     setActivePlaceCard?.(offer.id);
@@ -48,7 +49,7 @@ function GeneralCard({elementType, setActivePlaceCard, offer}: GeneralCardProps)
   const onChangeFavorites = useFavorites(
     String(offer.id),
     currentStatus,
-    isNearby ? FavoritesTriggerUpdate.Nearby : FavoritesTriggerUpdate.Offers
+    options[elementType].triggerUpdate
   );
 
   return (

@@ -36,7 +36,7 @@ function FavoritesPage(): JSX.Element {
             <section className="favorites">
               <h1 className="favorites__title">Saved listing</h1>
               <ul className="favorites__list">
-                <GeneralCardList elementType={'favorite'} offers = {favoriteCards}/>
+                <GeneralCardList elementType='favorite' offers = {favoriteCards}/>
               </ul>
             </section>
           )}

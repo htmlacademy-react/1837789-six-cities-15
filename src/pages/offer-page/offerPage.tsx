@@ -1,5 +1,5 @@
 import {useParams, Navigate} from 'react-router-dom';
-import {AppRoute} from '../../const';
+import {AppRoute, FavoritesTriggerUpdate} from '../../const';
 import {useState, useEffect} from 'react';
 import {useAppSelector} from '../../hooks/index';
 import Logo from '../../components/logo/logo';
@@ -14,6 +14,7 @@ import {getCity} from '../../store/offers-process/selectors';
 import {getOffer, getOfferIsLoading, getOfferIsNotFound} from '../../store/offer-process/selectors';
 import {getReviews} from '../../store/reviews-process/selectors';
 import {getOffersNearby, getOffersNearbyIsLoading} from '../../store/offers-nearby-process/selectors';
+import {useFavorites} from '../../hooks/useFavorites';
 
 const DEFAULT_BEGIN = 0;
 const MAX_IMAGES_SHOW = 6;
@@ -50,6 +51,13 @@ function OfferPage(): JSX.Element {
   if(offerActive) {
     generalOffers.unshift(offerActive);
   }
+
+  const currentStatus = offerActive && offerActive.isFavorite ? 0 : 1;
+  const onChangeFavorites = useFavorites(
+    String(cardId),
+    currentStatus,
+    FavoritesTriggerUpdate.Offer
+  );
 
   return (
     <div className="page">
@@ -93,7 +101,7 @@ function OfferPage(): JSX.Element {
                   <h1 className="offer__name">
                     {offerActive.title}
                   </h1>
-                  <button className="offer__bookmark-button button" type="button">
+                  <button className="offer__bookmark-button button" type="button" onClick={onChangeFavorites}>
                     <svg className={`offer__bookmark-icon ${offerActive.isFavorite ? 'offer__bookmark-button--active' : ''}`} width={31} height={33}>
                       <use xlinkHref="#icon-bookmark" />
                     </svg>
@@ -178,7 +186,7 @@ function OfferPage(): JSX.Element {
             </h2>
             <div className="near-places__list places__list">
               {!nearbyOffersIsLoading && (
-                <GeneralCardList elementType={'offers'} offers = {activeNearbyOffers} setActivePlaceCard = {handleCardHover}/>
+                <GeneralCardList elementType='offers' offers = {activeNearbyOffers} setActivePlaceCard = {handleCardHover}/>
               )}
             </div>
           </section>
