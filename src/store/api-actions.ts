@@ -154,9 +154,14 @@ export const setFavoritesAction = createAsyncThunk<
       break;
     case FavoritesTriggerUpdate.Offer:
       dispatch(setFavoriteOffer(data.isFavorite));
+      dispatch(setFavoriteOffers(data));
+      dispatch(setFavoriteNearby(data));
       break;
     case FavoritesTriggerUpdate.Favorites:
       dispatch(fetchFavoritesAction());
+      dispatch(setFavoriteOffers(data));
+      dispatch(setFavoriteOffer(data.isFavorite));
+      dispatch(setFavoriteNearby(data));
       break;
     case FavoritesTriggerUpdate.Nearby:
       dispatch(setFavoriteNearby(data));

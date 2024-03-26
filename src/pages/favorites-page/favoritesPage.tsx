@@ -2,6 +2,7 @@ import Logo from '../../components/logo/logo';
 import Nav from '../../components/nav/nav';
 import GeneralCardList from '../../components/general-card-list/generalCardList';
 import {useAppSelector} from '../../hooks/index';
+import {useEffect} from 'react';
 import {
   getFavorites,
   getFavoritesIsLoading,
@@ -9,11 +10,17 @@ import {
 } from '../../store/favorites-process/selectors';
 import Spinner from '../../components/spinner/spinner';
 import FavoritesEmpty from '../../components/favorites-empty/favorites-empty';
+import {store} from '../../store';
+import {fetchFavoritesAction} from '../../store/api-actions';
 
 function FavoritesPage(): JSX.Element {
   const favoriteCards = useAppSelector(getFavorites);
   const favoritesIsLoading = useAppSelector(getFavoritesIsLoading);
   const favoritesIsNotFound = useAppSelector(getFavoritesIsNotFound);
+
+  useEffect(() => {
+    store.dispatch(fetchFavoritesAction());
+  }, []);
 
   return (
     <div className="page">
