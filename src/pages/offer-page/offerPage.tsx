@@ -1,6 +1,7 @@
 import {useParams, Navigate} from 'react-router-dom';
 import {AppRoute} from '../../const';
 import {useState, useEffect} from 'react';
+import {Helmet} from 'react-helmet-async';
 import {useAppSelector} from '../../hooks/index';
 import Logo from '../../components/logo/logo';
 import ReviewsList from '../../components/reviews-list/reviewsList';
@@ -53,6 +54,9 @@ function OfferPage(): JSX.Element {
 
   return (
     <div className="page">
+      <Helmet>
+        <title>Offer</title>
+      </Helmet>
       <header className="header">
         <div className="container">
           <div className="header__wrapper">

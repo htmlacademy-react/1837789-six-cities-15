@@ -2,6 +2,7 @@ import Logo from '../../components/logo/logo';
 import Nav from '../../components/nav/nav';
 import GeneralCardList from '../../components/general-card-list/generalCardList';
 import {useAppSelector} from '../../hooks/index';
+import {Helmet} from 'react-helmet-async';
 import {useEffect} from 'react';
 import {
   getFavorites,
@@ -24,6 +25,9 @@ function FavoritesPage(): JSX.Element {
 
   return (
     <div className="page">
+      <Helmet>
+        <title>Favorites</title>
+      </Helmet>
       <header className="header">
         <div className="container">
           <div className="header__wrapper">

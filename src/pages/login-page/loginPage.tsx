@@ -33,7 +33,7 @@ function LoginPage(): JSX.Element {
   return (
     <div className="page page--gray page--login">
       <Helmet>
-        <title>Шесть городов. Зарегистрируйся!</title>
+        <title>Six cities. Register!</title>
       </Helmet>
       <header className="header">
         <div className="container">
