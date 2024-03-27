@@ -52,7 +52,7 @@ function MainPage(): JSX.Element {
                   <b className="places__found">{placesCount} places to stay in {cityActive}</b>
                   <Sort />
                   <div className="cities__places-list places__list tabs__content">
-                    <GeneralCardList elementType={'cities'} offers = {offers} setActivePlaceCard = {setCardHoverId}/>
+                    <GeneralCardList elementType='cities' offers = {offers} setActivePlaceCard = {setCardHoverId}/>
                   </div>
                 </section>
                 <div className="cities__right-section">

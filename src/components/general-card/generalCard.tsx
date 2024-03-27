@@ -1,7 +1,6 @@
 import {Link} from 'react-router-dom';
 import {Offer} from '../../types/offer';
 import {Card} from '../../types/card';
-//import {useAppDispatch, useAppSelector} from '../../hooks';
 import {FavoritesTriggerUpdate} from '../../const';
 import {useFavorites} from '../../hooks/useFavorites';
 
@@ -17,23 +16,24 @@ function GeneralCard({elementType, setActivePlaceCard, offer}: GeneralCardProps)
       className: 'cities',
       width: '260',
       height: '200',
-      url: 'offer/'
+      url: 'offer/',
+      triggerUpdate: FavoritesTriggerUpdate.Offers
     },
     favorite: {
       className: 'favorites',
       width: '150',
       height: '110',
-      url: '/offer/'
+      url: '/offer/',
+      triggerUpdate: FavoritesTriggerUpdate.Favorites
     },
     offers: {
       className: 'near-places',
       width: '260',
       height: '200',
-      url: '/offer/'
+      url: '/offer/',
+      triggerUpdate: FavoritesTriggerUpdate.Nearby
     }
   };
-
-  const isNearby = options[elementType].className === 'near-places';
 
   function handleMouseEnter() {
     setActivePlaceCard?.(offer.id);
@@ -48,7 +48,7 @@ function GeneralCard({elementType, setActivePlaceCard, offer}: GeneralCardProps)
   const onChangeFavorites = useFavorites(
     String(offer.id),
     currentStatus,
-    isNearby ? FavoritesTriggerUpdate.Nearby : FavoritesTriggerUpdate.Offers
+    options[elementType].triggerUpdate
   );
 
   return (
@@ -75,7 +75,7 @@ function GeneralCard({elementType, setActivePlaceCard, offer}: GeneralCardProps)
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <button onClick={onChangeFavorites}
-            className={`place-card__bookmark-button ${offer.isFavorite ? 'place-card__bookmark-button--active' : ''} ${elementType === 'favorite' ? 'place-card__bookmark-button--active' : ''} button`}
+            className={`place-card__bookmark-button ${offer.isFavorite ? 'place-card__bookmark-button--active' : ''} button`}
             type="button"
           >
             <svg className="place-card__bookmark-icon" width="18" height="19">
