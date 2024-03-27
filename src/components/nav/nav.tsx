@@ -4,10 +4,12 @@ import {AuthorizationStatus, AppRoute, PRIVATE_ROUTES} from '../../const';
 import styles from './nav.module.css';
 import {logoutAction} from '../../store/api-actions';
 import {getAuthorizationStatus, getUser} from '../../store/user-process/selectors';
+import {getFavorites} from '../../store/favorites-process/selectors';
 
 function Nav(): JSX.Element {
   const authorizationStatusActive = useAppSelector(getAuthorizationStatus);
   const user = useAppSelector(getUser);
+  const favoriteCardsLength = useAppSelector(getFavorites).length;
   const isLogged = authorizationStatusActive === AuthorizationStatus.Auth;
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -37,7 +39,7 @@ function Nav(): JSX.Element {
               <span className="header__user-name user__name">
                 {user?.email}
               </span>
-              <span className="header__favorite-count">3</span>
+              <span className="header__favorite-count">{favoriteCardsLength}</span>
             </NavLink>
           </li>
           <li className={`header__nav-link ${styles.resetStyleButton}`}>
