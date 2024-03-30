@@ -1,5 +1,11 @@
+import {Offers} from './offer';
 export type Location = {
   latitude: number;
   longitude: number;
   zoom: number;
+};
+
+export type LocationItems = {
+  city: string;
+  list: Offers;
 };

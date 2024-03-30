@@ -17,7 +17,7 @@ function NotFoundPage(): JSX.Element {
   return (
     <div className="page page--gray page--login">
       <Helmet>
-        <title>Шесть городов. Страница не найдена.</title>
+        <title>Six cities. Page not found.</title>
       </Helmet>
       <header className="header">
         <div className="container">
@@ -34,7 +34,7 @@ function NotFoundPage(): JSX.Element {
             <h1 className="login__title">
               404. Page not found
             </h1>
-            <Link to="/">Вернуться на главную</Link>
+            <Link to="/">Go back to the main page.</Link>
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">

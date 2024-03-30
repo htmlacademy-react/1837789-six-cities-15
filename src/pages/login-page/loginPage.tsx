@@ -3,7 +3,7 @@ import {Helmet} from 'react-helmet-async';
 import {useRef, FormEvent} from 'react';
 import {useAppDispatch} from '../../hooks';
 import {loginAction} from '../../store/api-actions';
-import {setCityActive, setChangeMap} from '../../store/offers-process/offers-process';
+import {setCityActive, setChangeMap, setOffers} from '../../store/offers-process/offers-process';
 import Logo from '../../components/logo/logo';
 import {AppRoute} from '../../const';
 
@@ -15,6 +15,7 @@ function LoginPage(): JSX.Element {
 
   function onCityButton (city:string) {
     dispatch(setCityActive(city));
+    dispatch(setOffers());
     dispatch(setChangeMap());
   }
 
@@ -33,7 +34,7 @@ function LoginPage(): JSX.Element {
   return (
     <div className="page page--gray page--login">
       <Helmet>
-        <title>Шесть городов. Зарегистрируйся!</title>
+        <title>Six cities. Register!</title>
       </Helmet>
       <header className="header">
         <div className="container">

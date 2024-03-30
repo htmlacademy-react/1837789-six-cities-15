@@ -1,7 +1,9 @@
 import Logo from '../../components/logo/logo';
 import Nav from '../../components/nav/nav';
-import GeneralCardList from '../../components/general-card-list/generalCardList';
+import FavoritesCardList from '../../components/favorites-card-list/FavoritesCardList';
 import {useAppSelector} from '../../hooks/index';
+import {Helmet} from 'react-helmet-async';
+import {useEffect} from 'react';
 import {
   getFavorites,
   getFavoritesIsLoading,
@@ -9,14 +11,27 @@ import {
 } from '../../store/favorites-process/selectors';
 import Spinner from '../../components/spinner/spinner';
 import FavoritesEmpty from '../../components/favorites-empty/favorites-empty';
+import {store} from '../../store';
+import {fetchFavoritesAction} from '../../store/api-actions';
+import {groupByCityOffers} from '../../utils/groupByCityOffers';
 
 function FavoritesPage(): JSX.Element {
   const favoriteCards = useAppSelector(getFavorites);
   const favoritesIsLoading = useAppSelector(getFavoritesIsLoading);
   const favoritesIsNotFound = useAppSelector(getFavoritesIsNotFound);
 
+  const groupedFavorites =
+  favoriteCards.length > 0 ? groupByCityOffers(favoriteCards) : [];
+
+  useEffect(() => {
+    store.dispatch(fetchFavoritesAction());
+  }, []);
+
   return (
     <div className="page">
+      <Helmet>
+        <title>Favorites</title>
+      </Helmet>
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
@@ -36,7 +51,9 @@ function FavoritesPage(): JSX.Element {
             <section className="favorites">
               <h1 className="favorites__title">Saved listing</h1>
               <ul className="favorites__list">
-                <GeneralCardList elementType={'favorite'} offers = {favoriteCards}/>
+                {groupedFavorites.map(({city, list}) => (
+                  <FavoritesCardList city={city} list={list} key={city} elementType='favorite' />
+                ))}
               </ul>
             </section>
           )}

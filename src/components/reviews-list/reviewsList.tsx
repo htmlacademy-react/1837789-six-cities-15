@@ -5,6 +5,7 @@ import {useAppSelector} from '../../hooks';
 import {AuthorizationStatus} from '../../const';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
 
+
 type ReviewsListProps = {
   reviews: Reviews;
   offerId?: string;
@@ -21,7 +22,7 @@ function ReviewsList({reviews, offerId}: ReviewsListProps): JSX.Element {
     <section className="offer__reviews reviews">
       <div>
         <h2 className="reviews__title">
-          Reviews · <span className="reviews__amount">{maxReviews.length}</span>
+          Reviews · <span className="reviews__amount">{reviews.length}</span>
         </h2>
         {maxReviews.map((review) => {
           const keyValue = review.id;

@@ -1,6 +1,7 @@
 import {useState, ChangeEvent, Fragment, FormEvent} from 'react';
-import {useAppDispatch} from '../../hooks/index';
+import {useAppDispatch, useAppSelector} from '../../hooks/index';
 import {submitReviewAction} from '../../store/api-actions';
+import {getReviewsIsLoading, getReviewsIsNotSubmit} from '../../store/reviews-process/selectors';
 
 type FormProps = {
   offerId?: string;
@@ -16,10 +17,12 @@ function Form({offerId}: FormProps): JSX.Element {
   };
 
   const dispatch = useAppDispatch();
+  const reviewsIsNotSubmit = useAppSelector(getReviewsIsNotSubmit);
+  const ReviewsIsLoading = useAppSelector(getReviewsIsLoading);
   const [comment, setComment] = useState('');
   const [rating, setRating] = useState('0');
 
-  const isDisabled = (comment.length < 50 || comment.length > 300 || rating === null);
+  const isDisabled = ((comment.length < 50 || comment.length > 300) || rating === '0' || ReviewsIsLoading);
 
   function handleInputChange(evt: ChangeEvent<HTMLInputElement>) {
     setRating(evt.target.value);
@@ -45,7 +48,8 @@ function Form({offerId}: FormProps): JSX.Element {
           rating: Number(rating),
         })
       );
-
+    }
+    if (!reviewsIsNotSubmit) {
       resetForm();
     }
   };
