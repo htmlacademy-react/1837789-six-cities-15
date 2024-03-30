@@ -3,11 +3,11 @@ import {UserConnect} from '../../types/user';
 import {getAuthorizationStatus} from '../user-process/selectors';
 
 const makeFakeUserData = (): UserConnect => ({
-  name: '',
+  name: '1',
   isPro: true,
-  avatarUrl: '',
+  avatarUrl: '2',
   email: 'test@mail.com',
-  token: '',
+  token: '3',
 });
 
 const fakeUser = makeFakeUserData();
