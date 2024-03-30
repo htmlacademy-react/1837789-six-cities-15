@@ -96,7 +96,7 @@ function OfferPage(): JSX.Element {
                 <OfferNameWrapper cardId = {cardId} offerActive = {offerActive} />
                 <div className="offer__rating rating">
                   <div className="offer__stars rating__stars">
-                    <span style={{ width: '80%' }} />
+                    <span style={{width: `${Math.round(offerActive.rating) * 20}%`}} />
                     <span className="visually-hidden">Rating</span>
                   </div>
                   <span className="offer__rating-value rating__value">{offerActive.rating}</span>
@@ -148,14 +148,7 @@ function OfferPage(): JSX.Element {
                   </div>
                   <div className="offer__description">
                     <p className="offer__text">
-                      A quiet cozy and picturesque that hides behind a a river by the
-                      unique lightness of Amsterdam. The building is green and from
-                      18th century.
-                    </p>
-                    <p className="offer__text">
-                      An independent House, strategically located between Rembrand
-                      Square and National Opera, but where the bustle of the city
-                      comes to rest in this alley flowery and colorful.
+                      {offerActive.description}
                     </p>
                   </div>
                 </div>

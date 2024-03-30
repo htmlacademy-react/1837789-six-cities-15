@@ -1,7 +1,8 @@
 import {useAppDispatch, useAppSelector} from '../../hooks/index';
-import {citiesList} from '../../const';
+import {citiesList, AppRoute} from '../../const';
 import {getCityActive} from '../../store/offers-process/selectors';
 import {setCityActive, setOffers, setChangeMap} from '../../store/offers-process/offers-process';
+import {Link} from 'react-router-dom';
 
 function LocationsList(): JSX.Element {
   const cityActive = useAppSelector(getCityActive);
@@ -22,11 +23,11 @@ function LocationsList(): JSX.Element {
             const keyValue = city;
             return (
               <li key = {keyValue} className="locations__item">
-                <a className={`locations__item-link tabs__item ${city === cityActive ? 'tabs__item--active' : ''}`}
-                  onClick={() => changeCity(city)} href="#"
+                <Link className={`locations__item-link tabs__item ${city === cityActive ? 'tabs__item--active' : ''}`}
+                  onClick={() => changeCity(city)} to={AppRoute.Main}
                 >
                   <span>{city}</span>
-                </a>
+                </Link>
               </li>
             );
           })}

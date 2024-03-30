@@ -49,7 +49,7 @@ function MainPage(): JSX.Element {
               <div className="cities__places-container container">
                 <section className="cities__places places">
                   <h2 className="visually-hidden">Places</h2>
-                  <b className="places__found">{placesCount} places to stay in {cityActive}</b>
+                  <b className="places__found">{placesCount} {placesCount === 1 ? 'place' : 'places'} to stay in {cityActive}</b>
                   <Sort />
                   <div className="cities__places-list places__list tabs__content">
                     <GeneralCardList elementType='cities' offers = {offers} setActivePlaceCard = {setCardHoverId}/>
