@@ -1,34 +1,26 @@
 import Logo from '../../components/logo/logo';
 import Nav from '../../components/nav/nav';
-import FavoritesCardList from '../../components/favorites-card-list/FavoritesCardList';
-import {useAppSelector} from '../../hooks/index';
+import {useAppSelector, useAppDispatch} from '../../hooks/index';
 import {Helmet} from 'react-helmet-async';
 import {useEffect} from 'react';
 import {
-  getFavorites,
-  getFavoritesIsLoading,
-  getFavoritesIsNotFound,
+  getFavoritesLength,
 } from '../../store/favorites-process/selectors';
-import Spinner from '../../components/spinner/spinner';
 import FavoritesEmpty from '../../components/favorites-empty/favorites-empty';
+import Favorites from '../../components/favorites/favorites';
 import {store} from '../../store';
 import {fetchFavoritesAction} from '../../store/api-actions';
-import {groupByCityOffers} from '../../utils/groupByCityOffers';
 
 function FavoritesPage(): JSX.Element {
-  const favoriteCards = useAppSelector(getFavorites);
-  const favoritesIsLoading = useAppSelector(getFavoritesIsLoading);
-  const favoritesIsNotFound = useAppSelector(getFavoritesIsNotFound);
-
-  const groupedFavorites =
-  favoriteCards.length > 0 ? groupByCityOffers(favoriteCards) : [];
+  const isFavoritesEmpty = !useAppSelector(getFavoritesLength);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     store.dispatch(fetchFavoritesAction());
-  }, []);
+  }, [dispatch]);
 
   return (
-    <div className="page">
+    <div className="page page--favorites-empty">
       <Helmet>
         <title>Favorites</title>
       </Helmet>
@@ -42,33 +34,12 @@ function FavoritesPage(): JSX.Element {
           </div>
         </div>
       </header>
-      <main className="page__main page__main--favorites">
-        <div className="page__favorites-container container">
-          {favoritesIsLoading && <Spinner />}
-          {(favoritesIsNotFound || !favoriteCards.length) ? (
-            <FavoritesEmpty />
-          ) : (
-            <section className="favorites">
-              <h1 className="favorites__title">Saved listing</h1>
-              <ul className="favorites__list">
-                {groupedFavorites.map(({city, list}) => (
-                  <FavoritesCardList city={city} list={list} key={city} elementType='favorite' />
-                ))}
-              </ul>
-            </section>
-          )}
-        </div>
-      </main>
+
+      {!isFavoritesEmpty && <Favorites />}
+      {isFavoritesEmpty && <FavoritesEmpty />}
+
       <footer className="footer container">
-        <a className="footer__logo-link" href="main.html">
-          <img
-            className="footer__logo"
-            src="img/logo.svg"
-            alt="6 cities logo"
-            width={64}
-            height={33}
-          />
-        </a>
+        <Logo/>
       </footer>
     </div>
   );

@@ -4,7 +4,11 @@ import {Offers} from '../../types/offer';
 
 export const getFavorites = (state: State): Offers =>
   state[NameSpace.Favorites].favorites;
+
 export const getFavoritesIsLoading = (state: State): boolean =>
   state[NameSpace.Favorites].favoritesIsLoading;
+
 export const getFavoritesIsNotFound = (state: State): boolean =>
   state[NameSpace.Favorites].favoritesIsNotFound;
+
+export const getFavoritesLength = (state: State): number => state[NameSpace.Favorites].favorites.length;

@@ -4,12 +4,12 @@ import {AuthorizationStatus, AppRoute, PRIVATE_ROUTES} from '../../const';
 import styles from './nav.module.css';
 import {logoutAction} from '../../store/api-actions';
 import {getAuthorizationStatus, getUser} from '../../store/user-process/selectors';
-import {getFavorites} from '../../store/favorites-process/selectors';
+import {getFavoritesLength} from '../../store/favorites-process/selectors';
 
 function Nav(): JSX.Element {
   const authorizationStatusActive = useAppSelector(getAuthorizationStatus);
   const user = useAppSelector(getUser);
-  const favoriteCardsLength = useAppSelector(getFavorites).length;
+  const favoriteCardsLength = useAppSelector(getFavoritesLength);
   const isLogged = authorizationStatusActive === AuthorizationStatus.Auth;
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
