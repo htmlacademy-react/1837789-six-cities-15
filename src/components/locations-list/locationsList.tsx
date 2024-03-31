@@ -1,11 +1,13 @@
-import {useAppDispatch, useAppSelector} from '../../hooks/index';
+import {useAppDispatch} from '../../hooks/index';
 import {citiesList, AppRoute} from '../../const';
-import {getCityActive} from '../../store/offers-process/selectors';
 import {setCityActive, setOffers, setChangeMap} from '../../store/offers-process/offers-process';
 import {Link} from 'react-router-dom';
 
-function LocationsList(): JSX.Element {
-  const cityActive = useAppSelector(getCityActive);
+type LocationsListProps = {
+  cityActive: string;
+}
+
+function LocationsList({cityActive}: LocationsListProps): JSX.Element {
   const dispatch = useAppDispatch();
 
   function changeCity (city: string) {

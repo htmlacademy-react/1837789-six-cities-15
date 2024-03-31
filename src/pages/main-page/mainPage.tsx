@@ -19,12 +19,20 @@ function MainPage(): JSX.Element {
   const offers = useAppSelector(getOffers);
   const cityMapActive = useAppSelector(getCity);
   const placesCount = offers.length;
-
   const offersIsLoading = useAppSelector(getOffersIsLoading);
   const offersIsNotFound = useAppSelector(getOffersIsNotFound);
+  const isEmpty = offersIsNotFound || !placesCount;
+
+  if(offersIsLoading) {
+    return (<Spinner />);
+  }
+
+  if(offersIsNotFound) {
+    return (<Navigate to={AppRoute.NotFound} />);
+  }
 
   return (
-    <div className="page page--gray page--main">
+    <div className={`page page--gray page--main ${isEmpty ? 'page__main--index-empty' : ''}`}>
       <Helmet>
         <title>Main</title>
       </Helmet>
@@ -40,9 +48,7 @@ function MainPage(): JSX.Element {
       </header>
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
-        <LocationsList />
-        {offersIsLoading && <Spinner />}
-        {offersIsNotFound && <Navigate to={AppRoute.NotFound} />}
+        <LocationsList cityActive = {cityActive} />
         {!offersIsLoading && (
           <div className="cities">
             {placesCount ? (

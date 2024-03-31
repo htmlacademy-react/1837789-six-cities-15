@@ -8,7 +8,7 @@ import ReviewsList from '../../components/reviews-list/reviewsList';
 import Map from '../../components/map/map.tsx';
 import GeneralCardList from '../../components/general-card-list/generalCardList';
 import Nav from '../../components/nav/nav';
-import {fetchOfferAction, fetchReviewsAction, fetchOffersNearbyAction, fetchFavoritesAction} from '../../store/api-actions';
+import {fetchOfferAction, fetchReviewsAction, fetchOffersNearbyAction} from '../../store/api-actions';
 import Spinner from '../../components/spinner/spinner';
 import {store} from '../../store';
 import {getCity} from '../../store/offers-process/selectors';
@@ -30,7 +30,6 @@ function OfferPage(): JSX.Element {
     store.dispatch(fetchOfferAction(cardId));
     store.dispatch(fetchReviewsAction(cardId));
     store.dispatch(fetchOffersNearbyAction(cardId));
-    store.dispatch(fetchFavoritesAction());
   }, [cardId]);
 
 
