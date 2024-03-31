@@ -2,6 +2,7 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {NameSpace} from '../../const';
 import {ReviewsProcess} from '../../types/state';
 import {fetchReviewsAction, submitReviewAction} from '../api-actions';
+import {reviewsSorting} from '../../utils/offersSorting';
 
 const initialState: ReviewsProcess = {
   reviews: [],
@@ -17,6 +18,7 @@ export const reviews = createSlice({
     setIsNotSubmit(state, action: PayloadAction<boolean>) {
       state.reviewsIsNotSubmit = action.payload;
     },
+
   },
   extraReducers(builder) {
     builder
@@ -29,7 +31,7 @@ export const reviews = createSlice({
         const reviewsData = action.payload;
 
         if (reviewsData.length > 0) {
-          state.reviews = reviewsData;
+          state.reviews = reviewsSorting(reviewsData);
         }
 
         state.reviewsIsLoading = false;
@@ -49,12 +51,12 @@ export const reviews = createSlice({
         const newReview = action.payload;
 
         state.reviews.push(newReview);
+        state.reviews = reviewsSorting(state.reviews);
         state.reviewsIsLoading = false;
       })
 
       .addCase(submitReviewAction.rejected, (state) => {
         state.reviewsIsLoading = false;
-        state.reviewsIsNotFound = true;
       });
   },
 });

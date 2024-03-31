@@ -15,8 +15,7 @@ function ReviewsList({reviews, offerId}: ReviewsListProps): JSX.Element {
   const DEFAULT_BEGIN = 0;
   const MAX_REVIEWS_LENGTH = 10;
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
-  const maxReviews = reviews.slice(DEFAULT_BEGIN, Math.min(MAX_REVIEWS_LENGTH, reviews.length))
-    .sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
+  const maxReviews = reviews.slice(DEFAULT_BEGIN, Math.min(MAX_REVIEWS_LENGTH, reviews.length));
 
   return (
     <section className="offer__reviews reviews">

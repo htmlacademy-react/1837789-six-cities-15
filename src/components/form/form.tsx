@@ -1,6 +1,6 @@
 import {useState, ChangeEvent, Fragment, FormEvent} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks/index';
-import {submitReviewAction} from '../../store/api-actions';
+import {submitReviewAction, fetchReviewsAction} from '../../store/api-actions';
 import {getReviewsIsLoading, getReviewsIsNotSubmit} from '../../store/reviews-process/selectors';
 
 type FormProps = {
@@ -17,8 +17,8 @@ function Form({offerId}: FormProps): JSX.Element {
   };
 
   const dispatch = useAppDispatch();
-  const reviewsIsNotSubmit = useAppSelector(getReviewsIsNotSubmit);
   const ReviewsIsLoading = useAppSelector(getReviewsIsLoading);
+  const reviewsIsNotSubmit = useAppSelector(getReviewsIsNotSubmit);
   const [comment, setComment] = useState('');
   const [rating, setRating] = useState('0');
 
@@ -48,8 +48,9 @@ function Form({offerId}: FormProps): JSX.Element {
           rating: Number(rating),
         })
       );
+      dispatch(fetchReviewsAction());
     }
-    if (!reviewsIsNotSubmit) {
+    if (!(reviewsIsNotSubmit || isDisabled)) {
       resetForm();
     }
   };
@@ -73,6 +74,7 @@ function Form({offerId}: FormProps): JSX.Element {
                 type="radio"
                 checked={rating === score}
                 onChange={handleInputChange}
+                disabled = {ReviewsIsLoading}
               />
               <label
                 htmlFor={`${score}-stars`}
@@ -94,6 +96,7 @@ function Form({offerId}: FormProps): JSX.Element {
         placeholder="Tell how was your stay, what you like and what can be improved"
         value={comment}
         onChange={handleTextAreaChange}
+        disabled = {ReviewsIsLoading}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">

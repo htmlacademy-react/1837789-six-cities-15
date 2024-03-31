@@ -2,7 +2,7 @@ import {useParams, Navigate} from 'react-router-dom';
 import {AppRoute, handleStars} from '../../const';
 import {useState, useEffect} from 'react';
 import {Helmet} from 'react-helmet-async';
-import {useAppSelector} from '../../hooks/index';
+import {useAppSelector, useAppDispatch} from '../../hooks/index';
 import Logo from '../../components/logo/logo';
 import ReviewsList from '../../components/reviews-list/reviewsList';
 import Map from '../../components/map/map.tsx';
@@ -25,12 +25,13 @@ function OfferPage(): JSX.Element {
   const cityMapActive = useAppSelector(getCity);
   const params = useParams();
   const cardId = params.id;
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    store.dispatch(fetchOfferAction(cardId));
-    store.dispatch(fetchReviewsAction(cardId));
-    store.dispatch(fetchOffersNearbyAction(cardId));
-  }, [cardId]);
+    dispatch(fetchOfferAction(cardId));
+    dispatch(fetchReviewsAction(cardId));
+    dispatch(fetchOffersNearbyAction(cardId));
+  }, [cardId, dispatch]);
 
 
   const offerActive = useAppSelector(getOffer);
