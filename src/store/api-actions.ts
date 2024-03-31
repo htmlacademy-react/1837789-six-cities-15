@@ -6,7 +6,7 @@ import {Reviews, Review} from '../types/review';
 import {CommentData} from '../types/comments';
 import {redirectToRoute} from './action';
 import {saveToken, dropToken} from '../services/token';
-import {ApiRoute, AppRoute, FavoritesTriggerUpdate} from '../const';
+import {ApiRoute, AppRoute} from '../const';
 import {AuthData} from '../types/auth-data';
 import {UserConnect} from '../types/user';
 import {FavoriteData} from '../types/favorites';
@@ -160,26 +160,10 @@ export const setFavoritesAction = createAsyncThunk<
   const {data} = await api.post<Offer>(
     `${ApiRoute.Favorite}/${favoriteParams.offerId}/${favoriteParams.status}`
   );
-
-  switch (favoriteParams.triggerUpdate) {
-    case FavoritesTriggerUpdate.Offers:
-      dispatch(setFavoriteOffers(data));
-      break;
-    case FavoritesTriggerUpdate.Offer:
-      dispatch(setFavoriteOffer(data.isFavorite));
-      dispatch(setFavoriteOffers(data));
-      dispatch(setFavoriteNearby(data));
-      break;
-    case FavoritesTriggerUpdate.Favorites:
-      dispatch(fetchFavoritesAction());
-      dispatch(setFavoriteOffers(data));
-      dispatch(setFavoriteOffer(data.isFavorite));
-      dispatch(setFavoriteNearby(data));
-      break;
-    case FavoritesTriggerUpdate.Nearby:
-      dispatch(setFavoriteNearby(data));
-      break;
-  }
+  dispatch(fetchFavoritesAction());
+  dispatch(setFavoriteOffers(data));
+  dispatch(setFavoriteOffer(data.isFavorite));
+  dispatch(setFavoriteNearby(data));
 
   return data;
 }

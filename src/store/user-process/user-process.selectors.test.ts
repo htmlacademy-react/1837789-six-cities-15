@@ -23,7 +23,7 @@ describe('selector: getAuthorizationStatus', () => {
   it('should return auth status from state', () => {
     const result = getAuthorizationStatus(state);
 
-    expect(result).toEqual(AuthorizationStatus.NoAuth);
+    expect(result).toBe('NO_AUTH');
   });
 });
 

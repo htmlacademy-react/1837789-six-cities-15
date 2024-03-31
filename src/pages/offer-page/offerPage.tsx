@@ -1,5 +1,5 @@
 import {useParams, Navigate} from 'react-router-dom';
-import {AppRoute} from '../../const';
+import {AppRoute, handleStars} from '../../const';
 import {useState, useEffect} from 'react';
 import {Helmet} from 'react-helmet-async';
 import {useAppSelector} from '../../hooks/index';
@@ -8,14 +8,14 @@ import ReviewsList from '../../components/reviews-list/reviewsList';
 import Map from '../../components/map/map.tsx';
 import GeneralCardList from '../../components/general-card-list/generalCardList';
 import Nav from '../../components/nav/nav';
-import {fetchOfferAction, fetchReviewsAction, fetchOffersNearbyAction} from '../../store/api-actions';
+import {fetchOfferAction, fetchReviewsAction, fetchOffersNearbyAction, fetchFavoritesAction} from '../../store/api-actions';
 import Spinner from '../../components/spinner/spinner';
 import {store} from '../../store';
 import {getCity} from '../../store/offers-process/selectors';
 import {getOffer, getOfferIsLoading, getOfferIsNotFound} from '../../store/offer-process/selectors';
 import {getReviews} from '../../store/reviews-process/selectors';
 import {getOffersNearby, getOffersNearbyIsLoading} from '../../store/offers-nearby-process/selectors';
-import OfferNameWrapper from '../../components/offer/offer.tsx';
+import OfferNameWrapper from '../../components/offer-name-wrapper/offerNameWrapper.tsx';
 
 const DEFAULT_BEGIN = 0;
 const MAX_IMAGES_SHOW = 6;
@@ -30,6 +30,7 @@ function OfferPage(): JSX.Element {
     store.dispatch(fetchOfferAction(cardId));
     store.dispatch(fetchReviewsAction(cardId));
     store.dispatch(fetchOffersNearbyAction(cardId));
+    store.dispatch(fetchFavoritesAction());
   }, [cardId]);
 
 
@@ -52,6 +53,14 @@ function OfferPage(): JSX.Element {
     generalOffers.unshift(offerActive);
   }
 
+  if(offerIsLoading) {
+    return (<Spinner />);
+  }
+
+  if(offerIsNotFound) {
+    return (<Navigate to={AppRoute.NotFound} />);
+  }
+
   return (
     <div className="page">
       <Helmet>
@@ -68,8 +77,6 @@ function OfferPage(): JSX.Element {
         </div>
       </header>
       <main className="page__main page__main--offer">
-        {offerIsLoading && <Spinner />}
-        {offerIsNotFound && <Navigate to={AppRoute.NotFound} />}
         {offerActive && !offerIsNotFound && !offerIsLoading && (
           <section className="offer">
             <div className="offer__gallery-container container">
@@ -96,7 +103,7 @@ function OfferPage(): JSX.Element {
                 <OfferNameWrapper cardId = {cardId} offerActive = {offerActive} />
                 <div className="offer__rating rating">
                   <div className="offer__stars rating__stars">
-                    <span style={{width: `${Math.round(offerActive.rating) * 20}%`}} />
+                    <span style={{width: `${handleStars(offerActive.rating)}`}} />
                     <span className="visually-hidden">Rating</span>
                   </div>
                   <span className="offer__rating-value rating__value">{offerActive.rating}</span>
