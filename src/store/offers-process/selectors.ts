@@ -16,7 +16,7 @@ export const getOffersIsNotFound = (state: State): boolean =>
 export const getCityActive = (state: State): string =>
   state[NameSpace.Offers].cityActive;
 
-export const getCity = (state: State): City =>
+export const getCity = (state: Pick<State, NameSpace.Offers>): City =>
   state[NameSpace.Offers].city;
 
 export const getSortType = (state: State): SortType =>

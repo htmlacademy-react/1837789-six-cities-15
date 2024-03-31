@@ -1,5 +1,4 @@
 import {useFavorites} from '../../hooks/useFavorites';
-import {FavoritesTriggerUpdate} from '../../const';
 import {Offer} from '../../types/offer';
 
 type OfferNameWrapperProps = {
@@ -12,7 +11,6 @@ function OfferNameWrapper({cardId, offerActive}: OfferNameWrapperProps): JSX.Ele
   const onChangeFavorites = useFavorites(
     String(cardId),
     currentStatus,
-    FavoritesTriggerUpdate.Offer
   );
 
   return (

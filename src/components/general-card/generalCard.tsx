@@ -1,7 +1,7 @@
 import {Link} from 'react-router-dom';
 import {Offer} from '../../types/offer';
 import {Card} from '../../types/card';
-import {FavoritesTriggerUpdate} from '../../const';
+import {handleStars} from '../../const';
 import {useFavorites} from '../../hooks/useFavorites';
 
 type GeneralCardProps = {
@@ -17,21 +17,18 @@ function GeneralCard({elementType, setActivePlaceCard, offer}: GeneralCardProps)
       width: '260',
       height: '200',
       url: 'offer/',
-      triggerUpdate: FavoritesTriggerUpdate.Offers
     },
     favorite: {
       className: 'favorites',
       width: '150',
       height: '110',
       url: '/offer/',
-      triggerUpdate: FavoritesTriggerUpdate.Favorites
     },
     offers: {
       className: 'near-places',
       width: '260',
       height: '200',
       url: '/offer/',
-      triggerUpdate: FavoritesTriggerUpdate.Nearby
     }
   };
 
@@ -47,8 +44,7 @@ function GeneralCard({elementType, setActivePlaceCard, offer}: GeneralCardProps)
 
   const onChangeFavorites = useFavorites(
     String(offer.id),
-    currentStatus,
-    options[elementType].triggerUpdate
+    currentStatus
   );
 
   return (
@@ -86,7 +82,7 @@ function GeneralCard({elementType, setActivePlaceCard, offer}: GeneralCardProps)
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: `${offer.rating / 5 * 100}%` }}></span>
+            <span style={{width: `${handleStars(offer.rating)}`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

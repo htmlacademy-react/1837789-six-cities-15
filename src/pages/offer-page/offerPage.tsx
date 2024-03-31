@@ -1,5 +1,5 @@
 import {useParams, Navigate} from 'react-router-dom';
-import {AppRoute} from '../../const';
+import {AppRoute, handleStars} from '../../const';
 import {useState, useEffect} from 'react';
 import {Helmet} from 'react-helmet-async';
 import {useAppSelector} from '../../hooks/index';
@@ -15,7 +15,7 @@ import {getCity} from '../../store/offers-process/selectors';
 import {getOffer, getOfferIsLoading, getOfferIsNotFound} from '../../store/offer-process/selectors';
 import {getReviews} from '../../store/reviews-process/selectors';
 import {getOffersNearby, getOffersNearbyIsLoading} from '../../store/offers-nearby-process/selectors';
-import OfferNameWrapper from '../../components/offer/offer.tsx';
+import OfferNameWrapper from '../../components/offer-name-wrapper/offerNameWrapper.tsx';
 
 const DEFAULT_BEGIN = 0;
 const MAX_IMAGES_SHOW = 6;
@@ -52,6 +52,14 @@ function OfferPage(): JSX.Element {
     generalOffers.unshift(offerActive);
   }
 
+  if(offerIsLoading) {
+    return (<Spinner />);
+  }
+
+  if(offerIsNotFound) {
+    return (<Navigate to={AppRoute.NotFound} />);
+  }
+
   return (
     <div className="page">
       <Helmet>
@@ -68,8 +76,6 @@ function OfferPage(): JSX.Element {
         </div>
       </header>
       <main className="page__main page__main--offer">
-        {offerIsLoading && <Spinner />}
-        {offerIsNotFound && <Navigate to={AppRoute.NotFound} />}
         {offerActive && !offerIsNotFound && !offerIsLoading && (
           <section className="offer">
             <div className="offer__gallery-container container">
@@ -96,7 +102,7 @@ function OfferPage(): JSX.Element {
                 <OfferNameWrapper cardId = {cardId} offerActive = {offerActive} />
                 <div className="offer__rating rating">
                   <div className="offer__stars rating__stars">
-                    <span style={{ width: '80%' }} />
+                    <span style={{width: `${handleStars(offerActive.rating)}`}} />
                     <span className="visually-hidden">Rating</span>
                   </div>
                   <span className="offer__rating-value rating__value">{offerActive.rating}</span>
@@ -148,14 +154,7 @@ function OfferPage(): JSX.Element {
                   </div>
                   <div className="offer__description">
                     <p className="offer__text">
-                      A quiet cozy and picturesque that hides behind a a river by the
-                      unique lightness of Amsterdam. The building is green and from
-                      18th century.
-                    </p>
-                    <p className="offer__text">
-                      An independent House, strategically located between Rembrand
-                      Square and National Opera, but where the bustle of the city
-                      comes to rest in this alley flowery and colorful.
+                      {offerActive.description}
                     </p>
                   </div>
                 </div>

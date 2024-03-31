@@ -5,13 +5,14 @@ import {useAppDispatch} from '../../hooks';
 import {loginAction} from '../../store/api-actions';
 import {setCityActive, setChangeMap, setOffers} from '../../store/offers-process/offers-process';
 import Logo from '../../components/logo/logo';
-import {AppRoute} from '../../const';
+import {AppRoute, citiesList, getRandomInteger} from '../../const';
 
 function LoginPage(): JSX.Element {
-  const cityButton = 'Amsterdam';
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
   const dispatch = useAppDispatch();
+
+  const cityButton = citiesList[getRandomInteger(0, citiesList.length - 1)];
 
   function onCityButton (city:string) {
     dispatch(setCityActive(city));

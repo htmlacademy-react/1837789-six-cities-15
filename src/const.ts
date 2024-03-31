@@ -22,7 +22,7 @@ export const URL_MARKER_DEFAULT =
 export const URL_MARKER_CURRENT =
   'img/pin-active.svg';
 
-export const handleStars = (width: number) => `${String(Math.round(width) * 20)}%`;
+export const handleStars = (rating: number): string => `${(Math.round(rating) * 100 / 5)}%`;
 
 export const DEFAULT_LOCATION: City = {
   name: 'Paris',
@@ -81,3 +81,11 @@ export enum FavoritesTriggerUpdate {
   Favorites = 'UpdateFavorites',
   Nearby = 'UpdateNearby',
 }
+
+export const getRandomInteger = (a: number, b: number): number => {
+  const lower = Math.ceil(Math.min(a, b));
+  const upper = Math.floor(Math.max(a, b));
+  const result = Math.random() * (upper - lower + 1) + lower;
+
+  return Math.floor(result);
+};
