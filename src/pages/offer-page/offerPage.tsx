@@ -10,7 +10,6 @@ import GeneralCardList from '../../components/general-card-list/generalCardList'
 import Nav from '../../components/nav/nav';
 import {fetchOfferAction, fetchReviewsAction, fetchOffersNearbyAction} from '../../store/api-actions';
 import Spinner from '../../components/spinner/spinner';
-import {store} from '../../store';
 import {getCity} from '../../store/offers-process/selectors';
 import {getOffer, getOfferIsLoading, getOfferIsNotFound} from '../../store/offer-process/selectors';
 import {getReviews} from '../../store/reviews-process/selectors';
