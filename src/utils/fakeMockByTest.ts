@@ -3,10 +3,12 @@ import {
   datatype,
   image,
   internet,
+  date,
   lorem,
 } from 'faker';
 
 import {Offer, Offers} from '../types/offer';
+import {Review, Reviews} from '../types/review';
 import {UserConnect, User} from '../types/user';
 import {Location} from '../types/location';
 import {City, CityName} from '../types/city';
@@ -69,9 +71,22 @@ const makeFakeNearbyPlaces = (): Offers =>
 const makeFakeOffers = (): Offers =>
   Array.from({ length: 12 }, makeFakeOffer);
 
+const makeFakeReview = (): Review => ({
+  id: datatype.string(),
+  user: makeFakeUser(),
+  rating: datatype.number({ min: 1, max: 5, precision: 0.1 }),
+  comment: lorem.sentence(),
+  date: String(date.recent()),
+});
+
+const makeFakeReviews = (): Reviews =>
+  Array.from({ length: 5 }, makeFakeReview);
+
 export {makeFakeUserData,
   makeFakeOffer,
   makeFakeUserRegistrationData,
   makeFakeNearbyPlaces,
   makeFakeOffers,
-  makeFakeCity};
+  makeFakeCity,
+  makeFakeReview,
+  makeFakeReviews};
