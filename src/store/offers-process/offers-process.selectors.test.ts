@@ -1,5 +1,5 @@
 import {makeFakeOffers, makeFakeCity} from '../../utils/fakeMockByTest';
-import {NameSpace, DEFAULT_LOCATION} from '../../const';
+import {NameSpace} from '../../const';
 import {OffersProcess} from '../../types/state';
 import {address} from 'faker/locale/en';
 import {CityName} from '../../types/city';
