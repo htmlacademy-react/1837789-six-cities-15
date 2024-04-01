@@ -6,7 +6,7 @@ import {
   lorem,
 } from 'faker';
 
-import {Offer} from '../types/offer';
+import {Offer, Offers} from '../types/offer';
 import {UserConnect, User} from '../types/user';
 import {Location} from '../types/location';
 import {City, CityName} from '../types/city';
@@ -61,4 +61,10 @@ const makeFakeOffer = (): Offer => ({
   goods: [commerce.product()],
 });
 
-export {makeFakeUserData, makeFakeOffer, makeFakeUserRegistrationData};
+const makeFakeNearbyPlaces = (): Offers =>
+  Array.from({ length: 3 }, makeFakeOffer);
+
+export {makeFakeUserData,
+  makeFakeOffer,
+  makeFakeUserRegistrationData,
+  makeFakeNearbyPlaces};
