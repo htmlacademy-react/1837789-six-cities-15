@@ -1,19 +1,7 @@
 import {AuthorizationStatus, NameSpace} from '../../const';
-import {UserConnect} from '../../types/user';
 import {getAuthorizationStatus, getAuthCheckedStatus, getUser} from '../user-process/selectors';
 import {UserProcess} from '../../types/state';
-import {
-  datatype,
-  internet,
-} from 'faker';
-
-const makeFakeUserData = (): UserConnect => ({
-  name: internet.userName(),
-  isPro: datatype.boolean(),
-  avatarUrl: internet.avatar(),
-  email: internet.email(),
-  token: datatype.string(),
-});
+import {makeFakeUserData} from '../../utils/fakeMockByTest';
 
 const fakeUser = makeFakeUserData();
 
