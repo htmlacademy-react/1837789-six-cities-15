@@ -37,8 +37,10 @@ const makeFakeLocation = (): Location => ({
   longitude: datatype.number({ min: 4, max: 10, precision: 0.001 }),
 });
 
+const fakeCity = address.cityName() as CityName;
+
 const makeFakeCity = (): City => ({
-  name: address.cityName() as CityName,
+  name: fakeCity,
   location: makeFakeLocation(),
 });
 
@@ -64,7 +66,12 @@ const makeFakeOffer = (): Offer => ({
 const makeFakeNearbyPlaces = (): Offers =>
   Array.from({ length: 3 }, makeFakeOffer);
 
+const makeFakeOffers = (): Offers =>
+  Array.from({ length: 12 }, makeFakeOffer);
+
 export {makeFakeUserData,
   makeFakeOffer,
   makeFakeUserRegistrationData,
-  makeFakeNearbyPlaces};
+  makeFakeNearbyPlaces,
+  makeFakeOffers,
+  makeFakeCity};

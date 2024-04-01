@@ -4,20 +4,20 @@ import {Offers} from '../../types/offer';
 import {SortType} from '../../const';
 import {City} from '../../types/city';
 
-export const getOffers = (state: State): Offers =>
+export const getOffers = (state: Pick<State, NameSpace.Offers>): Offers =>
   state[NameSpace.Offers].offers;
 
-export const getOffersIsLoading = (state: State): boolean =>
+export const getOffersIsLoading = (state: Pick<State, NameSpace.Offers>): boolean =>
   state[NameSpace.Offers].offersIsLoading;
 
-export const getOffersIsNotFound = (state: State): boolean =>
+export const getOffersIsNotFound = (state: Pick<State, NameSpace.Offers>): boolean =>
   state[NameSpace.Offers].offersIsNotFound;
 
-export const getCityActive = (state: State): string =>
+export const getCityActive = (state: Pick<State, NameSpace.Offers>): string =>
   state[NameSpace.Offers].cityActive;
 
 export const getCity = (state: Pick<State, NameSpace.Offers>): City =>
   state[NameSpace.Offers].city;
 
-export const getSortType = (state: State): SortType =>
+export const getSortType = (state: Pick<State, NameSpace.Offers>): SortType =>
   state[NameSpace.Offers].sortType;
