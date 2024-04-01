@@ -9,6 +9,7 @@ const initialState: ReviewsProcess = {
   reviewsIsLoading: false,
   reviewsIsNotFound: false,
   reviewsIsNotSubmit: false,
+  isClickSubmit: false,
 };
 
 export const reviews = createSlice({
@@ -17,6 +18,10 @@ export const reviews = createSlice({
   reducers: {
     setIsNotSubmit(state, action: PayloadAction<boolean>) {
       state.reviewsIsNotSubmit = action.payload;
+    },
+
+    setIsClickSubmit(state, action: PayloadAction<boolean>) {
+      state.isClickSubmit = action.payload;
     },
 
   },
@@ -61,4 +66,4 @@ export const reviews = createSlice({
   },
 });
 
-export const {setIsNotSubmit} = reviews.actions;
+export const {setIsNotSubmit, setIsClickSubmit} = reviews.actions;

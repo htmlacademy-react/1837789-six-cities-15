@@ -39,7 +39,7 @@ function Nav(): JSX.Element {
               <span className="header__user-name user__name">
                 {user?.email}
               </span>
-              <span className="header__favorite-count">{favoriteCardsLength}</span>
+              <span className="header__favorite-count">{favoriteCardsLength.toString()}</span>
             </NavLink>
           </li>
           <li className={`header__nav-link ${styles.resetStyleButton}`}>

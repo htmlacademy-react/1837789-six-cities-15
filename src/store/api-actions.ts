@@ -120,7 +120,6 @@ export const submitReviewAction = createAsyncThunk<
     }
   >('submitComment',
     async ({id, comment, rating}, {dispatch, extra: api}) => {
-      dispatch(setIsNotSubmit(true));
       try {
         const {data} = await api.post<Review>(`${ApiRoute.Comments}/${id}`, {
           comment: comment,

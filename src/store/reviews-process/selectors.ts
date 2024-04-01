@@ -13,3 +13,6 @@ export const getReviewsIsNotFound = (state: State): boolean =>
 
 export const getReviewsIsNotSubmit = (state: State): boolean =>
   state[NameSpace.Reviews].reviewsIsNotSubmit;
+
+export const getReviewsIsClickSubmit = (state: State): boolean =>
+  state[NameSpace.Reviews].isClickSubmit;

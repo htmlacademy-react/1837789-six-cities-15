@@ -23,7 +23,6 @@ function Form({offerId}: FormProps): JSX.Element {
   const [rating, setRating] = useState('0');
 
   const isDisabled = ((comment.length < 50 || comment.length > 300) || rating === '0' || ReviewsIsLoading);
-
   function handleInputChange(evt: ChangeEvent<HTMLInputElement>) {
     setRating(evt.target.value);
   }
@@ -39,7 +38,6 @@ function Form({offerId}: FormProps): JSX.Element {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
     if (offerId && !isDisabled) {
       dispatch(
         submitReviewAction({
@@ -50,7 +48,7 @@ function Form({offerId}: FormProps): JSX.Element {
       );
       dispatch(fetchReviewsAction());
     }
-    if (!(reviewsIsNotSubmit || isDisabled)) {
+    if (!(reviewsIsNotSubmit)) {
       resetForm();
     }
   };
