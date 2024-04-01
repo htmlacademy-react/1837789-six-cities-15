@@ -5,8 +5,8 @@ import {UserConnect} from '../../types/user';
 export const getAuthorizationStatus = (state: Pick<State, NameSpace.User>): AuthorizationStatus =>
   state[NameSpace.User].authorizationStatus;
 
-export const getAuthCheckedStatus = (state: State): boolean =>
+export const getAuthCheckedStatus = (state: Pick<State, NameSpace.User>): boolean =>
   state[NameSpace.User].authorizationStatus !== AuthorizationStatus.Unknown;
 
-export const getUser = (state: State): UserConnect | null =>
+export const getUser = (state: Pick<State, NameSpace.User>): UserConnect | null =>
   state[NameSpace.User].user;
