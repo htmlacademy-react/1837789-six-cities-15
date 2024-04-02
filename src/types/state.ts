@@ -23,7 +23,6 @@ export type ReviewsProcess = {
   reviews: Reviews;
   reviewsIsLoading: boolean;
   reviewsIsNotFound: boolean;
-  reviewsIsNotSubmit: boolean;
 };
 
 export type OfferProcess = {

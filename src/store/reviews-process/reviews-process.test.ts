@@ -7,7 +7,6 @@ const initialState: ReviewsProcess = {
   reviews: [],
   reviewsIsLoading: false,
   reviewsIsNotFound: true,
-  reviewsIsNotSubmit: true,
 };
 
 let state: ReviewsProcess;

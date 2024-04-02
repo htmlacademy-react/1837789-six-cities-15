@@ -1,8 +1,7 @@
 import {makeFakeReviews} from '../../utils/fakeMockByTest';
 import { NameSpace} from '../../const';
 import {ReviewsProcess} from '../../types/state';
-import {getReviews, getReviewsIsLoading, getReviewsIsNotFound,
-  getReviewsIsNotSubmit} from './selectors';
+import {getReviews, getReviewsIsLoading, getReviewsIsNotFound} from './selectors';
 
 
 const fakeReview = makeFakeReviews();
@@ -11,7 +10,6 @@ const fakeState: ReviewsProcess = {
   reviews: fakeReview,
   reviewsIsLoading: false,
   reviewsIsNotFound: false,
-  reviewsIsNotSubmit: false,
 };
 
 let state = { [NameSpace.Reviews]: fakeState };
@@ -40,14 +38,6 @@ describe('Reducer: reviews selectors', () => {
   describe('selector: getReviewsIsNotFound', () => {
     it('should return true or false reviewsIsNotFound. status in the state', () => {
       const result = getReviewsIsNotFound(state);
-
-      expect(result).toEqual(false);
-    });
-  });
-
-  describe('selector: getReviewsIsNotSubmit', () => {
-    it('should return true or false reviewsIsNotSubmit. status in the state', () => {
-      const result = getReviewsIsNotSubmit(state);
 
       expect(result).toEqual(false);
     });

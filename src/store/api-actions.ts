@@ -13,7 +13,6 @@ import {FavoriteData} from '../types/favorites';
 import {setFavoriteOffers} from './offers-process/offers-process';
 import {setFavoriteOffer} from './offer-process/offer-process';
 import {setFavoriteNearby} from './offers-nearby-process/offers-nearby-process';
-import {replaceURI} from '../utils/replaceURI';
 
 
 export const fetchOffersAction = createAsyncThunk<Offers, undefined, {
@@ -119,10 +118,9 @@ export const submitReviewAction = createAsyncThunk<
       extra: AxiosInstance;
     }
   >('submitComment',
-    async ({id: offerId, comment, rating}, {extra: api}) => {
+    async ({id, comment, rating}, {extra: api}) => {
       try {
-        const route = replaceURI(ApiRoute.Comments, offerId);
-        const {data} = await api.post<Review>(route, {
+        const {data} = await api.post<Review>(`${ApiRoute.Comments}/${id}`, {
           comment: comment,
           rating: rating,
         });

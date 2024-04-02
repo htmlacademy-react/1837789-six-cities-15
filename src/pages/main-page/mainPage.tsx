@@ -23,16 +23,10 @@ function MainPage(): JSX.Element {
   const offersIsNotFound = useAppSelector(getOffersIsNotFound);
   const isEmpty = offersIsNotFound || !placesCount;
 
-  if(offersIsLoading) {
-    return (<Spinner />);
-  }
-
-  if(offersIsNotFound) {
-    return (<Navigate to={AppRoute.NotFound} />);
-  }
-
   return (
     <div className={`page page--gray page--main ${isEmpty ? 'page__main--index-empty' : ''}`}>
+      {offersIsLoading && <Spinner />}
+      {offersIsNotFound && <Navigate to={AppRoute.NotFound} />}
       <Helmet>
         <title>Main</title>
       </Helmet>

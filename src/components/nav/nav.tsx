@@ -19,7 +19,7 @@ function Nav(): JSX.Element {
     dispatch(logoutAction());
 
     if (PRIVATE_ROUTES.includes(pathname)) {
-      navigate(AppRoute.Main);
+      navigate(AppRoute.Login);
     }
   };
 
@@ -58,7 +58,7 @@ function Nav(): JSX.Element {
             <Link
               className="header__nav-link header__nav-link--profile"
               to={AppRoute.Login}
-              state={{ from: pathname }}
+              state={{from: pathname}}
             >
               <div className="header__avatar-wrapper user__avatar-wrapper"></div>
               <span className="header__login">Sign in</span>

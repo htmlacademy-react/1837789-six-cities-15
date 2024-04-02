@@ -1,7 +1,7 @@
 import {useState, ChangeEvent, Fragment, FormEvent} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks/index';
 import {submitReviewAction, fetchReviewsAction} from '../../store/api-actions';
-import {getReviewsIsLoading, getReviewsIsNotSubmit} from '../../store/reviews-process/selectors';
+import {getReviewsIsLoading} from '../../store/reviews-process/selectors';
 
 type FormProps = {
   offerId?: string;
@@ -18,7 +18,6 @@ function Form({offerId}: FormProps): JSX.Element {
 
   const dispatch = useAppDispatch();
   const ReviewsIsLoading = useAppSelector(getReviewsIsLoading);
-  const reviewsIsNotSubmit = useAppSelector(getReviewsIsNotSubmit);
   const [comment, setComment] = useState('');
   const [rating, setRating] = useState('0');
 
@@ -48,9 +47,7 @@ function Form({offerId}: FormProps): JSX.Element {
       );
       dispatch(fetchReviewsAction());
     }
-    if (!(reviewsIsNotSubmit)) {
-      resetForm();
-    }
+    resetForm();
   };
 
   return (

@@ -11,6 +11,4 @@ export const getReviewsIsLoading = (state: Pick<State, NameSpace.Reviews>): bool
 export const getReviewsIsNotFound = (state: Pick<State, NameSpace.Reviews>): boolean =>
   state[NameSpace.Reviews].reviewsIsNotFound;
 
-export const getReviewsIsNotSubmit = (state: Pick<State, NameSpace.Reviews>): boolean =>
-  state[NameSpace.Reviews].reviewsIsNotSubmit;
 

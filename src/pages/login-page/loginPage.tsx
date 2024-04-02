@@ -11,7 +11,6 @@ function LoginPage(): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
   const dispatch = useAppDispatch();
-
   const cityButton = citiesList[getRandomInteger(0, citiesList.length - 1)];
 
   function onCityButton (city:string) {
@@ -29,7 +28,6 @@ function LoginPage(): JSX.Element {
         password: passwordRef.current.value
       }));
     }
-
   };
 
   return (
