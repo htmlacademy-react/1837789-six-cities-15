@@ -13,7 +13,7 @@ type MapProps = {
   mapType: 'cities' | 'offer';
   city: City;
   offers: Offers;
-  cardHoverId: Offer['id'] | null;
+  cardHoverId?: Offer['id'] | null;
 }
 
 const defaultCustomIcon = leaflet.icon({
@@ -87,6 +87,7 @@ function Map({mapType, city, offers, cardHoverId}: MapProps): JSX.Element {
         : {height: '500px'}}
       className={`${mapType}__map map`}
       ref={mapRef}
+      data-testid="map-section"
     >
     </section>
   );

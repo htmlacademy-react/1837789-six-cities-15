@@ -37,11 +37,9 @@ function ReviewItem({reviewItem}: ReviewProps): JSX.Element {
               <span className="visually-hidden">Rating</span>
             </div>
           </div>
-          {comment && (
-            <p className="reviews__text">
-              {comment}
-            </p>
-          )}
+          <p className="reviews__text">
+            {comment}
+          </p>
           <time className="reviews__time" dateTime={date.split('T')[0]}>
             {dueDate}
           </time>
