@@ -46,8 +46,10 @@ export const offers = createSlice({
     },
 
     setChangeMap(state) {
-      const cityMapActive = state.offers[0].city;
-      state.city = cityMapActive;
+      const cityMapActive = state.offers[0]?.city;
+      if(cityMapActive) {
+        state.city = cityMapActive;
+      }
     },
   },
 

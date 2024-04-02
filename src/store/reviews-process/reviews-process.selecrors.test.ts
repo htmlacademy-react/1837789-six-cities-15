@@ -2,7 +2,7 @@ import {makeFakeReviews} from '../../utils/fakeMockByTest';
 import { NameSpace} from '../../const';
 import {ReviewsProcess} from '../../types/state';
 import {getReviews, getReviewsIsLoading, getReviewsIsNotFound,
-  getReviewsIsNotSubmit, getReviewsIsClickSubmit} from './selectors';
+  getReviewsIsNotSubmit} from './selectors';
 
 
 const fakeReview = makeFakeReviews();
@@ -12,7 +12,6 @@ const fakeState: ReviewsProcess = {
   reviewsIsLoading: false,
   reviewsIsNotFound: false,
   reviewsIsNotSubmit: false,
-  isClickSubmit: false,
 };
 
 let state = { [NameSpace.Reviews]: fakeState };
@@ -54,11 +53,4 @@ describe('Reducer: reviews selectors', () => {
     });
   });
 
-  describe('selector: getReviewsIsClickSubmit', () => {
-    it('should return true or false isClickSubmit. status in the state', () => {
-      const result = getReviewsIsClickSubmit(state);
-
-      expect(result).toEqual(false);
-    });
-  });
 });

@@ -24,7 +24,6 @@ export type ReviewsProcess = {
   reviewsIsLoading: boolean;
   reviewsIsNotFound: boolean;
   reviewsIsNotSubmit: boolean;
-  isClickSubmit: boolean;
 };
 
 export type OfferProcess = {

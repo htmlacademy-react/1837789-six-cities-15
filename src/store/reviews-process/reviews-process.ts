@@ -1,4 +1,4 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {createSlice} from '@reduxjs/toolkit';
 import {NameSpace} from '../../const';
 import {ReviewsProcess} from '../../types/state';
 import {fetchReviewsAction, submitReviewAction} from '../api-actions';
@@ -7,24 +7,14 @@ import {reviewsSorting} from '../../utils/offersSorting';
 const initialState: ReviewsProcess = {
   reviews: [],
   reviewsIsLoading: false,
-  reviewsIsNotFound: false,
-  reviewsIsNotSubmit: false,
-  isClickSubmit: false,
+  reviewsIsNotFound: true,
+  reviewsIsNotSubmit: true,
 };
 
 export const reviews = createSlice({
   name: NameSpace.Reviews,
   initialState,
-  reducers: {
-    setIsNotSubmit(state, action: PayloadAction<boolean>) {
-      state.reviewsIsNotSubmit = action.payload;
-    },
-
-    setIsClickSubmit(state, action: PayloadAction<boolean>) {
-      state.isClickSubmit = action.payload;
-    },
-
-  },
+  reducers: {},
   extraReducers(builder) {
     builder
       .addCase(fetchReviewsAction.pending, (state) => {
@@ -48,8 +38,7 @@ export const reviews = createSlice({
       })
 
       .addCase(submitReviewAction.pending, (state) => {
-        state.reviewsIsLoading = true;
-        state.reviewsIsNotFound = false;
+        state.reviewsIsNotSubmit = true;
       })
 
       .addCase(submitReviewAction.fulfilled, (state, action) => {
@@ -57,13 +46,12 @@ export const reviews = createSlice({
 
         state.reviews.push(newReview);
         state.reviews = reviewsSorting(state.reviews);
-        state.reviewsIsLoading = false;
+        state.reviewsIsNotSubmit = false;
       })
 
       .addCase(submitReviewAction.rejected, (state) => {
-        state.reviewsIsLoading = false;
+        state.reviewsIsNotSubmit = true;
       });
   },
 });
 
-export const {setIsNotSubmit, setIsClickSubmit} = reviews.actions;

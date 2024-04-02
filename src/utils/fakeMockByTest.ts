@@ -10,6 +10,7 @@ import {
 import {Offer, Offers} from '../types/offer';
 import {Review, Reviews} from '../types/review';
 import {UserConnect, User} from '../types/user';
+import {CommentData} from '../types/comments';
 import {Location} from '../types/location';
 import {City, CityName} from '../types/city';
 import {address} from 'faker/locale/en';
@@ -82,6 +83,12 @@ const makeFakeReview = (): Review => ({
 const makeFakeReviews = (): Reviews =>
   Array.from({ length: 5 }, makeFakeReview);
 
+const makeFakeCommentData = (): CommentData => ({
+  id: datatype.string(),
+  rating: datatype.number({ min: 1, max: 5, precision: 0.1 }),
+  comment: lorem.sentence(),
+});
+
 export {makeFakeUserData,
   makeFakeOffer,
   makeFakeUserRegistrationData,
@@ -89,4 +96,5 @@ export {makeFakeUserData,
   makeFakeOffers,
   makeFakeCity,
   makeFakeReview,
-  makeFakeReviews};
+  makeFakeReviews,
+  makeFakeCommentData};

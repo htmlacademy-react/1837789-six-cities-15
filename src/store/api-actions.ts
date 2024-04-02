@@ -13,7 +13,7 @@ import {FavoriteData} from '../types/favorites';
 import {setFavoriteOffers} from './offers-process/offers-process';
 import {setFavoriteOffer} from './offer-process/offer-process';
 import {setFavoriteNearby} from './offers-nearby-process/offers-nearby-process';
-import {setIsNotSubmit} from './reviews-process/reviews-process';
+import {replaceURI} from '../utils/replaceURI';
 
 
 export const fetchOffersAction = createAsyncThunk<Offers, undefined, {
@@ -119,17 +119,15 @@ export const submitReviewAction = createAsyncThunk<
       extra: AxiosInstance;
     }
   >('submitComment',
-    async ({id, comment, rating}, {dispatch, extra: api}) => {
+    async ({id: offerId, comment, rating}, {extra: api}) => {
       try {
-        const {data} = await api.post<Review>(`${ApiRoute.Comments}/${id}`, {
+        const route = replaceURI(ApiRoute.Comments, offerId);
+        const {data} = await api.post<Review>(route, {
           comment: comment,
           rating: rating,
         });
-
-        dispatch(setIsNotSubmit(false));
         return data;
       } catch (error) {
-        dispatch(setIsNotSubmit(true));
         throw new Error();
       }
     });

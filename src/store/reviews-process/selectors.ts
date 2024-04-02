@@ -14,5 +14,3 @@ export const getReviewsIsNotFound = (state: Pick<State, NameSpace.Reviews>): boo
 export const getReviewsIsNotSubmit = (state: Pick<State, NameSpace.Reviews>): boolean =>
   state[NameSpace.Reviews].reviewsIsNotSubmit;
 
-export const getReviewsIsClickSubmit = (state: Pick<State, NameSpace.Reviews>): boolean =>
-  state[NameSpace.Reviews].isClickSubmit;
