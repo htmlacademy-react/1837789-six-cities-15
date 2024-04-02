@@ -21,7 +21,7 @@ function Form({offerId}: FormProps): JSX.Element {
   const [comment, setComment] = useState('');
   const [rating, setRating] = useState('0');
 
-  const isDisabled = ((comment.length < 50 || comment.length > 300) || rating === '0' || ReviewsIsLoading);
+  const isDisabled = ((comment.length < 50 || comment.length > 300) || ReviewsIsLoading);
   function handleInputChange(evt: ChangeEvent<HTMLInputElement>) {
     setRating(evt.target.value);
   }

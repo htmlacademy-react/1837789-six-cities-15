@@ -4,7 +4,7 @@ import {useAppSelector, useAppDispatch} from '../../hooks/index';
 import {Helmet} from 'react-helmet-async';
 import {useEffect} from 'react';
 import {
-  getFavoritesLength,
+  getFavoritesLength
 } from '../../store/favorites-process/selectors';
 import FavoritesEmpty from '../../components/favorites-empty/favorites-empty';
 import Favorites from '../../components/favorites/favorites';
