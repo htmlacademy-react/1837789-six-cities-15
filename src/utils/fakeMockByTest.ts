@@ -13,7 +13,12 @@ import {UserConnect, User} from '../types/user';
 import {CommentData} from '../types/comments';
 import {Location} from '../types/location';
 import {City, CityName} from '../types/city';
+import {State} from '../types/state';
 import {address} from 'faker/locale/en';
+import {AuthorizationStatus, DEFAULT_CITY, DEFAULT_SORT, DEFAULT_LOCATION} from '../const';
+import {getToken} from '../services/token';
+
+const token = getToken();
 
 const makeFakeUser = (): User => ({
   name: internet.userName(),
@@ -87,6 +92,32 @@ const makeFakeCommentData = (): CommentData => ({
   id: datatype.string(),
   rating: datatype.number({ min: 1, max: 5, precision: 0.1 }),
   comment: lorem.sentence(),
+});
+
+export const makeFakeStore = (initialState?: Partial<State>): State => ({
+  OFFERS: {cityActive: DEFAULT_CITY,
+    city: DEFAULT_LOCATION,
+    sortType: DEFAULT_SORT,
+    allOffers: [],
+    offers: [],
+    offersIsLoading: false,
+    offersIsNotFound: false},
+  OFFER: {offer: null,
+    offerIsLoading: false,
+    offerIsNotFound: false },
+  USER: {authorizationStatus: token ? AuthorizationStatus.Auth : AuthorizationStatus.Unknown,
+    userConnect:  null},
+  REVIEWS: {reviews: [],
+    reviewsIsLoading: false,
+    reviewsIsNotFound: true},
+  OFFERSNEARBY: {offersNearby: [],
+    offersNearbyIsLoading: false,
+    offersNearbyIsNotFound: false,},
+  ERRORMESSAGE: {errorMessage: null},
+  FAVORITES: {favorites: [],
+    favoritesIsLoading: false,
+    favoritesIsNotFound: false},
+  ...initialState ?? {},
 });
 
 export {makeFakeUserData,

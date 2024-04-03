@@ -2,7 +2,7 @@
 import {render, screen} from '@testing-library/react';
 import Map from './map';
 import {makeFakeOffer, makeFakeCity} from '../../utils/fakeMockByTest';
-import {withHistory} from '../../utils/withHistory';
+import {withHistory} from '../../utils/mock-component';
 
 describe('Component <Map />:', () => {
   it('should render correct', () => {

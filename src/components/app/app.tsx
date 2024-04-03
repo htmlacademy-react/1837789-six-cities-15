@@ -10,8 +10,6 @@ import NotFoundPage from '../../pages/not-found-page/NotFoundPage';
 import PrivateRoute from '../private-route/privateRoute';
 import ScrollToTop from '../scroll-to-top/scrollToTop';
 import Spinner from '../../components/spinner/spinner';
-import HistoryRouter from '../history-router/history-router';
-import browserHistory from '../../browser-history';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
 import {getOffersIsLoading} from '../../store/offers-process/selectors';
 
@@ -27,39 +25,37 @@ function App(): JSX.Element {
 
   return (
     <HelmetProvider>
-      <HistoryRouter history={browserHistory}>
-        <ScrollToTop/>
-        <Routes>
-          <Route
-            path={AppRoute.Main}
-            element={<MainPage />}
+      <ScrollToTop/>
+      <Routes>
+        <Route
+          path={AppRoute.Main}
+          element={<MainPage />}
+        />
+        <Route
+          path={AppRoute.Favorites}
+          element={
+            <PrivateRoute
+              authorizationStatus={authorizationStatus}
+            >
+              <FavoritesPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path={AppRoute.Login}
+          element={<LoginPage />}
+        />
+        <Route path={AppRoute.Offer}>
+          <Route index element={
+            <OfferPage />
+          }
           />
-          <Route
-            path={AppRoute.Favorites}
-            element={
-              <PrivateRoute
-                authorizationStatus={authorizationStatus}
-              >
-                <FavoritesPage />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path={AppRoute.Login}
-            element={<LoginPage />}
-          />
-          <Route path={AppRoute.Offer}>
-            <Route index element={
-              <OfferPage />
-            }
-            />
-          </Route>
-          <Route
-            path={AppRoute.NotFound}
-            element={<NotFoundPage />}
-          />
-        </Routes>
-      </HistoryRouter>
+        </Route>
+        <Route
+          path={AppRoute.NotFound}
+          element={<NotFoundPage />}
+        />
+      </Routes>
     </HelmetProvider>
   );
 }
