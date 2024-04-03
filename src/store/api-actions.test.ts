@@ -23,7 +23,7 @@ describe('Async actions', () => {
   beforeEach(() => {
     store = mockStoreCreator({
       USER: {
-        user:  null
+        userConnect:  null
       }
     });
   });
