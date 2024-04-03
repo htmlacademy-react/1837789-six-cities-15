@@ -9,7 +9,7 @@ import MainEmpty from '../../components/main-empty/main-empty';
 import Map from '../../components/map/map';
 import Sort from '../../components/sort/sort';
 import GeneralCardList from '../../components/general-card-list/generalCardList';
-import LocationsList from '../../components/locations-list/locationsList';
+import LocationsList from '../../components/locations-list/locations-list';
 import {getCityActive, getCity, getOffers, getOffersIsLoading, getOffersIsNotFound} from '../../store/offers-process/selectors';
 import Spinner from '../../components/spinner/spinner';
 

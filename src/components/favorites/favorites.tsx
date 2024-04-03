@@ -1,4 +1,4 @@
-import FavoritesCardList from '../../components/favorites-card-list/FavoritesCardList';
+import FavoritesCardList from '../favorites-card-list/favorites-card-list';
 import {useAppSelector, useAppDispatch} from '../../hooks/index';
 import {
   getFavorites,

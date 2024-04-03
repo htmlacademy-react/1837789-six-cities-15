@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import NotFoundPage from './NotFoundPage';
+import NotFoundPage from './not-found-page';
 import {withHistory} from '../../utils/mock-component';
 
 describe('Component: NotFoundPage', () => {

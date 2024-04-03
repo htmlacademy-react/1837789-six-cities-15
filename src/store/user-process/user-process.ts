@@ -10,7 +10,7 @@ const initialState: UserProcess = {
   authorizationStatus: token
     ? AuthorizationStatus.Auth
     : AuthorizationStatus.Unknown,
-  userConnect:  null
+  userConnect:  null,
 };
 
 export const user = createSlice({

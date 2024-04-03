@@ -1,4 +1,4 @@
-import GeneralCard from '../general-card/generalCard';
+import GeneralCard from '../general-card/general-card';
 import {Card} from '../../types/card';
 import {Offers} from '../../types/offer';
 
