@@ -17,6 +17,7 @@ import {State} from '../types/state';
 import {address} from 'faker/locale/en';
 import {AuthorizationStatus, DEFAULT_CITY, DEFAULT_SORT, DEFAULT_LOCATION} from '../const';
 import {getToken} from '../services/token';
+import {RequestStatus} from '../const';
 
 const token = getToken();
 
@@ -109,7 +110,8 @@ export const makeFakeStore = (initialState?: Partial<State>): State => ({
     userConnect:  null},
   REVIEWS: {reviews: [],
     reviewsIsLoading: false,
-    reviewsIsNotFound: true},
+    reviewsIsNotFound: true,
+    reviewRequestStatus: RequestStatus.Idle,},
   OFFERSNEARBY: {offersNearby: [],
     offersNearbyIsLoading: false,
     offersNearbyIsNotFound: false,},

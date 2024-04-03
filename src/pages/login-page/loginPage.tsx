@@ -1,6 +1,6 @@
 import {Link} from 'react-router-dom';
 import {Helmet} from 'react-helmet-async';
-import {FormEvent, useState, ChangeEvent, useEffect} from 'react';
+import {FormEvent, useState, ChangeEvent} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {loginAction} from '../../store/api-actions';
 import {setCityActive, setChangeMap, setOffers} from '../../store/offers-process/offers-process';
