@@ -1,16 +1,24 @@
 import FavoritesCardList from '../../components/favorites-card-list/FavoritesCardList';
-import {useAppSelector} from '../../hooks/index';
+import {useAppSelector, useAppDispatch} from '../../hooks/index';
 import {
   getFavorites,
   getFavoritesLength
 } from '../../store/favorites-process/selectors';
 import {groupByCityOffers} from '../../utils/groupByCityOffers';
+import {useEffect} from 'react';
+import {store} from '../../store';
+import {fetchFavoritesAction} from '../../store/api-actions';
 
 function Favorites(): JSX.Element {
   const favoriteCards = useAppSelector(getFavorites);
   const favoritesLength = useAppSelector(getFavoritesLength);
   const groupedFavorites =
   favoritesLength ? groupByCityOffers(favoriteCards) : [];
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    store.dispatch(fetchFavoritesAction());
+  }, [dispatch]);
 
   return (
     <main className="page__main page__main--favorites">

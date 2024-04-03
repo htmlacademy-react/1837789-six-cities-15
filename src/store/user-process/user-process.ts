@@ -10,7 +10,7 @@ const initialState: UserProcess = {
   authorizationStatus: token
     ? AuthorizationStatus.Auth
     : AuthorizationStatus.Unknown,
-  user:  null
+  userConnect:  null
 };
 
 export const user = createSlice({
@@ -21,7 +21,7 @@ export const user = createSlice({
     builder
       .addCase(checkAuthAction.fulfilled, (state, {payload}) => {
         state.authorizationStatus = AuthorizationStatus.Auth;
-        state.user = payload;
+        state.userConnect = payload;
       })
       .addCase(checkAuthAction.rejected, (state) => {
         state.authorizationStatus = AuthorizationStatus.NoAuth;
@@ -31,7 +31,7 @@ export const user = createSlice({
         state.authorizationStatus = AuthorizationStatus.Auth;
 
         if (userData) {
-          state.user = userData;
+          state.userConnect = userData;
         }
       })
       .addCase(loginAction.rejected, (state) => {

@@ -6,7 +6,7 @@ import {user} from './user-process';
 
 const initialState: UserProcess = {
   authorizationStatus: AuthorizationStatus.Unknown,
-  user: null,
+  userConnect: null,
 };
 
 let state: UserProcess;
@@ -39,7 +39,7 @@ describe('Slice user-process', () => {
       const expectedState: UserProcess = {
         ...initialState,
         authorizationStatus: AuthorizationStatus.Auth,
-        user: fakeUser,
+        userConnect: fakeUser,
       };
 
       expect(
@@ -70,7 +70,7 @@ describe('Slice user-process', () => {
       const expectedState: UserProcess = {
         ...initialState,
         authorizationStatus: AuthorizationStatus.Auth,
-        user: fakeUser,
+        userConnect: fakeUser,
       };
 
       expect(

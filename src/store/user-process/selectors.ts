@@ -9,4 +9,4 @@ export const getAuthCheckedStatus = (state: Pick<State, NameSpace.User>): boolea
   state[NameSpace.User].authorizationStatus !== AuthorizationStatus.Unknown;
 
 export const getUser = (state: Pick<State, NameSpace.User>): UserConnect | null =>
-  state[NameSpace.User].user;
+  state[NameSpace.User].userConnect;

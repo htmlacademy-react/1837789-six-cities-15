@@ -12,7 +12,7 @@ export type AppDispatch = typeof store.dispatch;
 
 export type UserProcess = {
   authorizationStatus: AuthorizationStatus;
-  user: UserConnect | null;
+  userConnect: UserConnect | null;
 };
 
 export type ErrorMessageProcess = {

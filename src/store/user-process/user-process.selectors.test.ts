@@ -7,7 +7,7 @@ const fakeUser = makeFakeUserData();
 
 const fakeState: UserProcess = {
   authorizationStatus: AuthorizationStatus.NoAuth,
-  user: fakeUser,
+  userConnect: fakeUser,
 };
 
 let state = { [NameSpace.User]: fakeState };

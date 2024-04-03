@@ -10,7 +10,7 @@ import NotFoundPage from '../../pages/not-found-page/NotFoundPage';
 import PrivateRoute from '../private-route/privateRoute';
 import ScrollToTop from '../scroll-to-top/scrollToTop';
 import Spinner from '../../components/spinner/spinner';
-import HistoryRouter from '../history-route/history-route';
+import HistoryRouter from '../history-router/history-router';
 import browserHistory from '../../browser-history';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
 import {getOffersIsLoading} from '../../store/offers-process/selectors';

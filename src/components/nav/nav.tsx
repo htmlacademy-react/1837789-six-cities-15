@@ -8,7 +8,7 @@ import {getFavoritesLength} from '../../store/favorites-process/selectors';
 
 function Nav(): JSX.Element {
   const authorizationStatusActive = useAppSelector(getAuthorizationStatus);
-  const user = useAppSelector(getUser);
+  const userConnect = useAppSelector(getUser);
   const favoriteCardsLength = useAppSelector(getFavoritesLength);
   const isLogged = authorizationStatusActive === AuthorizationStatus.Auth;
   const dispatch = useAppDispatch();
@@ -33,11 +33,11 @@ function Nav(): JSX.Element {
               to={AppRoute.Favorites}
             >
               <div className="header__avatar-wrapper user__avatar-wrapper"
-                style={{ backgroundImage: user?.avatarUrl }}
+                style={{ backgroundImage: userConnect?.avatarUrl }}
               >
               </div>
               <span className="header__user-name user__name">
-                {user?.email}
+                {userConnect?.email}
               </span>
               <span className="header__favorite-count">{favoriteCardsLength.toString()}</span>
             </NavLink>
