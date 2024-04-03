@@ -7,7 +7,10 @@ import {
 import {groupByCityOffers} from '../../utils/groupByCityOffers';
 import {useEffect} from 'react';
 import {store} from '../../store';
+import {useNavigate} from 'react-router-dom';
 import {fetchFavoritesAction} from '../../store/api-actions';
+import {getAuthorizationStatus} from '../../store/user-process/selectors';
+import {AppRoute, AuthorizationStatus} from '../../const';
 
 function Favorites(): JSX.Element {
   const favoriteCards = useAppSelector(getFavorites);
@@ -16,9 +19,18 @@ function Favorites(): JSX.Element {
   favoritesLength ? groupByCityOffers(favoriteCards) : [];
   const dispatch = useAppDispatch();
 
+  const authStatus = useAppSelector(getAuthorizationStatus);
+  const navigate = useNavigate();
+
   useEffect(() => {
     store.dispatch(fetchFavoritesAction());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (authStatus === AuthorizationStatus.NoAuth) {
+      navigate(AppRoute.Login);
+    }
+  }, [authStatus, navigate]);
 
   return (
     <main className="page__main page__main--favorites">

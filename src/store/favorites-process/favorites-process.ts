@@ -22,13 +22,7 @@ export const favoritesOffer = createSlice({
 
       .addCase(fetchFavoritesAction.fulfilled, (state, action) => {
         const offerFavoriteData = action.payload;
-
-        if (offerFavoriteData.length > 0) {
-          state.favorites = offerFavoriteData;
-        } else {
-          state.favoritesIsNotFound = true;
-        }
-
+        state.favorites = offerFavoriteData;
         state.favoritesIsLoading = false;
       })
 

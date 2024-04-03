@@ -43,13 +43,18 @@ export const loginAction = createAsyncThunk<UserConnect, AuthData, {
   state: State;
   extra: AxiosInstance;
 }>
-('login', async ({login: email, password}, {dispatch, extra: api}) => {
-  const {data} = await api.post<UserConnect>(ApiRoute.Login, {email, password});
-  const {token} = data;
-  saveToken(token);
-  dispatch(redirectToRoute(AppRoute.Main));
+('login', async ({email: email, password}, {dispatch, extra: api}) => {
+  try {
+    const {data} = await api.post<UserConnect>(ApiRoute.Login, {email, password});
+    const {token} = data;
+    saveToken(token);
+    dispatch(redirectToRoute(AppRoute.Main));
 
-  return data;
+    return data;
+
+  } catch (error) {
+    throw new Error();
+  }
 });
 
 export const logoutAction = createAsyncThunk<void, undefined, {
@@ -156,10 +161,10 @@ export const setFavoritesAction = createAsyncThunk<
   const {data} = await api.post<Offer>(
     `${ApiRoute.Favorite}/${favoriteParams.offerId}/${favoriteParams.status}`
   );
-  dispatch(fetchFavoritesAction());
   dispatch(setFavoriteOffers(data));
   dispatch(setFavoriteOffer(data.isFavorite));
   dispatch(setFavoriteNearby(data));
+  dispatch(fetchFavoritesAction());
 
   return data;
 }
