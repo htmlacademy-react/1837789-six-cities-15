@@ -89,3 +89,10 @@ export const getRandomInteger = (a: number, b: number): number => {
 
   return Math.floor(result);
 };
+
+export enum RequestStatus {
+  Idle = 'idle',
+  Pending = 'pending',
+  Success = 'success',
+  Error = 'error',
+}

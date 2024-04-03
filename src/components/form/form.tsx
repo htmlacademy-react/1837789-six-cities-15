@@ -1,8 +1,9 @@
-import {useState, ChangeEvent, Fragment, FormEvent} from 'react';
+import {useState, ChangeEvent, Fragment, FormEvent, useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks/index';
 import {submitReviewAction, fetchReviewsAction} from '../../store/api-actions';
-import {getReviewsIsLoading} from '../../store/reviews-process/selectors';
-
+import {getReviewsIsLoading, selectReviewRequestStatus} from '../../store/reviews-process/selectors';
+import {assignReviewRequestStatusByDefault} from '../../store/reviews-process/reviews-process';
+import {RequestStatus} from '../../const';
 type FormProps = {
   offerId?: string;
 };
@@ -18,6 +19,7 @@ function Form({offerId}: FormProps): JSX.Element {
 
   const dispatch = useAppDispatch();
   const ReviewsIsLoading = useAppSelector(getReviewsIsLoading);
+  const reviewRequestStatus = useAppSelector(selectReviewRequestStatus);
   const [comment, setComment] = useState('');
   const [rating, setRating] = useState('0');
 
@@ -35,6 +37,13 @@ function Form({offerId}: FormProps): JSX.Element {
     setRating('0');
   };
 
+  useEffect(() => {
+    if(reviewRequestStatus === RequestStatus.Success) {
+      resetForm();
+      dispatch(assignReviewRequestStatusByDefault());
+    }
+  }, [reviewRequestStatus, dispatch]);
+
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (offerId && !isDisabled) {
@@ -47,7 +56,6 @@ function Form({offerId}: FormProps): JSX.Element {
       );
       dispatch(fetchReviewsAction());
     }
-    resetForm();
   };
 
   return (

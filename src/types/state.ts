@@ -4,6 +4,7 @@ import {Reviews} from '../types/review';
 import {Offer, Offers} from '../types/offer';
 import {UserConnect} from '../types/user';
 import {City} from '../types/city';
+import {RequestStatus} from '../const';
 
 
 export type State = ReturnType<typeof store.getState>;
@@ -23,6 +24,7 @@ export type ReviewsProcess = {
   reviews: Reviews;
   reviewsIsLoading: boolean;
   reviewsIsNotFound: boolean;
+  reviewRequestStatus: RequestStatus;
 };
 
 export type OfferProcess = {

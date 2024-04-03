@@ -1,6 +1,6 @@
 import {Link} from 'react-router-dom';
 import {Helmet} from 'react-helmet-async';
-import {FormEvent, useState, ChangeEvent} from 'react';
+import {FormEvent, useState, ChangeEvent, useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {loginAction} from '../../store/api-actions';
 import {setCityActive, setChangeMap, setOffers} from '../../store/offers-process/offers-process';
@@ -34,6 +34,7 @@ function LoginPage(): JSX.Element {
   const authStatus = useAppSelector(getAuthorizationStatus);
 
   const navigate = useNavigate();
+
   function onCityButton (city:string) {
     dispatch(setCityActive(city));
     dispatch(setOffers());
@@ -45,10 +46,6 @@ function LoginPage(): JSX.Element {
     email: '',
     password: '',
   });
-
-  if (authStatus === AuthorizationStatus.Auth) {
-    navigate(AppRoute.Main);
-  }
 
   const handleTextChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = evt.target;
@@ -70,6 +67,11 @@ function LoginPage(): JSX.Element {
       })
     );
   };
+
+  if (authStatus === AuthorizationStatus.Auth) {
+    navigate(AppRoute.Main);
+  }
+
 
   return (
     <div className="page page--gray page--login">
