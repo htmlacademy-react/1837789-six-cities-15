@@ -1,5 +1,5 @@
 import {combineReducers} from '@reduxjs/toolkit';
-import {user} from './user-process/user-process';
+import {userSlice} from './user-process/user-process';
 import {NameSpace} from '../const';
 import {offers} from './offers-process/offers-process';
 import {offer} from './offer-process/offer-process';
@@ -11,7 +11,7 @@ import {favoritesOffer} from './favorites-process/favorites-process';
 export const rootReducer = combineReducers({
   [NameSpace.Offers]: offers.reducer,
   [NameSpace.Offer]: offer.reducer,
-  [NameSpace.User]: user.reducer,
+  [NameSpace.User]: userSlice.reducer,
   [NameSpace.Reviews]: reviews.reducer,
   [NameSpace.OffersNearby]: offersNearby.reducer,
   [NameSpace.ErrorMessage]: errorMessage.reducer,

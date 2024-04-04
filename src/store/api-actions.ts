@@ -164,7 +164,6 @@ export const setFavoritesAction = createAsyncThunk<
   dispatch(setFavoriteOffers(data));
   dispatch(setFavoriteOffer(data.isFavorite));
   dispatch(setFavoriteNearby(data));
-  dispatch(fetchFavoritesAction());
 
   return data;
 }

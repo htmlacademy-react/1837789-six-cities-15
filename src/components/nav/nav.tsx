@@ -1,10 +1,11 @@
-import {NavLink, Link, useNavigate, useLocation} from 'react-router-dom';
+import {NavLink, Link} from 'react-router-dom';
 import {useAppSelector, useAppDispatch} from '../../hooks/index';
-import {AuthorizationStatus, AppRoute, PRIVATE_ROUTES} from '../../const';
+import {AuthorizationStatus, AppRoute} from '../../const';
 import styles from './nav.module.css';
 import {logoutAction} from '../../store/api-actions';
 import {getAuthorizationStatus, getUser} from '../../store/user-process/selectors';
 import {getFavoritesLength} from '../../store/favorites-process/selectors';
+import {assignauthorizationStatusByDefault} from '../../store/user-process/user-process';
 
 function Nav(): JSX.Element {
   const authorizationStatusActive = useAppSelector(getAuthorizationStatus);
@@ -12,15 +13,10 @@ function Nav(): JSX.Element {
   const favoriteCardsLength = useAppSelector(getFavoritesLength);
   const isLogged = authorizationStatusActive === AuthorizationStatus.Auth;
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-  const {pathname} = useLocation();
 
   const handleClick = () => {
     dispatch(logoutAction());
-
-    if (PRIVATE_ROUTES.includes(pathname)) {
-      navigate(AppRoute.Login);
-    }
+    dispatch(assignauthorizationStatusByDefault());
   };
 
   return (
@@ -58,7 +54,6 @@ function Nav(): JSX.Element {
             <Link
               className="header__nav-link header__nav-link--profile"
               to={AppRoute.Login}
-              state={{from: pathname}}
             >
               <div className="header__avatar-wrapper user__avatar-wrapper"></div>
               <span className="header__login">Sign in</span>

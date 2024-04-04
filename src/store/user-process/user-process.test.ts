@@ -2,7 +2,7 @@ import {checkAuthAction, loginAction, logoutAction} from '../api-actions';
 import {AuthorizationStatus} from '../../const';
 import {makeFakeUserData} from '../../utils/fakeMockByTest';
 import {UserProcess} from '../../types/state';
-import {user} from './user-process';
+import {userSlice} from './user-process';
 
 const initialState: UserProcess = {
   authorizationStatus: AuthorizationStatus.Unknown,
@@ -21,7 +21,7 @@ describe('Slice user-process', () => {
     const emptyAction = { type: '' };
     const expectedState: UserProcess = { ...initialState };
 
-    const result = user.reducer(initialState, emptyAction);
+    const result = userSlice.reducer(initialState, emptyAction);
     expect(result).toEqual(expectedState);
   });
 
@@ -29,7 +29,7 @@ describe('Slice user-process', () => {
     const emptyAction = { type: '' };
     const expectedState: UserProcess = { ...initialState };
 
-    const result = user.reducer(undefined, emptyAction);
+    const result = userSlice.reducer(undefined, emptyAction);
     expect(result).toEqual(expectedState);
   });
 
@@ -43,7 +43,7 @@ describe('Slice user-process', () => {
       };
 
       expect(
-        user.reducer(state, {
+        userSlice.reducer(state, {
           type: checkAuthAction.fulfilled.type,
           payload: fakeUser,
         })
@@ -57,7 +57,7 @@ describe('Slice user-process', () => {
       };
 
       expect(
-        user.reducer(state, {
+        userSlice.reducer(state, {
           type: checkAuthAction.rejected,
         })
       ).toEqual(expectedState);
@@ -74,7 +74,7 @@ describe('Slice user-process', () => {
       };
 
       expect(
-        user.reducer(state, {
+        userSlice.reducer(state, {
           type: loginAction.fulfilled.type,
           payload: fakeUser,
         })
@@ -88,7 +88,7 @@ describe('Slice user-process', () => {
       };
 
       expect(
-        user.reducer(state, {
+        userSlice.reducer(state, {
           type: loginAction.rejected,
         })
       ).toEqual(expectedState);
@@ -103,7 +103,7 @@ describe('Slice user-process', () => {
       };
 
       expect(
-        user.reducer(state, {
+        userSlice.reducer(state, {
           type: logoutAction.fulfilled.type,
         })
       ).toEqual(expectedState);
