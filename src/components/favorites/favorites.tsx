@@ -1,16 +1,36 @@
-import FavoritesCardList from '../../components/favorites-card-list/FavoritesCardList';
-import {useAppSelector} from '../../hooks/index';
+import FavoritesCardList from '../favorites-card-list/favorites-card-list';
+import {useAppSelector, useAppDispatch} from '../../hooks/index';
 import {
   getFavorites,
   getFavoritesLength
 } from '../../store/favorites-process/selectors';
-import {groupByCityOffers} from '../../utils/groupByCityOffers';
+import {groupByCityOffers} from '../../utils/group-by-city-offers';
+import {useEffect} from 'react';
+import {store} from '../../store';
+import {useNavigate} from 'react-router-dom';
+import {fetchFavoritesAction} from '../../store/api-actions';
+import {getAuthorizationStatus} from '../../store/user-process/selectors';
+import {AppRoute, AuthorizationStatus} from '../../const';
 
 function Favorites(): JSX.Element {
   const favoriteCards = useAppSelector(getFavorites);
   const favoritesLength = useAppSelector(getFavoritesLength);
   const groupedFavorites =
   favoritesLength ? groupByCityOffers(favoriteCards) : [];
+  const dispatch = useAppDispatch();
+
+  const authStatus = useAppSelector(getAuthorizationStatus);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    store.dispatch(fetchFavoritesAction());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (authStatus === AuthorizationStatus.NoAuth) {
+      navigate(AppRoute.Login);
+    }
+  }, [authStatus, navigate]);
 
   return (
     <main className="page__main page__main--favorites">

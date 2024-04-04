@@ -4,6 +4,7 @@ import {Reviews} from '../types/review';
 import {Offer, Offers} from '../types/offer';
 import {UserConnect} from '../types/user';
 import {City} from '../types/city';
+import {RequestStatus} from '../const';
 
 
 export type State = ReturnType<typeof store.getState>;
@@ -12,7 +13,7 @@ export type AppDispatch = typeof store.dispatch;
 
 export type UserProcess = {
   authorizationStatus: AuthorizationStatus;
-  user: UserConnect | null;
+  userConnect: UserConnect | null;
 };
 
 export type ErrorMessageProcess = {
@@ -23,7 +24,7 @@ export type ReviewsProcess = {
   reviews: Reviews;
   reviewsIsLoading: boolean;
   reviewsIsNotFound: boolean;
-  reviewsIsNotSubmit: boolean;
+  reviewRequestStatus: RequestStatus;
 };
 
 export type OfferProcess = {

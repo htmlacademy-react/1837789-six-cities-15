@@ -13,3 +13,5 @@ export type CityList = {
   Hamburg: string;
   Dusseldorf: string;
 };
+
+export type CityName = 'Paris' | 'Cologne' | 'Brussels' | 'Amsterdam' | 'Hamburg' | 'Dusseldorf';

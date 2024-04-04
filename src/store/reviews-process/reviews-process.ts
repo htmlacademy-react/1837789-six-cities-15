@@ -1,21 +1,23 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {createSlice} from '@reduxjs/toolkit';
 import {NameSpace} from '../../const';
 import {ReviewsProcess} from '../../types/state';
 import {fetchReviewsAction, submitReviewAction} from '../api-actions';
+import {reviewsSorting} from '../../utils/offersSorting';
+import {RequestStatus} from '../../const';
 
 const initialState: ReviewsProcess = {
   reviews: [],
   reviewsIsLoading: false,
-  reviewsIsNotFound: false,
-  reviewsIsNotSubmit: false,
+  reviewsIsNotFound: true,
+  reviewRequestStatus: RequestStatus.Idle,
 };
 
 export const reviews = createSlice({
   name: NameSpace.Reviews,
   initialState,
   reducers: {
-    setIsNotSubmit(state, action: PayloadAction<boolean>) {
-      state.reviewsIsNotSubmit = action.payload;
+    assignReviewRequestStatusByDefault: (state) => {
+      state.reviewRequestStatus = RequestStatus.Idle;
     },
   },
   extraReducers(builder) {
@@ -29,7 +31,7 @@ export const reviews = createSlice({
         const reviewsData = action.payload;
 
         if (reviewsData.length > 0) {
-          state.reviews = reviewsData;
+          state.reviews = reviewsSorting(reviewsData);
         }
 
         state.reviewsIsLoading = false;
@@ -41,22 +43,22 @@ export const reviews = createSlice({
       })
 
       .addCase(submitReviewAction.pending, (state) => {
-        state.reviewsIsLoading = true;
-        state.reviewsIsNotFound = false;
+        state.reviewRequestStatus = RequestStatus.Pending;
       })
 
       .addCase(submitReviewAction.fulfilled, (state, action) => {
+        state.reviewRequestStatus = RequestStatus.Success;
         const newReview = action.payload;
 
         state.reviews.push(newReview);
-        state.reviewsIsLoading = false;
+        state.reviews = reviewsSorting(state.reviews);
       })
 
       .addCase(submitReviewAction.rejected, (state) => {
-        state.reviewsIsLoading = false;
-        state.reviewsIsNotFound = true;
+        state.reviewRequestStatus = RequestStatus.Error;
       });
   },
 });
 
-export const {setIsNotSubmit} = reviews.actions;
+export const {assignReviewRequestStatusByDefault} = reviews.actions;
+

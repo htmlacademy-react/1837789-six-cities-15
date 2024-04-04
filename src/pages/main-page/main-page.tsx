@@ -9,7 +9,7 @@ import MainEmpty from '../../components/main-empty/main-empty';
 import Map from '../../components/map/map';
 import Sort from '../../components/sort/sort';
 import GeneralCardList from '../../components/general-card-list/generalCardList';
-import LocationsList from '../../components/locations-list/locationsList';
+import LocationsList from '../../components/locations-list/locations-list';
 import {getCityActive, getCity, getOffers, getOffersIsLoading, getOffersIsNotFound} from '../../store/offers-process/selectors';
 import Spinner from '../../components/spinner/spinner';
 
@@ -23,16 +23,10 @@ function MainPage(): JSX.Element {
   const offersIsNotFound = useAppSelector(getOffersIsNotFound);
   const isEmpty = offersIsNotFound || !placesCount;
 
-  if(offersIsLoading) {
-    return (<Spinner />);
-  }
-
-  if(offersIsNotFound) {
-    return (<Navigate to={AppRoute.NotFound} />);
-  }
-
   return (
     <div className={`page page--gray page--main ${isEmpty ? 'page__main--index-empty' : ''}`}>
+      {offersIsLoading && <Spinner />}
+      {offersIsNotFound && <Navigate to={AppRoute.NotFound} />}
       <Helmet>
         <title>Main</title>
       </Helmet>

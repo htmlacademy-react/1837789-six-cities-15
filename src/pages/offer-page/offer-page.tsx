@@ -1,21 +1,19 @@
 import {useParams, Navigate} from 'react-router-dom';
-import {AppRoute, handleStars} from '../../const';
+import {AppRoute, handleStars} from '../../const.ts';
 import {useState, useEffect} from 'react';
 import {Helmet} from 'react-helmet-async';
-import {useAppSelector} from '../../hooks/index';
-import Logo from '../../components/logo/logo';
-import ReviewsList from '../../components/reviews-list/reviewsList';
+import {useAppSelector, useAppDispatch} from '../../hooks/index';
+import Logo from '../../components/logo/logo.tsx';
+import ReviewsList from '../../components/reviews-list/review-list.tsx';
 import Map from '../../components/map/map.tsx';
-import GeneralCardList from '../../components/general-card-list/generalCardList';
-import Nav from '../../components/nav/nav';
-import {fetchOfferAction, fetchReviewsAction, fetchOffersNearbyAction} from '../../store/api-actions';
-import Spinner from '../../components/spinner/spinner';
-import {store} from '../../store';
-import {getCity} from '../../store/offers-process/selectors';
-import {getOffer, getOfferIsLoading, getOfferIsNotFound} from '../../store/offer-process/selectors';
-import {getReviews} from '../../store/reviews-process/selectors';
-import {getOffersNearby, getOffersNearbyIsLoading} from '../../store/offers-nearby-process/selectors';
-import OfferNameWrapper from '../../components/offer-name-wrapper/offerNameWrapper.tsx';
+import GeneralCardList from '../../components/general-card-list/generalCardList.tsx';
+import Nav from '../../components/nav/nav.tsx';
+import {fetchOfferAction, fetchReviewsAction, fetchOffersNearbyAction} from '../../store/api-actions.ts';
+import Spinner from '../../components/spinner/spinner.tsx';
+import {getCity} from '../../store/offers-process/selectors.ts';
+import {getOffer, getOfferIsLoading, getOfferIsNotFound} from '../../store/offer-process/selectors.ts';
+import {getOffersNearby, getOffersNearbyIsLoading} from '../../store/offers-nearby-process/selectors.ts';
+import OfferNameWrapper from '../../components/offer-name-wrapper/offer-name-wrapper.tsx';
 
 const DEFAULT_BEGIN = 0;
 const MAX_IMAGES_SHOW = 6;
@@ -25,17 +23,17 @@ function OfferPage(): JSX.Element {
   const cityMapActive = useAppSelector(getCity);
   const params = useParams();
   const cardId = params.id;
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    store.dispatch(fetchOfferAction(cardId));
-    store.dispatch(fetchReviewsAction(cardId));
-    store.dispatch(fetchOffersNearbyAction(cardId));
-  }, [cardId]);
+    dispatch(fetchOfferAction(cardId));
+    dispatch(fetchReviewsAction(cardId));
+    dispatch(fetchOffersNearbyAction(cardId));
+  }, [cardId, dispatch]);
 
 
   const offerActive = useAppSelector(getOffer);
   const offerIsLoading = useAppSelector(getOfferIsLoading);
-  const reviewsActive = useAppSelector(getReviews);
   const offerIsNotFound = useAppSelector(getOfferIsNotFound);
   const nearbyOffers = useAppSelector(getOffersNearby);
   const nearbyOffersIsLoading = useAppSelector(getOffersNearbyIsLoading);
@@ -134,17 +132,15 @@ function OfferPage(): JSX.Element {
                 <div className="offer__host">
                   <h2 className="offer__host-title">Meet the host</h2>
                   <div className="offer__host-user user">
-                    {offerActive.host?.avatarUrl && (
-                      <div className={`offer__avatar-wrapper ${offerActive.host.isPro ? 'offer__avatar-wrapper--pro' : ''} user__avatar-wrapper`}>
-                        <img
-                          className="offer__avatar user__avatar"
-                          src={offerActive.host.avatarUrl}
-                          width={74}
-                          height={74}
-                          alt="Host avatar"
-                        />
-                      </div>
-                    )}
+                    <div className={`offer__avatar-wrapper ${offerActive.host.isPro ? 'offer__avatar-wrapper--pro' : ''} user__avatar-wrapper`}>
+                      <img
+                        className="offer__avatar user__avatar"
+                        src={offerActive.host.avatarUrl}
+                        width={74}
+                        height={74}
+                        alt="Host avatar"
+                      />
+                    </div>
                     {offerActive.host?.name && (
                       <span className="offer__user-name">{offerActive.host.name}</span>
                     )}
@@ -158,7 +154,7 @@ function OfferPage(): JSX.Element {
                     </p>
                   </div>
                 </div>
-                {reviewsActive && (<ReviewsList reviews = {reviewsActive} offerId = {cardId} />)}
+                <ReviewsList offerId = {cardId} />
               </div>
             </div>
             <Map mapType='offer' offers={generalOffers} cardHoverId={nearbyCardHoverId} city={cityMapActive}/>

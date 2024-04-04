@@ -13,7 +13,6 @@ import {FavoriteData} from '../types/favorites';
 import {setFavoriteOffers} from './offers-process/offers-process';
 import {setFavoriteOffer} from './offer-process/offer-process';
 import {setFavoriteNearby} from './offers-nearby-process/offers-nearby-process';
-import {setIsNotSubmit} from './reviews-process/reviews-process';
 
 
 export const fetchOffersAction = createAsyncThunk<Offers, undefined, {
@@ -44,13 +43,18 @@ export const loginAction = createAsyncThunk<UserConnect, AuthData, {
   state: State;
   extra: AxiosInstance;
 }>
-('login', async ({login: email, password}, {dispatch, extra: api}) => {
-  const {data} = await api.post<UserConnect>(ApiRoute.Login, {email, password});
-  const {token} = data;
-  saveToken(token);
-  dispatch(redirectToRoute(AppRoute.Main));
+('login', async ({email: email, password}, {dispatch, extra: api}) => {
+  try {
+    const {data} = await api.post<UserConnect>(ApiRoute.Login, {email, password});
+    const {token} = data;
+    saveToken(token);
+    dispatch(redirectToRoute(AppRoute.Main));
 
-  return data;
+    return data;
+
+  } catch (error) {
+    throw new Error();
+  }
 });
 
 export const logoutAction = createAsyncThunk<void, undefined, {
@@ -119,17 +123,14 @@ export const submitReviewAction = createAsyncThunk<
       extra: AxiosInstance;
     }
   >('submitComment',
-    async ({id, comment, rating}, {dispatch, extra: api}) => {
+    async ({id, comment, rating}, {extra: api}) => {
       try {
         const {data} = await api.post<Review>(`${ApiRoute.Comments}/${id}`, {
           comment: comment,
           rating: rating,
         });
-
-        dispatch(setIsNotSubmit(false));
         return data;
       } catch (error) {
-        dispatch(setIsNotSubmit(true));
         throw new Error();
       }
     });
@@ -160,7 +161,6 @@ export const setFavoritesAction = createAsyncThunk<
   const {data} = await api.post<Offer>(
     `${ApiRoute.Favorite}/${favoriteParams.offerId}/${favoriteParams.status}`
   );
-  dispatch(fetchFavoritesAction());
   dispatch(setFavoriteOffers(data));
   dispatch(setFavoriteOffer(data.isFavorite));
   dispatch(setFavoriteNearby(data));

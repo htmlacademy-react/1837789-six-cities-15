@@ -1,18 +1,40 @@
 import {Link} from 'react-router-dom';
 import {Helmet} from 'react-helmet-async';
-import {useRef, FormEvent} from 'react';
-import {useAppDispatch} from '../../hooks';
+import {FormEvent, useState, ChangeEvent} from 'react';
+import {useAppDispatch, useAppSelector} from '../../hooks';
 import {loginAction} from '../../store/api-actions';
 import {setCityActive, setChangeMap, setOffers} from '../../store/offers-process/offers-process';
 import Logo from '../../components/logo/logo';
-import {AppRoute, citiesList, getRandomInteger} from '../../const';
+import {useNavigate} from 'react-router-dom';
+import {AppRoute, citiesList, getRandomInteger, AuthorizationStatus} from '../../const';
+import {getAuthorizationStatus} from '../../store/user-process/selectors';
+import {AuthData} from '../../types/auth-data';
+import {useEffect} from 'react';
+
+const validateEmail = (email: string): boolean =>
+  /^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i.test(email);
+
+const validatePassword = (password: string): boolean =>
+  /^[A-za-z0-9_]+[A-za-z0-9_]{1,}$/.test(password);
+
+const validate = (formData: AuthData): boolean => {
+  if (!validateEmail(formData.email)) {
+    return false;
+  }
+
+  if (!validatePassword(formData.password)) {
+    return false;
+  }
+
+  return true;
+};
 
 function LoginPage(): JSX.Element {
-  const loginRef = useRef<HTMLInputElement | null>(null);
-  const passwordRef = useRef<HTMLInputElement | null>(null);
   const dispatch = useAppDispatch();
-
   const cityButton = citiesList[getRandomInteger(0, citiesList.length - 1)];
+  const authStatus = useAppSelector(getAuthorizationStatus);
+
+  const navigate = useNavigate();
 
   function onCityButton (city:string) {
     dispatch(setCityActive(city));
@@ -20,17 +42,37 @@ function LoginPage(): JSX.Element {
     dispatch(setChangeMap());
   }
 
-  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
-    evt.preventDefault();
+  const [isSubmitButtonOk, setIsSubmitButtonOk] = useState(false);
+  const [formData, setFormData] = useState<AuthData>({
+    email: '',
+    password: '',
+  });
 
-    if (loginRef.current !== null && passwordRef.current !== null) {
-      dispatch(loginAction({
-        login: loginRef.current.value,
-        password: passwordRef.current.value
-      }));
+  const handleTextChange = (evt: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = evt.target;
+    setFormData({ ...formData, [name]: value });
+    if (validate({ ...formData, [name]: value })) {
+      setIsSubmitButtonOk(true);
+    } else {
+      setIsSubmitButtonOk(false);
     }
-
   };
+
+  const handleFormSubmit = (event: FormEvent) => {
+    event.preventDefault();
+
+    dispatch(
+      loginAction({
+        email: formData.email,
+        password: formData.password,
+      })
+    );
+  };
+  useEffect(() => {
+    if (authStatus === AuthorizationStatus.Auth) {
+      navigate(AppRoute.Main);
+    }
+  }, [authStatus, navigate]);
 
   return (
     <div className="page page--gray page--login">
@@ -56,14 +98,15 @@ function LoginPage(): JSX.Element {
               action="#"
               className="login__form form"
               method="post"
-              onSubmit={handleSubmit}
+              onSubmit={handleFormSubmit}
             >
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">
                   E-mail
                 </label>
                 <input
-                  ref={loginRef}
+                  onChange={handleTextChange}
+                  value={formData.email}
                   className="login__input form__input"
                   name="email"
                   title="Email, for example test@test.com"
@@ -77,7 +120,8 @@ function LoginPage(): JSX.Element {
                   Password
                 </label>
                 <input
-                  ref={passwordRef}
+                  onChange={handleTextChange}
+                  value={formData.password}
                   className="login__input form__input"
                   name="password"
                   title="The password must contain at least one digit or letter"
@@ -89,6 +133,7 @@ function LoginPage(): JSX.Element {
               <button
                 className="login__submit form__submit button"
                 type="submit"
+                disabled={!isSubmitButtonOk}
               >
                 Sign in
               </button>

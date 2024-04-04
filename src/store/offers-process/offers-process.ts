@@ -1,9 +1,8 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {NameSpace, DEFAULT_CITY, DEFAULT_SORT} from '../../const';
+import {NameSpace, DEFAULT_CITY, DEFAULT_SORT, SortType, DEFAULT_LOCATION} from '../../const';
 import {OffersProcess} from '../../types/state';
 import {fetchOffersAction} from '../api-actions';
 import {offersSorting} from '../../utils/offersSorting';
-import {SortType, DEFAULT_LOCATION} from '../../const';
 import {Offers, Offer} from '../../types/offer';
 
 const initialState: OffersProcess = {
@@ -46,8 +45,10 @@ export const offers = createSlice({
     },
 
     setChangeMap(state) {
-      const cityMapActive = state.offers[0].city;
-      state.city = cityMapActive;
+      const cityMapActive = state.offers[0]?.city;
+      if(cityMapActive) {
+        state.city = cityMapActive;
+      }
     },
   },
 

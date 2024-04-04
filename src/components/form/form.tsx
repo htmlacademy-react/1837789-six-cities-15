@@ -1,8 +1,9 @@
-import {useState, ChangeEvent, Fragment, FormEvent} from 'react';
+import {useState, ChangeEvent, Fragment, FormEvent, useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks/index';
-import {submitReviewAction} from '../../store/api-actions';
-import {getReviewsIsLoading, getReviewsIsNotSubmit} from '../../store/reviews-process/selectors';
-
+import {submitReviewAction, fetchReviewsAction} from '../../store/api-actions';
+import {getReviewsIsLoading, selectReviewRequestStatus} from '../../store/reviews-process/selectors';
+import {assignReviewRequestStatusByDefault} from '../../store/reviews-process/reviews-process';
+import {RequestStatus} from '../../const';
 type FormProps = {
   offerId?: string;
 };
@@ -17,13 +18,12 @@ function Form({offerId}: FormProps): JSX.Element {
   };
 
   const dispatch = useAppDispatch();
-  const reviewsIsNotSubmit = useAppSelector(getReviewsIsNotSubmit);
   const ReviewsIsLoading = useAppSelector(getReviewsIsLoading);
+  const reviewRequestStatus = useAppSelector(selectReviewRequestStatus);
   const [comment, setComment] = useState('');
   const [rating, setRating] = useState('0');
 
-  const isDisabled = ((comment.length < 50 || comment.length > 300) || rating === '0' || ReviewsIsLoading);
-
+  const isDisabled = ((comment.length < 50 || comment.length > 300) || ReviewsIsLoading);
   function handleInputChange(evt: ChangeEvent<HTMLInputElement>) {
     setRating(evt.target.value);
   }
@@ -37,9 +37,15 @@ function Form({offerId}: FormProps): JSX.Element {
     setRating('0');
   };
 
+  useEffect(() => {
+    if(reviewRequestStatus === RequestStatus.Success) {
+      resetForm();
+      dispatch(assignReviewRequestStatusByDefault());
+    }
+  }, [reviewRequestStatus, dispatch]);
+
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
     if (offerId && !isDisabled) {
       dispatch(
         submitReviewAction({
@@ -48,9 +54,7 @@ function Form({offerId}: FormProps): JSX.Element {
           rating: Number(rating),
         })
       );
-    }
-    if (!reviewsIsNotSubmit) {
-      resetForm();
+      dispatch(fetchReviewsAction());
     }
   };
 
@@ -73,6 +77,7 @@ function Form({offerId}: FormProps): JSX.Element {
                 type="radio"
                 checked={rating === score}
                 onChange={handleInputChange}
+                disabled = {ReviewsIsLoading}
               />
               <label
                 htmlFor={`${score}-stars`}
@@ -94,6 +99,7 @@ function Form({offerId}: FormProps): JSX.Element {
         placeholder="Tell how was your stay, what you like and what can be improved"
         value={comment}
         onChange={handleTextAreaChange}
+        disabled = {ReviewsIsLoading}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
