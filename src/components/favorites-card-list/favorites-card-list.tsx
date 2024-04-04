@@ -6,7 +6,6 @@ import {AppRoute} from '../../const';
 import {useAppDispatch} from '../../hooks';
 import {setCityActive, setChangeMap, setOffers} from '../../store/offers-process/offers-process';
 
-
 type FavoritesCardListProps = {
   city: string;
   list: Offers;
