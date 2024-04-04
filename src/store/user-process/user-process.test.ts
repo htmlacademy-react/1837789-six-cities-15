@@ -1,6 +1,6 @@
 import {checkAuthAction, loginAction, logoutAction} from '../api-actions';
 import {AuthorizationStatus} from '../../const';
-import {makeFakeUserData} from '../../utils/fakeMockByTest';
+import {makeFakeUserData} from '../../utils/fake-mock-by-test';
 import {UserProcess} from '../../types/state';
 import {userSlice} from './user-process';
 

@@ -1,4 +1,4 @@
-import {makeFakeOffers, makeFakeCity} from '../../utils/fakeMockByTest';
+import {makeFakeOffers, makeFakeCity} from '../../utils/fake-mock-by-test';
 import {NameSpace} from '../../const';
 import {OffersProcess} from '../../types/state';
 import {address} from 'faker/locale/en';

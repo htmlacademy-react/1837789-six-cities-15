@@ -2,7 +2,7 @@ import {offersNearby, setFavoriteNearby} from './offers-nearby-process';
 import {OffersNearbyProcess} from '../../types/state';
 import {fetchOffersNearbyAction} from '../api-actions';
 
-import {makeFakeNearbyPlaces, makeFakeOffer} from '../../utils/fakeMockByTest';
+import {makeFakeNearbyPlaces, makeFakeOffer} from '../../utils/fake-mock-by-test';
 
 const initialState: OffersNearbyProcess = {
   offersNearby: [],

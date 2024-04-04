@@ -1,7 +1,7 @@
 import {AuthorizationStatus, NameSpace} from '../../const';
 import {getAuthorizationStatus, getAuthCheckedStatus, getUser} from '../user-process/selectors';
 import {UserProcess} from '../../types/state';
-import {makeFakeUserData} from '../../utils/fakeMockByTest';
+import {makeFakeUserData} from '../../utils/fake-mock-by-test';
 
 const fakeUser = makeFakeUserData();
 

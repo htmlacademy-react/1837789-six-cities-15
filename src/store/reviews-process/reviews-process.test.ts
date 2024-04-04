@@ -1,7 +1,7 @@
 import {reviews} from './reviews-process';
 import {ReviewsProcess} from '../../types/state';
 import {fetchReviewsAction} from '../api-actions';
-import {makeFakeReviews} from '../../utils/fakeMockByTest';
+import {makeFakeReviews} from '../../utils/fake-mock-by-test';
 import {RequestStatus} from '../../const';
 
 const initialState: ReviewsProcess = {

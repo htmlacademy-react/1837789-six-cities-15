@@ -1,4 +1,4 @@
-import {makeFakeNearbyPlaces} from '../../utils/fakeMockByTest';
+import {makeFakeNearbyPlaces} from '../../utils/fake-mock-by-test';
 import {NameSpace} from '../../const';
 import {OffersNearbyProcess} from '../../types/state';
 import {getOffersNearby, getOffersNearbyIsLoading, getOffersNearbyIsNotFound} from './selectors';

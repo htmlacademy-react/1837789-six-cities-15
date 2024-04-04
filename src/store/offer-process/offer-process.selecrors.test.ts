@@ -1,4 +1,4 @@
-import {makeFakeOffer} from '../../utils/fakeMockByTest';
+import {makeFakeOffer} from '../../utils/fake-mock-by-test';
 import { NameSpace} from '../../const';
 import {OfferProcess} from '../../types/state';
 import {getOffer, getOfferIsLoading, getOfferIsNotFound} from './selectors';

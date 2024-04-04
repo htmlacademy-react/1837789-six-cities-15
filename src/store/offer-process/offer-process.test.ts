@@ -2,7 +2,7 @@ import {offer, setFavoriteOffer} from './offer-process';
 import {OfferProcess} from '../../types/state';
 import {fetchOfferAction} from '../api-actions';
 
-import {makeFakeOffer} from '../../utils/fakeMockByTest';
+import {makeFakeOffer} from '../../utils/fake-mock-by-test';
 
 const initialState: OfferProcess = {
   offer: null,

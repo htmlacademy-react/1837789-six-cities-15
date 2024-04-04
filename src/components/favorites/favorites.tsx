@@ -4,7 +4,7 @@ import {
   getFavorites,
   getFavoritesLength
 } from '../../store/favorites-process/selectors';
-import {groupByCityOffers} from '../../utils/groupByCityOffers';
+import {groupByCityOffers} from '../../utils/group-by-city-offers';
 import {useEffect} from 'react';
 import {store} from '../../store';
 import {useNavigate} from 'react-router-dom';

@@ -1,4 +1,4 @@
-import {makeFakeReviews} from '../../utils/fakeMockByTest';
+import {makeFakeReviews} from '../../utils/fake-mock-by-test';
 import { NameSpace} from '../../const';
 import {ReviewsProcess} from '../../types/state';
 import {getReviews, getReviewsIsLoading, getReviewsIsNotFound} from './selectors';
