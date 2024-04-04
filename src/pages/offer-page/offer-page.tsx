@@ -4,7 +4,7 @@ import {useState, useEffect} from 'react';
 import {Helmet} from 'react-helmet-async';
 import {useAppSelector, useAppDispatch} from '../../hooks/index';
 import Logo from '../../components/logo/logo.tsx';
-import ReviewsList from '../../components/reviews-list/review-item.tsx';
+import ReviewsList from '../../components/reviews-list/review-list.tsx';
 import Map from '../../components/map/map.tsx';
 import GeneralCardList from '../../components/general-card-list/generalCardList.tsx';
 import Nav from '../../components/nav/nav.tsx';
@@ -12,7 +12,6 @@ import {fetchOfferAction, fetchReviewsAction, fetchOffersNearbyAction} from '../
 import Spinner from '../../components/spinner/spinner.tsx';
 import {getCity} from '../../store/offers-process/selectors.ts';
 import {getOffer, getOfferIsLoading, getOfferIsNotFound} from '../../store/offer-process/selectors.ts';
-import {getReviews} from '../../store/reviews-process/selectors.ts';
 import {getOffersNearby, getOffersNearbyIsLoading} from '../../store/offers-nearby-process/selectors.ts';
 import OfferNameWrapper from '../../components/offer-name-wrapper/offer-name-wrapper.tsx';
 
@@ -35,7 +34,6 @@ function OfferPage(): JSX.Element {
 
   const offerActive = useAppSelector(getOffer);
   const offerIsLoading = useAppSelector(getOfferIsLoading);
-  const reviewsActive = useAppSelector(getReviews);
   const offerIsNotFound = useAppSelector(getOfferIsNotFound);
   const nearbyOffers = useAppSelector(getOffersNearby);
   const nearbyOffersIsLoading = useAppSelector(getOffersNearbyIsLoading);
@@ -156,7 +154,7 @@ function OfferPage(): JSX.Element {
                     </p>
                   </div>
                 </div>
-                {reviewsActive && (<ReviewsList reviews = {reviewsActive} offerId = {cardId} />)}
+                <ReviewsList offerId = {cardId} />
               </div>
             </div>
             <Map mapType='offer' offers={generalOffers} cardHoverId={nearbyCardHoverId} city={cityMapActive}/>
