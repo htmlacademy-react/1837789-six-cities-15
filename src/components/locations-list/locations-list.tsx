@@ -2,6 +2,7 @@ import {useAppDispatch} from '../../hooks/index';
 import {citiesList, AppRoute} from '../../const';
 import {setCityActive, setOffers, setChangeMap} from '../../store/offers-process/offers-process';
 import {Link} from 'react-router-dom';
+import {fetchOffersAction} from '../../store/api-actions';
 
 type LocationsListProps = {
   cityActive: string;
@@ -11,7 +12,7 @@ function LocationsList({cityActive}: LocationsListProps): JSX.Element {
   const dispatch = useAppDispatch();
 
   function changeCity (city: string) {
-
+    dispatch(fetchOffersAction());
     dispatch(setCityActive(city));
     dispatch(setOffers());
     dispatch(setChangeMap());

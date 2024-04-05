@@ -3,6 +3,7 @@ import {useAppSelector, useAppDispatch} from '../../hooks/index';
 import {AuthorizationStatus, AppRoute} from '../../const';
 import styles from './nav.module.css';
 import {logoutAction} from '../../store/api-actions';
+import {fetchOffersAction} from '../../store/api-actions';
 import {getAuthorizationStatus, getUser} from '../../store/user-process/selectors';
 import {getFavoritesLength} from '../../store/favorites-process/selectors';
 import {assignauthorizationStatusByDefault} from '../../store/user-process/user-process';
@@ -15,6 +16,7 @@ function Nav(): JSX.Element {
   const dispatch = useAppDispatch();
 
   const handleClick = () => {
+    dispatch(fetchOffersAction());
     dispatch(logoutAction());
     dispatch(assignauthorizationStatusByDefault());
   };
