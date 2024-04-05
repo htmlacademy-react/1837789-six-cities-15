@@ -3,7 +3,7 @@ import {Navigate} from 'react-router-dom';
 import {AppRoute} from '../../const';
 import {Helmet} from 'react-helmet-async';
 import Logo from '../../components/logo/logo';
-import {useAppSelector} from '../../hooks/index';
+import {useAppSelector, useAppDispatch} from '../../hooks/index';
 import Nav from '../../components/nav/nav';
 import MainEmpty from '../../components/main-empty/main-empty';
 import Map from '../../components/map/map';
@@ -12,6 +12,8 @@ import GeneralCardList from '../../components/general-card-list/generalCardList'
 import LocationsList from '../../components/locations-list/locations-list';
 import {getCityActive, getCity, getOffers, getOffersIsLoading, getOffersIsNotFound} from '../../store/offers-process/selectors';
 import Spinner from '../../components/spinner/spinner';
+import {fetchFavoritesAction} from '../../store/api-actions';
+import {useEffect} from 'react';
 
 function MainPage(): JSX.Element {
   const [cardHoverId, setCardHoverId] = useState<string | null>(null);
@@ -22,6 +24,11 @@ function MainPage(): JSX.Element {
   const offersIsLoading = useAppSelector(getOffersIsLoading);
   const offersIsNotFound = useAppSelector(getOffersIsNotFound);
   const isEmpty = offersIsNotFound || !placesCount;
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchFavoritesAction());
+  }, [dispatch]);
 
   return (
     <div className={`page page--gray page--main ${isEmpty ? 'page__main--index-empty' : ''}`}>
