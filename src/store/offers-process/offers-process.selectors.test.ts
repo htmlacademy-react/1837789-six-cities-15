@@ -1,23 +1,20 @@
-import {makeFakeOffers, makeFakeCity} from '../../utils/fake-mock-by-test';
+import {makeFakeOffers} from '../../utils/fake-mock-by-test';
 import {NameSpace} from '../../const';
 import {OffersProcess} from '../../types/state';
 import {address} from 'faker/locale/en';
 import {CityName} from '../../types/city';
 import {SortName} from '../../types/sort';
 import {getOffers, getOffersIsLoading, getOffersIsNotFound,
-  getCityActive, getCity, getSortType} from './selectors';
+  getCityActive, getSortType} from './selectors';
 
 
 const fakeOffers = makeFakeOffers();
-const fakeLocation = makeFakeCity();
 const fakeCity = address.cityName() as CityName;
 const fakeSortType = address.cityName() as SortName;
 
 const fakeState: OffersProcess = {
   cityActive: fakeCity,
-  city: fakeLocation,
   sortType: fakeSortType,
-  allOffers: fakeOffers,
   offers: fakeOffers,
   offersIsLoading: false,
   offersIsNotFound: false,
@@ -67,14 +64,6 @@ describe('Reducer: offer selectors', () => {
       const result = getSortType(state);
 
       expect(result).toEqual(fakeSortType);
-    });
-  });
-
-  describe('selector: getCity', () => {
-    it('should return "city" from state', () => {
-      const result = getCity(state);
-
-      expect(result).toEqual(fakeLocation);
     });
   });
 });

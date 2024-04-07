@@ -1,5 +1,5 @@
 import {useNavigate} from 'react-router';
-import {useAppDispatch, useAppSelector} from '../hooks/index';
+import {useAppDispatch, useAppSelector} from './index';
 import {getAuthorizationStatus} from '../store/user-process/selectors';
 import {
   AppRoute,

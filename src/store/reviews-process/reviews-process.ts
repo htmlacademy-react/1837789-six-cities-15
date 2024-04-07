@@ -2,7 +2,7 @@ import {createSlice} from '@reduxjs/toolkit';
 import {NameSpace} from '../../const';
 import {ReviewsProcess} from '../../types/state';
 import {fetchReviewsAction, submitReviewAction} from '../api-actions';
-import {reviewsSorting} from '../../utils/offersSorting';
+import {reviewsSorting} from '../../utils/offers-sorting';
 import {RequestStatus} from '../../const';
 
 const initialState: ReviewsProcess = {

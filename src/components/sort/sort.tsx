@@ -2,7 +2,7 @@ import {useState} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks/index';
 import {SortType} from '../../const';
 import {getSortType} from '../../store/offers-process/selectors';
-import {setSortType, setOffers} from '../../store/offers-process/offers-process';
+import {setSortType} from '../../store/offers-process/offers-process';
 
 function Sort(): JSX.Element {
   const [opened, setOpened] = useState<boolean>(false);
@@ -15,7 +15,6 @@ function Sort(): JSX.Element {
 
   function handleChangeSorting(item: SortType) {
     dispatch(setSortType(item));
-    dispatch(setOffers());
     setOpened(false);
   }
 

@@ -1,33 +1,30 @@
-import {useAppDispatch} from '../../hooks/index';
-import {citiesList, AppRoute} from '../../const';
-import {setCityActive, setOffers, setChangeMap} from '../../store/offers-process/offers-process';
+import {useAppDispatch, useAppSelector} from '../../hooks/index';
+import {CITIES_LIST, AppRoute} from '../../const';
+import {setCityActive} from '../../store/offers-process/offers-process';
 import {Link} from 'react-router-dom';
-import {fetchOffersAction} from '../../store/api-actions';
+import {getCityActive} from '../../store/offers-process/selectors';
+import classNames from 'classnames';
 
-type LocationsListProps = {
-  cityActive: string;
-}
 
-function LocationsList({cityActive}: LocationsListProps): JSX.Element {
+function LocationsList(): JSX.Element {
   const dispatch = useAppDispatch();
+  const cityActive = useAppSelector(getCityActive);
 
-  function changeCity (city: string) {
-    dispatch(fetchOffersAction());
+  function handlChangeCity (city: string) {
     dispatch(setCityActive(city));
-    dispatch(setOffers());
-    dispatch(setChangeMap());
   }
 
   return (
     <div className="tabs">
       <section className="locations container">
         <ul className="locations__list tabs__list">
-          {citiesList.map((city) => {
+          {CITIES_LIST.map((city) => {
             const keyValue = city;
             return (
               <li key = {keyValue} className="locations__item">
-                <Link className={`locations__item-link tabs__item ${city === cityActive ? 'tabs__item--active' : ''}`}
-                  onClick={() => changeCity(city)} to={AppRoute.Main}
+                <Link className={classNames('locations__item-link', 'tabs__item',
+                  {'tabs__item--active': city === cityActive})}
+                onClick={() => handlChangeCity(city)} to={AppRoute.Main}
                 >
                   <span>{city}</span>
                 </Link>

@@ -1,9 +1,9 @@
 import 'leaflet/dist/leaflet.css';
 import leaflet from 'leaflet';
-import { Marker, layerGroup } from 'leaflet';
-import { useRef, useEffect } from 'react';
+import {Marker, layerGroup} from 'leaflet';
+import {useRef, useEffect, memo} from 'react';
 
-import useMap from '../../hooks/useMap';
+import useMap from '../../hooks/use-map';
 import {City} from '../../types/city';
 import {URL_MARKER_CURRENT, URL_MARKER_DEFAULT} from '../../const';
 
@@ -72,7 +72,7 @@ function Map({mapType, city, offers, cardHoverId}: MapProps): JSX.Element {
     if (map) {
       map.setView([city.location.latitude, city.location.longitude], city.location.zoom);
     }
-  }, [map, city]);
+  }, [map, city, offers, mapType]);
 
   return (
     <section
@@ -84,7 +84,8 @@ function Map({mapType, city, offers, cardHoverId}: MapProps): JSX.Element {
           minWidth: '1144px',
           margin: '0, auto'
         }
-        : {height: '500px'}}
+        : {height: '100%',
+          minHeight: '500px',}}
       className={`${mapType}__map map`}
       ref={mapRef}
       data-testid="map-section"
@@ -93,4 +94,6 @@ function Map({mapType, city, offers, cardHoverId}: MapProps): JSX.Element {
   );
 }
 
-export default Map;
+const MemorizedMap = memo(Map);
+export default MemorizedMap;
+

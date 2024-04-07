@@ -2,7 +2,7 @@ import {Link} from 'react-router-dom';
 import {Offer} from '../../types/offer';
 import {Card} from '../../types/card';
 import {handleStars} from '../../const';
-import {useFavorites} from '../../hooks/useFavorites';
+import {useFavorites} from '../../hooks/use-favorites';
 
 type GeneralCardProps = {
   elementType: Card;
@@ -42,7 +42,7 @@ function GeneralCard({elementType, setActivePlaceCard, offer}: GeneralCardProps)
 
   const currentStatus = offer.isFavorite ? 0 : 1;
 
-  const onChangeFavorites = useFavorites(
+  const handlChangeFavorites = useFavorites(
     String(offer.id),
     currentStatus
   );
@@ -70,7 +70,7 @@ function GeneralCard({elementType, setActivePlaceCard, offer}: GeneralCardProps)
             <b className="place-card__price-value">&euro;{offer.price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button onClick={onChangeFavorites}
+          <button onClick={handlChangeFavorites}
             className={`place-card__bookmark-button ${offer.isFavorite ? 'place-card__bookmark-button--active' : ''} button`}
             type="button"
           >

@@ -15,7 +15,7 @@ import {Location} from '../types/location';
 import {City, CityName} from '../types/city';
 import {State} from '../types/state';
 import {address} from 'faker/locale/en';
-import {AuthorizationStatus, DEFAULT_CITY, DEFAULT_SORT, DEFAULT_LOCATION} from '../const';
+import {AuthorizationStatus, DEFAULT_CITY, DEFAULT_SORT} from '../const';
 import {getToken} from '../services/token';
 import {RequestStatus} from '../const';
 
@@ -97,9 +97,7 @@ const makeFakeCommentData = (): CommentData => ({
 
 export const makeFakeStore = (initialState?: Partial<State>): State => ({
   OFFERS: {cityActive: DEFAULT_CITY,
-    city: DEFAULT_LOCATION,
     sortType: DEFAULT_SORT,
-    allOffers: [],
     offers: [],
     offersIsLoading: false,
     offersIsNotFound: false},

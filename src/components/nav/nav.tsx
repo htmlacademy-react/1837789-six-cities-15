@@ -1,9 +1,7 @@
 import {NavLink, Link} from 'react-router-dom';
 import {useAppSelector, useAppDispatch} from '../../hooks/index';
 import {AuthorizationStatus, AppRoute} from '../../const';
-import styles from './nav.module.css';
 import {logoutAction} from '../../store/api-actions';
-import {fetchOffersAction} from '../../store/api-actions';
 import {getAuthorizationStatus, getUser} from '../../store/user-process/selectors';
 import {getFavoritesLength} from '../../store/favorites-process/selectors';
 import {assignauthorizationStatusByDefault} from '../../store/user-process/user-process';
@@ -16,7 +14,6 @@ function Nav(): JSX.Element {
   const dispatch = useAppDispatch();
 
   const handleClick = () => {
-    dispatch(fetchOffersAction());
     dispatch(logoutAction());
     dispatch(assignauthorizationStatusByDefault());
   };
@@ -30,9 +27,8 @@ function Nav(): JSX.Element {
               className="header__nav-link header__nav-link--profile"
               to={AppRoute.Favorites}
             >
-              <div className="header__avatar-wrapper user__avatar-wrapper"
-                style={{ backgroundImage: userConnect?.avatarUrl }}
-              >
+              <div className="header__avatar-wrapper user__avatar-wrapper">
+                <img src={userConnect?.avatarUrl}/>
               </div>
               <span className="header__user-name user__name">
                 {userConnect?.email}
@@ -40,7 +36,7 @@ function Nav(): JSX.Element {
               <span className="header__favorite-count">{favoriteCardsLength.toString()}</span>
             </NavLink>
           </li>
-          <li className={`header__nav-link ${styles.resetStyleButton}`}>
+          <li className="header__nav-item">
             <button className="header__nav-link"
               onClick={handleClick}
             >

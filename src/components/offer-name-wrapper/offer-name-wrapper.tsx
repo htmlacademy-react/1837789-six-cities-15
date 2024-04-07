@@ -1,4 +1,4 @@
-import {useFavorites} from '../../hooks/useFavorites';
+import {useFavorites} from '../../hooks/use-favorites';
 import {Offer} from '../../types/offer';
 
 type OfferNameWrapperProps = {

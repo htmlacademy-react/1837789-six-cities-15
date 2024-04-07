@@ -32,7 +32,7 @@ export const DEFAULT_LOCATION: City = {
   }
 } as const;
 
-export const CITY_LIST: CityList = {
+export const CityName: CityList = {
   Paris: 'Paris',
   Cologne: 'Cologne',
   Brussels: 'Brussels',
@@ -41,9 +41,9 @@ export const CITY_LIST: CityList = {
   Dusseldorf: 'Dusseldorf',
 } as const;
 
-export const citiesList = [CITY_LIST.Paris, CITY_LIST.Cologne, CITY_LIST.Brussels, CITY_LIST.Amsterdam, CITY_LIST.Hamburg, CITY_LIST.Dusseldorf];
+export const CITIES_LIST = [CityName.Paris, CityName.Cologne, CityName.Brussels, CityName.Amsterdam, CityName.Hamburg, CityName.Dusseldorf];
 
-export const DEFAULT_CITY = CITY_LIST.Paris;
+export const DEFAULT_CITY = CityName.Paris;
 
 export enum SortType {
   Popular = 'Popular',

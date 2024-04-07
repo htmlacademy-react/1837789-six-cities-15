@@ -3,7 +3,6 @@ import {AuthorizationStatus, SortType} from '../const';
 import {Reviews} from '../types/review';
 import {Offer, Offers} from '../types/offer';
 import {UserConnect} from '../types/user';
-import {City} from '../types/city';
 import {RequestStatus} from '../const';
 
 
@@ -41,9 +40,7 @@ export type OffersNearbyProcess = {
 
 export type OffersProcess = {
   cityActive: string;
-  city: City;
   sortType: SortType;
-  allOffers: Offers;
   offers: Offers;
   offersIsLoading: boolean;
   offersIsNotFound: boolean;

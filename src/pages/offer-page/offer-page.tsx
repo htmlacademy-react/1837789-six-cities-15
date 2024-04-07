@@ -1,16 +1,15 @@
 import {useParams, Navigate} from 'react-router-dom';
 import {AppRoute, handleStars} from '../../const.ts';
-import {useState, useEffect} from 'react';
+import {useEffect} from 'react';
 import {Helmet} from 'react-helmet-async';
 import {useAppSelector, useAppDispatch} from '../../hooks/index';
 import Logo from '../../components/logo/logo.tsx';
 import ReviewsList from '../../components/reviews-list/review-list.tsx';
 import Map from '../../components/map/map.tsx';
-import GeneralCardList from '../../components/general-card-list/generalCardList.tsx';
+import GeneralCardList from '../../components/general-card-list/general-card-list.tsx';
 import Nav from '../../components/nav/nav.tsx';
 import {fetchOfferAction, fetchReviewsAction, fetchOffersNearbyAction} from '../../store/api-actions.ts';
 import Spinner from '../../components/spinner/spinner.tsx';
-import {getCity} from '../../store/offers-process/selectors.ts';
 import {getOffer, getOfferIsLoading, getOfferIsNotFound} from '../../store/offer-process/selectors.ts';
 import {getOffersNearby, getOffersNearbyIsLoading} from '../../store/offers-nearby-process/selectors.ts';
 import OfferNameWrapper from '../../components/offer-name-wrapper/offer-name-wrapper.tsx';
@@ -20,7 +19,6 @@ const MAX_IMAGES_SHOW = 6;
 const NEAR_PLACES_COUNT = 3;
 
 function OfferPage(): JSX.Element {
-  const cityMapActive = useAppSelector(getCity);
   const params = useParams();
   const cardId = params.id;
   const dispatch = useAppDispatch();
@@ -33,16 +31,11 @@ function OfferPage(): JSX.Element {
 
 
   const offerActive = useAppSelector(getOffer);
+  const cityMapActive = offerActive?.city;
   const offerIsLoading = useAppSelector(getOfferIsLoading);
   const offerIsNotFound = useAppSelector(getOfferIsNotFound);
   const nearbyOffers = useAppSelector(getOffersNearby);
   const nearbyOffersIsLoading = useAppSelector(getOffersNearbyIsLoading);
-
-  const [nearbyCardHoverId, setNearbyCardHoverId] = useState<string | null>(null);
-
-  function handleCardHover(nearOfferId: string | null) {
-    setNearbyCardHoverId(nearOfferId);
-  }
 
   const activeNearbyOffers = nearbyOffers.slice(DEFAULT_BEGIN, Math.min(NEAR_PLACES_COUNT, nearbyOffers.length));
   const generalOffers = [...activeNearbyOffers];
@@ -157,7 +150,7 @@ function OfferPage(): JSX.Element {
                 <ReviewsList offerId = {cardId} />
               </div>
             </div>
-            <Map mapType='offer' offers={generalOffers} cardHoverId={nearbyCardHoverId} city={cityMapActive}/>
+            {cityMapActive && (<Map mapType='offer' offers={generalOffers} city={cityMapActive}/>)}
           </section>
         )}
         <div className="container">
@@ -165,11 +158,9 @@ function OfferPage(): JSX.Element {
             <h2 className="near-places__title">
               Other places in the neighbourhood
             </h2>
-            <div className="near-places__list places__list">
-              {!nearbyOffersIsLoading && (
-                <GeneralCardList elementType='offers' offers = {activeNearbyOffers} setActivePlaceCard = {handleCardHover}/>
-              )}
-            </div>
+            {!nearbyOffersIsLoading && (
+              <GeneralCardList elementType='offers' offers = {activeNearbyOffers}/>
+            )}
           </section>
         </div>
       </main>
