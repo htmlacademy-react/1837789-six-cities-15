@@ -4,8 +4,7 @@ import {Offers} from '../../types/offer';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
 import {useAppDispatch} from '../../hooks';
-import {fetchOffersAction} from '../../store/api-actions';
-import {setCityActive, setChangeMap, setOffers} from '../../store/offers-process/offers-process';
+import {setCityActive} from '../../store/offers-process/offers-process';
 
 type FavoritesCardListProps = {
   city: string;
@@ -17,11 +16,8 @@ function FavoritesCardList({city, list, elementType}: FavoritesCardListProps) {
 
   const dispatch = useAppDispatch();
 
-  function onCityButton (cityActive:string) {
-    dispatch(fetchOffersAction());
+  function handlCityButton (cityActive:string) {
     dispatch(setCityActive(cityActive));
-    dispatch(setOffers());
-    dispatch(setChangeMap());
   }
 
   return (
@@ -29,7 +25,7 @@ function FavoritesCardList({city, list, elementType}: FavoritesCardListProps) {
       <div className="favorites__locations locations locations--current">
         <div className="locations__item">
           {city && (
-            <Link className="locations__item-link" to={AppRoute.Main} onClick={() => onCityButton(city)}>
+            <Link className="locations__item-link" to={AppRoute.Main} onClick={() => handlCityButton(city)}>
               <span>{city}</span>
             </Link>
           )}

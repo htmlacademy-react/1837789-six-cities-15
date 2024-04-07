@@ -1,15 +1,12 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {NameSpace, DEFAULT_CITY, DEFAULT_SORT, SortType, DEFAULT_LOCATION} from '../../const';
+import {NameSpace, DEFAULT_CITY, DEFAULT_SORT, SortType} from '../../const';
 import {OffersProcess} from '../../types/state';
 import {fetchOffersAction} from '../api-actions';
-import {offersSorting} from '../../utils/offersSorting';
 import {Offers, Offer} from '../../types/offer';
 
 const initialState: OffersProcess = {
   cityActive: DEFAULT_CITY,
-  city: DEFAULT_LOCATION,
   sortType: DEFAULT_SORT,
-  allOffers: [],
   offers: [],
   offersIsLoading: false,
   offersIsNotFound: false,
@@ -19,15 +16,6 @@ export const offers = createSlice({
   name: NameSpace.Offers,
   initialState,
   reducers: {
-    setOffers(state) {
-      if (state.allOffers.length) {
-        const offersByCity = state.allOffers.filter(
-          (item) => item?.city?.name === state.cityActive
-        );
-        state.offers = offersSorting(state.sortType, offersByCity);
-      }
-    },
-
     setFavoriteOffers(state, action: PayloadAction<Offer>) {
       const offerFavorite = action.payload;
 
@@ -43,13 +31,6 @@ export const offers = createSlice({
     setSortType(state, action: PayloadAction<SortType>) {
       state.sortType = action.payload;
     },
-
-    setChangeMap(state) {
-      const cityMapActive = state.offers[0]?.city;
-      if(cityMapActive) {
-        state.city = cityMapActive;
-      }
-    },
   },
 
   extraReducers(builder) {
@@ -62,10 +43,8 @@ export const offers = createSlice({
       .addCase(
         fetchOffersAction.fulfilled,
         (state, action: PayloadAction<Offers>) => {
-          state.allOffers = action.payload;
+          state.offers = action.payload;
           state.offersIsLoading = false;
-
-          offers.caseReducers.setOffers(state);
         }
       )
 
@@ -76,5 +55,5 @@ export const offers = createSlice({
   },
 });
 
-export const {setOffers, setCityActive, setSortType, setChangeMap, setFavoriteOffers} = offers.actions;
+export const {setCityActive, setSortType, setFavoriteOffers} = offers.actions;
 

@@ -18,12 +18,12 @@ function Form({offerId}: FormProps): JSX.Element {
   };
 
   const dispatch = useAppDispatch();
-  const ReviewsIsLoading = useAppSelector(getReviewsIsLoading);
+  const reviewsIsLoading = useAppSelector(getReviewsIsLoading);
   const reviewRequestStatus = useAppSelector(selectReviewRequestStatus);
   const [comment, setComment] = useState('');
   const [rating, setRating] = useState('0');
 
-  const isDisabled = ((comment.length < 50 || comment.length > 300) || ReviewsIsLoading);
+  const isDisabled = ((comment.length < 50 || comment.length > 300) || reviewsIsLoading);
   function handleInputChange(evt: ChangeEvent<HTMLInputElement>) {
     setRating(evt.target.value);
   }
@@ -77,7 +77,7 @@ function Form({offerId}: FormProps): JSX.Element {
                 type="radio"
                 checked={rating === score}
                 onChange={handleInputChange}
-                disabled = {ReviewsIsLoading}
+                disabled = {reviewsIsLoading}
               />
               <label
                 htmlFor={`${score}-stars`}
@@ -99,7 +99,7 @@ function Form({offerId}: FormProps): JSX.Element {
         placeholder="Tell how was your stay, what you like and what can be improved"
         value={comment}
         onChange={handleTextAreaChange}
-        disabled = {ReviewsIsLoading}
+        disabled = {reviewsIsLoading}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">

@@ -1,5 +1,6 @@
 import {AxiosInstance} from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
+import {ThunkApiConfig} from '../types/thunk';
 import {AppDispatch, State} from '../types/state';
 import {Offers, Offer} from '../types/offer';
 import {Reviews, Review} from '../types/review';
@@ -15,12 +16,8 @@ import {setFavoriteOffer} from './offer-process/offer-process';
 import {setFavoriteNearby} from './offers-nearby-process/offers-nearby-process';
 
 
-export const fetchOffersAction = createAsyncThunk<Offers, undefined, {
-  dispatch: AppDispatch;
-  state: State;
-  extra: AxiosInstance;
-}
->('fetchOffers',async (_arg, {extra: api}) => {
+export const fetchOffersAction = createAsyncThunk<Offers, undefined, ThunkApiConfig>
+('fetchOffers',async (_arg, {extra: api}) => {
   const {data} = await api.get<Offers>(ApiRoute.Offers);
 
   return data;
@@ -38,11 +35,7 @@ export const checkAuthAction = createAsyncThunk<UserConnect, undefined, {
 },
 );
 
-export const loginAction = createAsyncThunk<UserConnect, AuthData, {
-  dispatch: AppDispatch;
-  state: State;
-  extra: AxiosInstance;
-}>
+export const loginAction = createAsyncThunk<UserConnect, AuthData, ThunkApiConfig>
 ('login', async ({email: email, password}, {dispatch, extra: api}) => {
   try {
     const {data} = await api.post<UserConnect>(ApiRoute.Login, {email, password});
@@ -57,12 +50,8 @@ export const loginAction = createAsyncThunk<UserConnect, AuthData, {
   }
 });
 
-export const logoutAction = createAsyncThunk<void, undefined, {
-  dispatch: AppDispatch;
-  state: State;
-  extra: AxiosInstance;
-}
->('logout', async (_arg, {extra: api}) => {
+export const logoutAction = createAsyncThunk<void, undefined, ThunkApiConfig>
+('logout', async (_arg, {extra: api}) => {
   await api.delete(ApiRoute.Logout);
   dropToken();
 });
@@ -70,11 +59,7 @@ export const logoutAction = createAsyncThunk<void, undefined, {
 export const fetchOfferAction = createAsyncThunk<
   Offer,
   number | string | undefined,
-  {
-    dispatch: AppDispatch;
-    state: State;
-    extra: AxiosInstance;
-}
+  ThunkApiConfig
 >('fetchOffer', async (_arg, {extra: api}) => {
   const id = _arg;
 
@@ -86,12 +71,8 @@ export const fetchOfferAction = createAsyncThunk<
 export const fetchReviewsAction = createAsyncThunk<
   Reviews,
   number | string | undefined,
-  {
-    dispatch: AppDispatch;
-    state: State;
-    extra: AxiosInstance;
-}>(
-  'fetchReviews', async (_arg, {extra: api}) => {
+  ThunkApiConfig>
+  ('fetchReviews', async (_arg, {extra: api}) => {
     const id = _arg;
     const {data} = await api.get<Reviews>(`${ApiRoute.Comments}/${id}`);
 
@@ -101,11 +82,7 @@ export const fetchReviewsAction = createAsyncThunk<
 export const fetchOffersNearbyAction = createAsyncThunk<
   Offers,
   number | string | undefined,
-  {
-    dispatch: AppDispatch;
-    state: State;
-    extra: AxiosInstance;
-  }
+  ThunkApiConfig
   >('fetchOffersNearby', async (_arg, { extra: api}) => {
     const id = _arg;
 
@@ -117,11 +94,7 @@ export const fetchOffersNearbyAction = createAsyncThunk<
 export const submitReviewAction = createAsyncThunk<
     Review,
     CommentData,
-    {
-      dispatch: AppDispatch;
-      state: State;
-      extra: AxiosInstance;
-    }
+    ThunkApiConfig
   >('submitComment',
     async ({id, comment, rating}, {extra: api}) => {
       try {
@@ -138,11 +111,7 @@ export const submitReviewAction = createAsyncThunk<
 export const fetchFavoritesAction = createAsyncThunk<
   Offers,
   undefined,
-  {
-    dispatch: AppDispatch;
-    state: State;
-    extra: AxiosInstance;
-  }
+  ThunkApiConfig
 >('fetchFavorites', async (_arg, {extra: api}) => {
   const {data} = await api.get<Offers>(ApiRoute.Favorite);
 
@@ -152,11 +121,7 @@ export const fetchFavoritesAction = createAsyncThunk<
 export const setFavoritesAction = createAsyncThunk<
   Offer,
   FavoriteData,
-  {
-    dispatch: AppDispatch;
-    state: State;
-    extra: AxiosInstance;
-  }
+  ThunkApiConfig
 >('setFavorites', async (favoriteParams: FavoriteData, {dispatch, extra: api}) => {
   const {data} = await api.post<Offer>(
     `${ApiRoute.Favorite}/${favoriteParams.offerId}/${favoriteParams.status}`

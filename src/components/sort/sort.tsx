@@ -15,7 +15,6 @@ function Sort(): JSX.Element {
 
   function handleChangeSorting(item: SortType) {
     dispatch(setSortType(item));
-    dispatch(setOffers());
     setOpened(false);
   }
 

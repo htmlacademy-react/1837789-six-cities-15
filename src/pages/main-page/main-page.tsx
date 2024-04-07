@@ -8,9 +8,9 @@ import Nav from '../../components/nav/nav';
 import MainEmpty from '../../components/main-empty/main-empty';
 import Map from '../../components/map/map';
 import Sort from '../../components/sort/sort';
-import GeneralCardList from '../../components/general-card-list/generalCardList';
+import GeneralCardList from '../../components/general-card-list/general-card-list';
 import LocationsList from '../../components/locations-list/locations-list';
-import {getCityActive, getCity, getOffers, getOffersIsLoading, getOffersIsNotFound} from '../../store/offers-process/selectors';
+import {getCityActive, getOffersIsLoading, getOffersIsNotFound, getOffersByCityAndSort} from '../../store/offers-process/selectors';
 import Spinner from '../../components/spinner/spinner';
 import {fetchFavoritesAction} from '../../store/api-actions';
 import {useEffect} from 'react';
@@ -18,8 +18,8 @@ import {useEffect} from 'react';
 function MainPage(): JSX.Element {
   const [cardHoverId, setCardHoverId] = useState<string | null>(null);
   const cityActive = useAppSelector(getCityActive);
-  const offers = useAppSelector(getOffers);
-  const cityMapActive = useAppSelector(getCity);
+  const offers = useAppSelector(getOffersByCityAndSort);
+  const cityMapActive = offers[0]?.city;
   const placesCount = offers.length;
   const offersIsLoading = useAppSelector(getOffersIsLoading);
   const offersIsNotFound = useAppSelector(getOffersIsNotFound);
@@ -32,8 +32,6 @@ function MainPage(): JSX.Element {
 
   return (
     <div className={`page page--gray page--main ${isEmpty ? 'page__main--index-empty' : ''}`}>
-      {offersIsLoading && <Spinner />}
-      {offersIsNotFound && <Navigate to={AppRoute.NotFound} />}
       <Helmet>
         <title>Main</title>
       </Helmet>
@@ -49,7 +47,9 @@ function MainPage(): JSX.Element {
       </header>
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
-        <LocationsList cityActive = {cityActive} />
+        <LocationsList />
+        {offersIsLoading && <Spinner />}
+        {offersIsNotFound && <Navigate to={AppRoute.NotFound} />}
         {!offersIsLoading && (
           <div className="cities">
             {placesCount ? (
@@ -58,12 +58,10 @@ function MainPage(): JSX.Element {
                   <h2 className="visually-hidden">Places</h2>
                   <b className="places__found">{placesCount} {placesCount === 1 ? 'place' : 'places'} to stay in {cityActive}</b>
                   <Sort />
-                  <div className="cities__places-list places__list tabs__content">
-                    <GeneralCardList elementType='cities' offers = {offers} setActivePlaceCard = {setCardHoverId}/>
-                  </div>
+                  <GeneralCardList elementType='cities' offers = {offers} setActivePlaceCard = {setCardHoverId}/>
                 </section>
                 <div className="cities__right-section">
-                  <Map mapType='cities' offers={offers} cardHoverId={cardHoverId} city={cityMapActive}/>
+                  {cityMapActive && (<Map mapType='cities' offers={offers} cardHoverId={cardHoverId} city={cityMapActive}/>)}
                 </div>
               </div>
             ) : (

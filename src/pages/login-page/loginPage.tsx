@@ -3,10 +3,10 @@ import {Helmet} from 'react-helmet-async';
 import {FormEvent, useState, ChangeEvent} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {loginAction} from '../../store/api-actions';
-import {setCityActive, setChangeMap, setOffers} from '../../store/offers-process/offers-process';
+import {setCityActive} from '../../store/offers-process/offers-process';
 import Logo from '../../components/logo/logo';
 import {useNavigate} from 'react-router-dom';
-import {AppRoute, citiesList, getRandomInteger, AuthorizationStatus} from '../../const';
+import {AppRoute, CITIES_LIST, getRandomInteger, AuthorizationStatus} from '../../const';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
 import {AuthData} from '../../types/auth-data';
 import {useEffect} from 'react';
@@ -31,15 +31,13 @@ const validate = (formData: AuthData): boolean => {
 
 function LoginPage(): JSX.Element {
   const dispatch = useAppDispatch();
-  const cityButton = citiesList[getRandomInteger(0, citiesList.length - 1)];
+  const cityButton = CITIES_LIST[getRandomInteger(0, CITIES_LIST.length - 1)];
   const authStatus = useAppSelector(getAuthorizationStatus);
 
   const navigate = useNavigate();
 
-  function onCityButton (city:string) {
+  function handlCityButton (city:string) {
     dispatch(setCityActive(city));
-    dispatch(setOffers());
-    dispatch(setChangeMap());
   }
 
   const [isSubmitButtonOk, setIsSubmitButtonOk] = useState(false);
@@ -144,7 +142,7 @@ function LoginPage(): JSX.Element {
               <Link
                 className="locations__item-link"
                 onClick={() =>
-                  onCityButton(cityButton)}
+                  handlCityButton(cityButton)}
                 to={AppRoute.Main}
               >
                 <span>
