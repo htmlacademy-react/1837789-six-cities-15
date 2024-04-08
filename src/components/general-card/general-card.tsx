@@ -42,7 +42,7 @@ function GeneralCard({elementType, setActivePlaceCard, offer}: GeneralCardProps)
 
   const currentStatus = offer.isFavorite ? 0 : 1;
 
-  const handlChangeFavorites = useFavorites(
+  const handleChangeFavorites = useFavorites(
     String(offer.id),
     currentStatus
   );
@@ -70,7 +70,7 @@ function GeneralCard({elementType, setActivePlaceCard, offer}: GeneralCardProps)
             <b className="place-card__price-value">&euro;{offer.price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button onClick={handlChangeFavorites}
+          <button onClick={handleChangeFavorites}
             className={`place-card__bookmark-button ${offer.isFavorite ? 'place-card__bookmark-button--active' : ''} button`}
             type="button"
           >

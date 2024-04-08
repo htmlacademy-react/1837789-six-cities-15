@@ -10,7 +10,7 @@ function LocationsList(): JSX.Element {
   const dispatch = useAppDispatch();
   const cityActive = useAppSelector(getCityActive);
 
-  function handlChangeCity (city: string) {
+  function handleChangeCity (city: string) {
     dispatch(setCityActive(city));
   }
 
@@ -24,7 +24,7 @@ function LocationsList(): JSX.Element {
               <li key = {keyValue} className="locations__item">
                 <Link className={classNames('locations__item-link', 'tabs__item',
                   {'tabs__item--active': city === cityActive})}
-                onClick={() => handlChangeCity(city)} to={AppRoute.Main}
+                onClick={() => handleChangeCity(city)} to={AppRoute.Main}
                 >
                   <span>{city}</span>
                 </Link>
