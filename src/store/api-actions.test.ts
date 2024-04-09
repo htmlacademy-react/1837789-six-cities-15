@@ -24,16 +24,17 @@ describe('Async actions', () => {
 
   describe('checkAuthAction', () => {
     it('should dispatch "checkAuthAction.pending" and "checkAuthAction.fulfilled" with thunk "checkAuthAction', async () => {
-      mockAxiosAdapter.onGet(ApiRoute.Login).reply(200);
-      mockAxiosAdapter.onGet(ApiRoute.Favorite).reply(200);
+      const fakeResponse = {token: 'secret'};
+      mockAxiosAdapter.onGet(ApiRoute.Login).reply(200, fakeResponse);
+      const expectedActions = [
+        checkAuthAction.pending.type,
+        checkAuthAction.fulfilled.type,
+      ];
 
       await store.dispatch(checkAuthAction());
       const actions = extractActionsTypes(store.getActions());
 
-      expect(actions).toEqual([
-        checkAuthAction.pending.type,
-        checkAuthAction.fulfilled.type,
-      ]);
+      expect(actions).toEqual(expectedActions);
     });
   });
 });

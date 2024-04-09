@@ -1,7 +1,9 @@
 import axios, {AxiosInstance, InternalAxiosRequestConfig, AxiosResponse, AxiosError} from 'axios';
 import {getToken} from './token';
 import {StatusCodes} from 'http-status-codes';
-import {processErrorHandle} from './process-error-handle';
+import {toast} from 'react-toastify';
+import browserHistory from '../browser-history';
+import {AppRoute} from '../const';
 
 type DetailMessageType = {
   type: string;
@@ -42,8 +44,15 @@ export const createAPI = (): AxiosInstance => {
     (error: AxiosError<DetailMessageType>) => {
       if (error.response && shouldDisplayError(error.response)) {
         const detailMessage = (error.response.data);
-
-        processErrorHandle(detailMessage.message);
+        toast.warn(`Server Error: ${detailMessage.message}`, {
+          position: toast.POSITION.TOP_CENTER
+        });
+      } else if (error.response?.status === StatusCodes.UNAUTHORIZED) {
+        toast.warn('You are not an authorized user! Log in or create a new account for free.', {
+          position: toast.POSITION.TOP_CENTER
+        });
+      } else if (error.response?.status === StatusCodes.NOT_FOUND) {
+        browserHistory.push(AppRoute.NotFound);
       }
 
       throw error;
