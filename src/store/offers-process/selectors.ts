@@ -1,5 +1,5 @@
 import {State} from '../../types/state';
-import { createSelector } from '@reduxjs/toolkit';
+import {createSelector} from '@reduxjs/toolkit';
 import {NameSpace} from '../../const';
 import {Offers} from '../../types/offer';
 import {SortType} from '../../const';

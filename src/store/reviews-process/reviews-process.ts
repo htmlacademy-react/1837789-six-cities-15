@@ -2,7 +2,6 @@ import {createSlice} from '@reduxjs/toolkit';
 import {NameSpace} from '../../const';
 import {ReviewsProcess} from '../../types/state';
 import {fetchReviewsAction, submitReviewAction} from '../api-actions';
-import {reviewsSorting} from '../../utils/offers-sorting';
 import {RequestStatus} from '../../const';
 
 const initialState: ReviewsProcess = {
@@ -31,7 +30,7 @@ export const reviews = createSlice({
         const reviewsData = action.payload;
 
         if (reviewsData.length > 0) {
-          state.reviews = reviewsSorting(reviewsData);
+          state.reviews = reviewsData;
         }
 
         state.reviewsIsLoading = false;
@@ -51,7 +50,6 @@ export const reviews = createSlice({
         const newReview = action.payload;
 
         state.reviews.push(newReview);
-        state.reviews = reviewsSorting(state.reviews);
       })
 
       .addCase(submitReviewAction.rejected, (state) => {
