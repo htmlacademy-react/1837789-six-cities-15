@@ -27,9 +27,10 @@ function Nav(): JSX.Element {
             <NavLink
               className="header__nav-link header__nav-link--profile"
               to={AppRoute.Favorites}
+              data-testid="header-link"
             >
               <div className="header__avatar-wrapper user__avatar-wrapper">
-                <img src={userConnect?.avatarUrl}/>
+                <img src={userConnect?.avatarUrl} data-testid="avatar-img" />
               </div>
               <span className="header__user-name user__name">
                 {userConnect?.email}

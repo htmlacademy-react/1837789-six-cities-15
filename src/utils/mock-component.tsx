@@ -1,16 +1,14 @@
-import { MemoryHistory, createMemoryHistory } from 'history';
+import {MemoryHistory, createMemoryHistory} from 'history';
 import HistoryRouter from '../components/history-router/history-router';
-import { HelmetProvider } from 'react-helmet-async';
+import {HelmetProvider} from 'react-helmet-async';
 import { MockStore, configureMockStore } from '@jedmao/redux-mock-store';
 import MockAdapter from 'axios-mock-adapter';
-import { State } from '../types/state';
-import { createAPI } from '../services/api';
+import {State} from '../types/state';
+import {createAPI} from '../services/api';
 import thunk from 'redux-thunk';
-import { Action } from 'redux';
-import { ThunkDispatch } from 'redux-thunk';
-import { Provider } from 'react-redux';
-
-export type AppThunkDispatch = ThunkDispatch<State, ReturnType<typeof createAPI>, Action>;
+import {Action} from 'redux';
+import {AppThunkDispatch} from '../utils/fake-mock-by-test';
+import {Provider} from 'react-redux';
 
 export function withHistory(component: JSX.Element, history?: MemoryHistory) {
   const memoryHistory = history ?? createMemoryHistory();

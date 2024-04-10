@@ -18,6 +18,11 @@ import {address} from 'faker/locale/en';
 import {AuthorizationStatus, DEFAULT_CITY, DEFAULT_SORT} from '../const';
 import {getToken} from '../services/token';
 import {RequestStatus} from '../const';
+import {ThunkDispatch} from 'redux-thunk';
+import {createAPI} from '../services/api';
+import {Action} from 'redux';
+
+export type AppThunkDispatch = ThunkDispatch<State, ReturnType<typeof createAPI>, Action>;
 
 const token = getToken();
 
@@ -98,7 +103,7 @@ const makeFakeCommentData = (): CommentData => ({
 export const makeFakeStore = (initialState?: Partial<State>): State => ({
   OFFERS: {cityActive: DEFAULT_CITY,
     sortType: DEFAULT_SORT,
-    offers: [],
+    offers: makeFakeOffers(),
     offersIsLoading: false,
     offersIsNotFound: false},
   OFFER: {offer: null,
