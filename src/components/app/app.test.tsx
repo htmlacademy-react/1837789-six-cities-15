@@ -21,4 +21,16 @@ describe('Application Routing', () => {
 
     expect(screen.getByText(/Cities/i)).toBeInTheDocument();
   });
+
+  it('should render "NotFoundPage" when user navigate to non-existent route', () => {
+    const withHistoryComponent = withHistory(<App />, mockHistory);
+    const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore());
+    const unknownRoute = '/unknown-route';
+    mockHistory.push(unknownRoute);
+
+    render(withStoreComponent);
+
+    expect(screen.getByText('404. Page not found')).toBeInTheDocument();
+    expect(screen.getByText('Go back to the main page.')).toBeInTheDocument();
+  });
 });
