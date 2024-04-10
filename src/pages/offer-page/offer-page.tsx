@@ -13,6 +13,7 @@ import Spinner from '../../components/spinner/spinner.tsx';
 import {getOffer, getOfferIsLoading, getOfferIsNotFound} from '../../store/offer-process/selectors.ts';
 import {getOffersNearby, getOffersNearbyIsLoading} from '../../store/offers-nearby-process/selectors.ts';
 import OfferNameWrapper from '../../components/offer-name-wrapper/offer-name-wrapper.tsx';
+import classNames from 'classnames';
 
 const DEFAULT_BEGIN = 0;
 const MAX_IMAGES_SHOW = 6;
@@ -125,7 +126,7 @@ function OfferPage(): JSX.Element {
                 <div className="offer__host">
                   <h2 className="offer__host-title">Meet the host</h2>
                   <div className="offer__host-user user">
-                    <div className={`offer__avatar-wrapper ${offerActive.host.isPro ? 'offer__avatar-wrapper--pro' : ''} user__avatar-wrapper`}>
+                    <div className={classNames('offer__avatar-wrapper', 'user__avatar-wrapper', {'offer__avatar-wrapper--pro' : offerActive.host.isPro})}>
                       <img
                         className="offer__avatar user__avatar"
                         src={offerActive.host.avatarUrl}

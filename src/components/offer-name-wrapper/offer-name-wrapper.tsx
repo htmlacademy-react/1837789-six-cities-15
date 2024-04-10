@@ -1,5 +1,6 @@
 import {useFavorites} from '../../hooks/use-favorites';
 import {Offer} from '../../types/offer';
+import classNames from 'classnames';
 
 type OfferNameWrapperProps = {
   cardId: string | undefined;
@@ -18,7 +19,10 @@ function OfferNameWrapper({cardId, offerActive}: OfferNameWrapperProps): JSX.Ele
       <h1 className="offer__name">
         {offerActive?.title}
       </h1>
-      <button onClick={handleChangeFavorites} className={`offer__bookmark-button button ${offerActive?.isFavorite ? 'offer__bookmark-button--active' : ''}`} type="button" >
+      <button onClick={handleChangeFavorites}
+        className={classNames('offer__bookmark-button button', {'offer__bookmark-button--active' : offerActive?.isFavorite})}
+        type="button"
+      >
         <svg className="offer__bookmark-icon" width={31} height={33}>
           <use xlinkHref="#icon-bookmark" />
         </svg>

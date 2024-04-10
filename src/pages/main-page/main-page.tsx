@@ -12,6 +12,7 @@ import GeneralCardList from '../../components/general-card-list/general-card-lis
 import LocationsList from '../../components/locations-list/locations-list';
 import {getCityActive, getOffersIsLoading, getOffersIsNotFound, getOffersByCityAndSort} from '../../store/offers-process/selectors';
 import Spinner from '../../components/spinner/spinner';
+import classNames from 'classnames';
 
 function MainPage(): JSX.Element {
   const [cardHoverId, setCardHoverId] = useState<string | null>(null);
@@ -24,7 +25,7 @@ function MainPage(): JSX.Element {
   const isEmpty = offersIsNotFound || !placesCount;
 
   return (
-    <div className={`page page--gray page--main ${isEmpty ? 'page__main--index-empty' : ''}`}>
+    <div className={classNames('page', 'page--gray', 'page--main', {'page__main--index-empty' : isEmpty})}>
       <Helmet>
         <title>Main</title>
       </Helmet>
