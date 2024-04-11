@@ -21,7 +21,7 @@ function LocationsList(): JSX.Element {
           {CITIES_LIST.map((city) => {
             const keyValue = city;
             return (
-              <li key = {keyValue} className="locations__item">
+              <li key = {keyValue} className="locations__item" data-testid="city-tab">
                 <Link className={classNames('locations__item-link', 'tabs__item',
                   {'tabs__item--active': city === cityActive})}
                 onClick={() => handleChangeCity(city)} to={AppRoute.Main}

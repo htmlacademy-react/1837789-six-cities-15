@@ -1,11 +1,14 @@
+import {render, screen} from '@testing-library/react';
 import Spinner from './spinner';
-import { render, screen } from '@testing-library/react';
 
-describe('Component: Spinner', () => {
-  it('should create a spinner', () => {
-    const spinnerContainerTestId = 'spinner-container';
-    render(<Spinner/>);
-    const spinnerContainer = screen.getByTestId(spinnerContainerTestId);
+describe('Component <Spinner />:', () => {
+  it('should render correctly', () => {
+    const spinnerContainerId = 'spinner-container';
+    const component = <Spinner />;
+
+    render(component);
+    const spinnerContainer = screen.getByTestId(spinnerContainerId);
+
     expect(spinnerContainer).toBeInTheDocument();
   });
 });

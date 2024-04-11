@@ -1,13 +1,13 @@
 import {MemoryHistory, createMemoryHistory} from 'history';
 import HistoryRouter from '../components/history-router/history-router';
 import {HelmetProvider} from 'react-helmet-async';
-import { MockStore, configureMockStore } from '@jedmao/redux-mock-store';
+import {MockStore, configureMockStore} from '@jedmao/redux-mock-store';
 import MockAdapter from 'axios-mock-adapter';
 import {State} from '../types/state';
 import {createAPI} from '../services/api';
 import thunk from 'redux-thunk';
-import {Action} from 'redux';
-import {AppThunkDispatch} from '../utils/fake-mock-by-test';
+import { Action } from 'redux';
+import {AppThunkDispatch, makeFakeStore} from './fake-mock-by-test';
 import {Provider} from 'react-redux';
 
 export function withHistory(component: JSX.Element, history?: MemoryHistory) {
@@ -45,3 +45,17 @@ export function withStore(
   });
 }
 
+export function withStoreAndHistory(
+  component: React.ReactElement,
+  initialState?: Partial<State>,
+  history?: MemoryHistory
+) {
+  const initialMockStoreState = makeFakeStore(initialState);
+  const componentWithHistory = withHistory(component, history);
+  const complexComponent = withStore(
+    componentWithHistory,
+    initialMockStoreState
+  );
+
+  return complexComponent;
+}

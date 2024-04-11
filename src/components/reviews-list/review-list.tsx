@@ -3,23 +3,23 @@ import ReviewItem from '../review-item/review-item';
 import {useAppSelector} from '../../hooks';
 import {AuthorizationStatus} from '../../const';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
-import {getReviews} from '../../store/reviews-process/selectors.ts';
 import {useMemo, memo} from 'react';
+import {Reviews} from '../../types/review.ts';
 
 type ReviewsListProps = {
   offerId?: string;
+  reviews: Reviews;
 };
 
-function ReviewsList({offerId}: ReviewsListProps): JSX.Element {
+function ReviewsList({offerId, reviews}: ReviewsListProps): JSX.Element {
   const DEFAULT_BEGIN = 0;
   const MAX_REVIEWS_LENGTH = 10;
-  const reviews = useAppSelector(getReviews);
   const reviewsActive = useMemo(() => [...reviews].sort((a,b) => new Date(b.date).getTime() - new Date(a.date).getTime()).slice(DEFAULT_BEGIN, Math.min(MAX_REVIEWS_LENGTH, reviews.length)), [reviews]);
 
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   return (
-    <section className="offer__reviews reviews">
+    <section className="offer__reviews reviews" data-testid="reviews-container">
       <div>
         <h2 className="reviews__title">
           Reviews · <span className="reviews__amount">{reviews.length}</span>

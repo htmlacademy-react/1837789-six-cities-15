@@ -25,7 +25,7 @@ function MainPage(): JSX.Element {
   const isEmpty = offersIsNotFound || !placesCount;
 
   return (
-    <div className={classNames('page', 'page--gray', 'page--main', {'page__main--index-empty' : isEmpty})}>
+    <div className={classNames('page', 'page--gray', 'page--main', {'page__main--index-empty' : isEmpty})} data-testid="main-page">
       <Helmet>
         <title>Main</title>
       </Helmet>
@@ -45,7 +45,7 @@ function MainPage(): JSX.Element {
         {offersIsLoading && <Spinner />}
         {offersIsNotFound && <Navigate to={AppRoute.NotFound} />}
         {!offersIsLoading && (
-          <div className="cities">
+          <div className="cities" data-testid="cities-container">
             {placesCount ? (
               <div className="cities__places-container container">
                 <section className="cities__places places">
@@ -54,7 +54,7 @@ function MainPage(): JSX.Element {
                   <Sort />
                   <GeneralCardList elementType='cities' offers = {offers} setActivePlaceCard = {setCardHoverId}/>
                 </section>
-                <div className="cities__right-section">
+                <div className="cities__right-section" data-testid="map-container">
                   {cityMapActive && (<Map mapType='cities' offers={offers} cardHoverId={cardHoverId} city={cityMapActive}/>)}
                 </div>
               </div>

@@ -10,6 +10,7 @@ import GeneralCardList from '../../components/general-card-list/general-card-lis
 import Nav from '../../components/nav/nav.tsx';
 import {fetchOfferAction, fetchReviewsAction, fetchOffersNearbyAction} from '../../store/api-actions.ts';
 import Spinner from '../../components/spinner/spinner.tsx';
+import {getReviews} from '../../store/reviews-process/selectors.ts';
 import {getOffer, getOfferIsLoading, getOfferIsNotFound} from '../../store/offer-process/selectors.ts';
 import {getOffersNearby, getOffersNearbyIsLoading} from '../../store/offers-nearby-process/selectors.ts';
 import OfferNameWrapper from '../../components/offer-name-wrapper/offer-name-wrapper.tsx';
@@ -32,6 +33,7 @@ function OfferPage(): JSX.Element {
 
 
   const offerActive = useAppSelector(getOffer);
+  const reviews = useAppSelector(getReviews);
   const cityMapActive = offerActive?.city;
   const offerIsLoading = useAppSelector(getOfferIsLoading);
   const offerIsNotFound = useAppSelector(getOfferIsNotFound);
@@ -148,7 +150,7 @@ function OfferPage(): JSX.Element {
                     </p>
                   </div>
                 </div>
-                <ReviewsList offerId = {cardId} />
+                <ReviewsList offerId = {cardId} reviews = {reviews}/>
               </div>
             </div>
             {cityMapActive && (<Map mapType='offer' offers={generalOffers} city={cityMapActive}/>)}

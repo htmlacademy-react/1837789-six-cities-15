@@ -52,6 +52,7 @@ function GeneralCard({elementType, setActivePlaceCard, offer}: GeneralCardProps)
     <article className={`${options[elementType].className}__card place-card`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      data-testid="card-container"
     >
       {
         offer.isPremium &&
@@ -62,12 +63,12 @@ function GeneralCard({elementType, setActivePlaceCard, offer}: GeneralCardProps)
 
       <div className={`${options[elementType].className}__image-wrapper place-card__image-wrapper`}>
         <Link to={`${options[elementType].url}${offer.id}`}>
-          <img className="place-card__image" src={offer.previewImage} width={options[elementType].width} height={options[elementType].height} alt="Place image" />
+          <img className="place-card__image" src={offer.previewImage} width={options[elementType].width} height={options[elementType].height} alt="Place image" data-testid="card-lazy-image" />
         </Link>
       </div>
       <div className={`${elementType === 'favorite' ? 'favorites__card-info ' : ''}'place-card__info'`}>
         <div className="place-card__price-wrapper">
-          <div className="place-card__price">
+          <div className="place-card__price" data-testid="card-price-container">
             <b className="place-card__price-value">&euro;{offer.price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
@@ -82,16 +83,16 @@ function GeneralCard({elementType, setActivePlaceCard, offer}: GeneralCardProps)
             <span className="visually-hidden">To bookmarks</span>
           </button>
         </div>
-        <div className="place-card__rating rating">
+        <div className="place-card__rating rating" data-testid="starline-container">
           <div className="place-card__stars rating__stars">
             <span style={{width: `${handleStars(offer.rating)}`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
-        <h2 className="place-card__name">
+        <h2 className="place-card__name" data-testid="card-name-title">
           <Link to={`${options[elementType].url}${offer.id}`}>{offer.title}</Link>
         </h2>
-        <p className="place-card__type">{offer.type}</p>
+        <p className="place-card__type" data-testid="card-type-paragraph">{offer.type}</p>
       </div>
     </article>
   );

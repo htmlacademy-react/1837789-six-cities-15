@@ -16,7 +16,6 @@ import {City, CityName} from '../types/city';
 import {State} from '../types/state';
 import {address} from 'faker/locale/en';
 import {AuthorizationStatus, DEFAULT_CITY, DEFAULT_SORT} from '../const';
-import {getToken} from '../services/token';
 import {RequestStatus} from '../const';
 import {ThunkDispatch} from 'redux-thunk';
 import {createAPI} from '../services/api';
@@ -24,7 +23,6 @@ import {Action} from 'redux';
 
 export type AppThunkDispatch = ThunkDispatch<State, ReturnType<typeof createAPI>, Action>;
 
-const token = getToken();
 
 const makeFakeUser = (): User => ({
   name: internet.userName(),
@@ -109,7 +107,8 @@ export const makeFakeStore = (initialState?: Partial<State>): State => ({
   OFFER: {offer: null,
     offerIsLoading: false,
     offerIsNotFound: false },
-  USER: {authorizationStatus: token ? AuthorizationStatus.Auth : AuthorizationStatus.Unknown,
+  USER: {
+    authorizationStatus: AuthorizationStatus.Unknown,
     userConnect:  null},
   REVIEWS: {reviews: [],
     reviewsIsLoading: false,

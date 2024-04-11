@@ -61,6 +61,7 @@ function Form({offerId}: FormProps): JSX.Element {
   return (
     <form className="reviews__form form" action="#" method="post"
       onSubmit={handleSubmit}
+      data-testid="review-form-container"
     >
       <label className="reviews__label form__label" htmlFor="review">
         Your review
@@ -78,6 +79,7 @@ function Form({offerId}: FormProps): JSX.Element {
                 checked={rating === score}
                 onChange={handleInputChange}
                 disabled = {reviewsIsLoading}
+                data-testid={`rating-form-item-${score}`}
               />
               <label
                 htmlFor={`${score}-stars`}
@@ -112,6 +114,7 @@ function Form({offerId}: FormProps): JSX.Element {
           className="reviews__submit form__submit button"
           type="submit"
           disabled = {isDisabled}
+          data-testid="submit-button"
         >
           Submit
         </button>

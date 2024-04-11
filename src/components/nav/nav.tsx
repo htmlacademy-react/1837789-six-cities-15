@@ -30,7 +30,7 @@ function Nav(): JSX.Element {
               data-testid="header-link"
             >
               <div className="header__avatar-wrapper user__avatar-wrapper">
-                <img src={userConnect?.avatarUrl} data-testid="avatar-img" />
+                <img src={userConnect?.avatarUrl} />
               </div>
               <span className="header__user-name user__name">
                 {userConnect?.email}
