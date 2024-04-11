@@ -4,7 +4,6 @@ import App from './app';
 import {AppRoute, AuthorizationStatus, DEFAULT_CITY, DEFAULT_SORT} from '../../const';
 import {withHistory, withStore} from '../../utils/mock-component';
 import {
-  makeFakeOffer,
   makeFakeOffers,
   makeFakeStore,
 } from '../../utils/fake-mock-by-test';
@@ -25,7 +24,14 @@ describe('Component: <App />', () => {
     it('should render the <Spinner /> when the offers have not loaded yet', () => {
       const {withStoreComponent} = withStore(
         withHistoryApp,
-        makeFakeStore()
+        makeFakeStore(
+          {OFFERS: {cityActive: DEFAULT_CITY,
+            sortType: DEFAULT_SORT,
+            offers: [],
+            offersIsLoading: true,
+            offersIsNotFound: false},
+          }
+        )
       );
       const spinnerId = 'spinner-container';
       mockHistory.push(AppRoute.Main);
@@ -36,18 +42,21 @@ describe('Component: <App />', () => {
     });
 
     it('should render <MainPage /> when the user navigates to "/"', () => {
+      const fakeOffers = makeFakeOffers();
       const {withStoreComponent} = withStore(withHistoryApp, makeFakeStore(
         {OFFERS: {cityActive: DEFAULT_CITY,
           sortType: DEFAULT_SORT,
-          offers: makeFakeOffers(),
+          offers: fakeOffers,
           offersIsLoading: false,
-          offersIsNotFound: false}}
+          offersIsNotFound: false},
+        USER: {userConnect: null, authorizationStatus: AuthorizationStatus.Auth}
+        }
       ));
       mockHistory.push(AppRoute.Main);
 
       render(withStoreComponent);
 
-      expect(screen.getByText('Paris')).toBeInTheDocument();
+      expect(screen.getByText(/Cities/i)).toBeInTheDocument();
     });
   });
 
@@ -55,7 +64,7 @@ describe('Component: <App />', () => {
     it('should render "Favorites" when user navigate to "/favorites and Authorized"', () => {
       const withHistoryComponent = withHistory(<App />, mockHistory);
       const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore(
-        {USER: {userConnect: null, authorizationStatus: AuthorizationStatus.Auth} }
+        {USER: {userConnect: null, authorizationStatus: AuthorizationStatus.Auth}}
       ));
       mockHistory.push(AppRoute.Favorites);
 
@@ -70,12 +79,11 @@ describe('Component: <App />', () => {
     it('should render <NotFoundPage /> when the user navigates to a non-existent page', () => {
       const initialState = makeFakeStore();
       const {withStoreComponent} = withStore(withHistoryApp, initialState);
-      const expectedTitle = '404. Page not found';
 
-      mockHistory.push('/*');
+      mockHistory.push('/invalidRoute');
       render(withStoreComponent);
 
-      expect(screen.getByText(expectedTitle)).toBeInTheDocument();
+      expect(screen.getByText('404. Page not found')).toBeInTheDocument();
     });
   });
 });

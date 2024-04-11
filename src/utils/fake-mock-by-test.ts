@@ -108,7 +108,7 @@ export const makeFakeStore = (initialState?: Partial<State>): State => ({
     offerIsLoading: false,
     offerIsNotFound: false },
   USER: {
-    authorizationStatus: AuthorizationStatus.Unknown,
+    authorizationStatus: AuthorizationStatus.Auth,
     userConnect:  null},
   REVIEWS: {reviews: [],
     reviewsIsLoading: false,

@@ -73,7 +73,7 @@ function LoginPage(): JSX.Element {
   }, [authStatus, navigate]);
 
   return (
-    <div className="page page--gray page--login">
+    <div className="page page--gray page--login" data-testid="page-login">
       <Helmet>
         <title>Six cities. Register!</title>
       </Helmet>
@@ -87,9 +87,9 @@ function LoginPage(): JSX.Element {
         </div>
       </header>
       <main className="page__main page__main--login">
-        <div className="page__login-container container">
+        <div className="page__login-container container" data-testid="page-login-container">
           <section className="login">
-            <h1 className="login__title">
+            <h1 className="login__title" data-testid="login-title">
               Sign in
             </h1>
             <form
@@ -97,6 +97,7 @@ function LoginPage(): JSX.Element {
               className="login__form form"
               method="post"
               onSubmit={handleFormSubmit}
+              data-testid="login-form"
             >
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">
@@ -111,6 +112,7 @@ function LoginPage(): JSX.Element {
                   placeholder="Email"
                   required
                   type="email"
+                  data-testid="email-element"
                 />
               </div>
               <div className="login__input-wrapper form__input-wrapper">
@@ -126,26 +128,29 @@ function LoginPage(): JSX.Element {
                   placeholder="Password"
                   required
                   type="password"
+                  data-testid="password-element"
                 />
               </div>
               <button
                 className="login__submit form__submit button"
                 type="submit"
                 disabled={!isSubmitButtonOk}
+                data-testid="login-button-submit"
               >
                 Sign in
               </button>
             </form>
           </section>
           <section className="locations locations--login locations--current">
-            <div className="locations__item">
+            <div className="locations__item" data-testid="location-item">
               <Link
                 className="locations__item-link"
                 onClick={() =>
                   handlCityButton(cityButton)}
                 to={AppRoute.Main}
+                data-testid="location-link"
               >
-                <span>
+                <span data-testid="location-city">
                   {cityButton}
                 </span>
               </Link>

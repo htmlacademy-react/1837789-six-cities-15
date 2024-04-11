@@ -4,11 +4,13 @@ import {withHistory, withStore} from '../../utils/mock-component';
 import {makeFakeStore, makeFakeUserData} from '../../utils/fake-mock-by-test';
 import {AuthorizationStatus, NameSpace} from '../../const';
 
-describe('Component <UserPanel />', () => {
+describe('Component <Nav />', () => {
   const navWithHistory = withHistory(<Nav />);
 
   it('should render correctly when the user is not authorized', () => {
-    const initialState = makeFakeStore();
+    const initialState = makeFakeStore(
+      {USER: {userConnect: null, authorizationStatus: AuthorizationStatus.NoAuth}}
+    );
     const {withStoreComponent} = withStore(
       navWithHistory,
       initialState
