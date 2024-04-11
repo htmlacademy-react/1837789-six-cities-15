@@ -16,7 +16,7 @@ function OfferNameWrapper({cardId, offerActive}: OfferNameWrapperProps): JSX.Ele
 
   return (
     <div className="offer__name-wrapper">
-      <h1 className="offer__name">
+      <h1 className="offer__name" data-testid="offer-title">
         {offerActive?.title}
       </h1>
       <button onClick={handleChangeFavorites}

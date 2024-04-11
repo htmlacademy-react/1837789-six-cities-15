@@ -69,9 +69,9 @@ function OfferPage(): JSX.Element {
           </div>
         </div>
       </header>
-      <main className="page__main page__main--offer">
+      <main className="page__main page__main--offer" data-testid="offer-page-container">
         {offerActive && !offerIsNotFound && !offerIsLoading && (
-          <section className="offer">
+          <section className="offer" data-testid="offer-container">
             <div className="offer__gallery-container container">
               <div className="offer__gallery">
                 {offerActive.images?.length > 0 &&
@@ -101,7 +101,7 @@ function OfferPage(): JSX.Element {
                   </div>
                   <span className="offer__rating-value rating__value">{offerActive.rating}</span>
                 </div>
-                <ul className="offer__features">
+                <ul className="offer__features" data-testid="features-container">
                   <li className="offer__feature offer__feature--entire">{offerActive.type}</li>
                   <li className="offer__feature offer__feature--bedrooms">
                     {offerActive.bedrooms} Bedrooms
@@ -110,7 +110,7 @@ function OfferPage(): JSX.Element {
                     Max {offerActive.maxAdults} adults
                   </li>
                 </ul>
-                <div className="offer__price">
+                <div className="offer__price" data-testid="price-container">
                   <b className="offer__price-value">€{offerActive.price}</b>
                   <span className="offer__price-text">&nbsp;night</span>
                 </div>
@@ -126,7 +126,7 @@ function OfferPage(): JSX.Element {
                   </div>
                 )}
                 <div className="offer__host">
-                  <h2 className="offer__host-title">Meet the host</h2>
+                  <h2 className="offer__host-title" data-testid="host-title">Meet the host</h2>
                   <div className="offer__host-user user">
                     <div className={classNames('offer__avatar-wrapper', 'user__avatar-wrapper', {'offer__avatar-wrapper--pro' : offerActive.host.isPro})}>
                       <img
@@ -156,7 +156,7 @@ function OfferPage(): JSX.Element {
             {cityMapActive && (<Map mapType='offer' offers={generalOffers} city={cityMapActive}/>)}
           </section>
         )}
-        <div className="container">
+        <div className="container" data-testid="nearby-page-container">
           <section className="near-places places">
             <h2 className="near-places__title">
               Other places in the neighbourhood

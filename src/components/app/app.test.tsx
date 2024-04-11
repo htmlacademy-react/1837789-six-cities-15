@@ -75,6 +75,32 @@ describe('Component: <App />', () => {
     });
   });
 
+  describe('route "/login"', () => {
+    it('should render <LoginPage /> when the user navigates to "/login"', () => {
+      const withHistoryComponent = withHistory(<App />, mockHistory);
+      const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore(
+        {USER: {userConnect: null, authorizationStatus: AuthorizationStatus.NoAuth}}
+      ));
+      mockHistory.push(AppRoute.Login);
+
+      render(withStoreComponent);
+
+      expect(screen.getByTestId('login-form')).toBeInTheDocument();
+    });
+  });
+
+  describe('route "/offer/:id"', () => {
+    it('should render <OfferPage /> when the user navigates to "/offer/:id"', () => {
+      const withHistoryComponent = withHistory(<App />, mockHistory);
+      const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore());
+      mockHistory.push(AppRoute.Offer);
+
+      render(withStoreComponent);
+
+      expect(screen.getByTestId('offer-page-container')).toBeInTheDocument();
+    });
+  });
+
   describe('route "*"', () => {
     it('should render <NotFoundPage /> when the user navigates to a non-existent page', () => {
       const initialState = makeFakeStore();

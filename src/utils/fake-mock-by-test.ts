@@ -98,6 +98,8 @@ const makeFakeCommentData = (): CommentData => ({
   comment: lorem.sentence(),
 });
 
+export const extractActionsTypes = (actions: Action<string>[]) => actions.map(({ type }) => type);
+
 export const makeFakeStore = (initialState?: Partial<State>): State => ({
   OFFERS: {cityActive: DEFAULT_CITY,
     sortType: DEFAULT_SORT,

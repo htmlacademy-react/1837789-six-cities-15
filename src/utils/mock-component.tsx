@@ -6,7 +6,7 @@ import MockAdapter from 'axios-mock-adapter';
 import {State} from '../types/state';
 import {createAPI} from '../services/api';
 import thunk from 'redux-thunk';
-import { Action } from 'redux';
+import {Action, Store} from 'redux';
 import {AppThunkDispatch, makeFakeStore} from './fake-mock-by-test';
 import {Provider} from 'react-redux';
 
@@ -58,4 +58,24 @@ export function withStoreAndHistory(
   );
 
   return complexComponent;
+}
+
+export function makeMockStoreWithThunkAndState(initialState: Partial<State> = {}) {
+  const axios = createAPI();
+  const middleware = [thunk.withExtraArgument(axios)];
+  const mockStoreCreator = configureMockStore<
+    State,
+    Action<string>,
+    AppThunkDispatch
+  >(middleware);
+
+  return mockStoreCreator(initialState);
+}
+
+export function makeMockStoreWrapperForHook(store: Store): React.FC {
+  const mockStoreWrapper = ({ children }: { children?: React.ReactNode }) => (
+    <Provider store={store}>{children}</Provider>
+  );
+
+  return mockStoreWrapper;
 }
