@@ -16,10 +16,13 @@ import {City, CityName} from '../types/city';
 import {State} from '../types/state';
 import {address} from 'faker/locale/en';
 import {AuthorizationStatus, DEFAULT_CITY, DEFAULT_SORT} from '../const';
-import {getToken} from '../services/token';
 import {RequestStatus} from '../const';
+import {ThunkDispatch} from 'redux-thunk';
+import {createAPI} from '../services/api';
+import {Action} from 'redux';
 
-const token = getToken();
+export type AppThunkDispatch = ThunkDispatch<State, ReturnType<typeof createAPI>, Action>;
+
 
 const makeFakeUser = (): User => ({
   name: internet.userName(),
@@ -95,16 +98,19 @@ const makeFakeCommentData = (): CommentData => ({
   comment: lorem.sentence(),
 });
 
+export const extractActionsTypes = (actions: Action<string>[]) => actions.map(({ type }) => type);
+
 export const makeFakeStore = (initialState?: Partial<State>): State => ({
   OFFERS: {cityActive: DEFAULT_CITY,
     sortType: DEFAULT_SORT,
-    offers: [],
+    offers: makeFakeOffers(),
     offersIsLoading: false,
     offersIsNotFound: false},
   OFFER: {offer: null,
     offerIsLoading: false,
     offerIsNotFound: false },
-  USER: {authorizationStatus: token ? AuthorizationStatus.Auth : AuthorizationStatus.Unknown,
+  USER: {
+    authorizationStatus: AuthorizationStatus.Auth,
     userConnect:  null},
   REVIEWS: {reviews: [],
     reviewsIsLoading: false,

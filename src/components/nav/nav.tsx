@@ -4,6 +4,7 @@ import {AuthorizationStatus, AppRoute} from '../../const';
 import {logoutAction} from '../../store/api-actions';
 import {getAuthorizationStatus, getUser} from '../../store/user-process/selectors';
 import {getFavoritesLength} from '../../store/favorites-process/selectors';
+import styles from './nav.module.css';
 import {assignauthorizationStatusByDefault} from '../../store/user-process/user-process';
 
 function Nav(): JSX.Element {
@@ -26,9 +27,10 @@ function Nav(): JSX.Element {
             <NavLink
               className="header__nav-link header__nav-link--profile"
               to={AppRoute.Favorites}
+              data-testid="header-link"
             >
               <div className="header__avatar-wrapper user__avatar-wrapper">
-                <img src={userConnect?.avatarUrl}/>
+                <img src={userConnect?.avatarUrl} />
               </div>
               <span className="header__user-name user__name">
                 {userConnect?.email}
@@ -37,7 +39,7 @@ function Nav(): JSX.Element {
             </NavLink>
           </li>
           <li className="header__nav-item">
-            <button className="header__nav-link"
+            <button className={`header__nav-link ${styles.resetStyleButton}`}
               onClick={handleClick}
             >
               <span className="header__signout">Sign out</span>

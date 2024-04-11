@@ -10,9 +10,11 @@ import GeneralCardList from '../../components/general-card-list/general-card-lis
 import Nav from '../../components/nav/nav.tsx';
 import {fetchOfferAction, fetchReviewsAction, fetchOffersNearbyAction} from '../../store/api-actions.ts';
 import Spinner from '../../components/spinner/spinner.tsx';
+import {getReviews} from '../../store/reviews-process/selectors.ts';
 import {getOffer, getOfferIsLoading, getOfferIsNotFound} from '../../store/offer-process/selectors.ts';
 import {getOffersNearby, getOffersNearbyIsLoading} from '../../store/offers-nearby-process/selectors.ts';
 import OfferNameWrapper from '../../components/offer-name-wrapper/offer-name-wrapper.tsx';
+import classNames from 'classnames';
 
 const DEFAULT_BEGIN = 0;
 const MAX_IMAGES_SHOW = 6;
@@ -31,6 +33,7 @@ function OfferPage(): JSX.Element {
 
 
   const offerActive = useAppSelector(getOffer);
+  const reviews = useAppSelector(getReviews);
   const cityMapActive = offerActive?.city;
   const offerIsLoading = useAppSelector(getOfferIsLoading);
   const offerIsNotFound = useAppSelector(getOfferIsNotFound);
@@ -66,9 +69,9 @@ function OfferPage(): JSX.Element {
           </div>
         </div>
       </header>
-      <main className="page__main page__main--offer">
+      <main className="page__main page__main--offer" data-testid="offer-page-container">
         {offerActive && !offerIsNotFound && !offerIsLoading && (
-          <section className="offer">
+          <section className="offer" data-testid="offer-container">
             <div className="offer__gallery-container container">
               <div className="offer__gallery">
                 {offerActive.images?.length > 0 &&
@@ -98,7 +101,7 @@ function OfferPage(): JSX.Element {
                   </div>
                   <span className="offer__rating-value rating__value">{offerActive.rating}</span>
                 </div>
-                <ul className="offer__features">
+                <ul className="offer__features" data-testid="features-container">
                   <li className="offer__feature offer__feature--entire">{offerActive.type}</li>
                   <li className="offer__feature offer__feature--bedrooms">
                     {offerActive.bedrooms} Bedrooms
@@ -107,7 +110,7 @@ function OfferPage(): JSX.Element {
                     Max {offerActive.maxAdults} adults
                   </li>
                 </ul>
-                <div className="offer__price">
+                <div className="offer__price" data-testid="price-container">
                   <b className="offer__price-value">€{offerActive.price}</b>
                   <span className="offer__price-text">&nbsp;night</span>
                 </div>
@@ -123,9 +126,9 @@ function OfferPage(): JSX.Element {
                   </div>
                 )}
                 <div className="offer__host">
-                  <h2 className="offer__host-title">Meet the host</h2>
+                  <h2 className="offer__host-title" data-testid="host-title">Meet the host</h2>
                   <div className="offer__host-user user">
-                    <div className={`offer__avatar-wrapper ${offerActive.host.isPro ? 'offer__avatar-wrapper--pro' : ''} user__avatar-wrapper`}>
+                    <div className={classNames('offer__avatar-wrapper', 'user__avatar-wrapper', {'offer__avatar-wrapper--pro' : offerActive.host.isPro})}>
                       <img
                         className="offer__avatar user__avatar"
                         src={offerActive.host.avatarUrl}
@@ -147,13 +150,13 @@ function OfferPage(): JSX.Element {
                     </p>
                   </div>
                 </div>
-                <ReviewsList offerId = {cardId} />
+                <ReviewsList offerId = {cardId} reviews = {reviews}/>
               </div>
             </div>
             {cityMapActive && (<Map mapType='offer' offers={generalOffers} city={cityMapActive}/>)}
           </section>
         )}
-        <div className="container">
+        <div className="container" data-testid="nearby-page-container">
           <section className="near-places places">
             <h2 className="near-places__title">
               Other places in the neighbourhood

@@ -22,7 +22,7 @@ const fakeState: OffersProcess = {
 
 let state = { [NameSpace.Offers]: fakeState };
 
-describe('Reducer: offer selectors', () => {
+describe('Reducer: offers selectors', () => {
   beforeEach(() => {
     state = { [NameSpace.Offers]: { ...fakeState } };
   });

@@ -3,7 +3,7 @@ import {Navigate} from 'react-router-dom';
 import {AppRoute} from '../../const';
 import {Helmet} from 'react-helmet-async';
 import Logo from '../../components/logo/logo';
-import {useAppSelector, useAppDispatch} from '../../hooks/index';
+import {useAppSelector} from '../../hooks/index';
 import Nav from '../../components/nav/nav';
 import MainEmpty from '../../components/main-empty/main-empty';
 import Map from '../../components/map/map';
@@ -12,8 +12,7 @@ import GeneralCardList from '../../components/general-card-list/general-card-lis
 import LocationsList from '../../components/locations-list/locations-list';
 import {getCityActive, getOffersIsLoading, getOffersIsNotFound, getOffersByCityAndSort} from '../../store/offers-process/selectors';
 import Spinner from '../../components/spinner/spinner';
-import {fetchFavoritesAction} from '../../store/api-actions';
-import {useEffect} from 'react';
+import classNames from 'classnames';
 
 function MainPage(): JSX.Element {
   const [cardHoverId, setCardHoverId] = useState<string | null>(null);
@@ -24,14 +23,9 @@ function MainPage(): JSX.Element {
   const offersIsLoading = useAppSelector(getOffersIsLoading);
   const offersIsNotFound = useAppSelector(getOffersIsNotFound);
   const isEmpty = offersIsNotFound || !placesCount;
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(fetchFavoritesAction());
-  }, [dispatch]);
 
   return (
-    <div className={`page page--gray page--main ${isEmpty ? 'page__main--index-empty' : ''}`}>
+    <div className={classNames('page', 'page--gray', 'page--main', {'page__main--index-empty' : isEmpty})} data-testid="main-page">
       <Helmet>
         <title>Main</title>
       </Helmet>
@@ -51,7 +45,7 @@ function MainPage(): JSX.Element {
         {offersIsLoading && <Spinner />}
         {offersIsNotFound && <Navigate to={AppRoute.NotFound} />}
         {!offersIsLoading && (
-          <div className="cities">
+          <div className="cities" data-testid="cities-container">
             {placesCount ? (
               <div className="cities__places-container container">
                 <section className="cities__places places">
@@ -60,7 +54,7 @@ function MainPage(): JSX.Element {
                   <Sort />
                   <GeneralCardList elementType='cities' offers = {offers} setActivePlaceCard = {setCardHoverId}/>
                 </section>
-                <div className="cities__right-section">
+                <div className="cities__right-section" data-testid="map-container">
                   {cityMapActive && (<Map mapType='cities' offers={offers} cardHoverId={cardHoverId} city={cityMapActive}/>)}
                 </div>
               </div>

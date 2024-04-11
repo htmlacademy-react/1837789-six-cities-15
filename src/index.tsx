@@ -2,8 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {Provider} from 'react-redux';
 import App from './components/app/app';
+import 'react-toastify/dist/ReactToastify.css';
+import {ToastContainer} from 'react-toastify';
 import {store} from './store';
-import ErrorMessage from './components/error-message/error-message';
 import {fetchOffersAction, checkAuthAction} from './store/api-actions';
 import HistoryRouter from './components/history-router/history-router';
 import browserHistory from './browser-history';
@@ -19,7 +20,7 @@ root.render(
   <React.StrictMode>
     <Provider store = {store}>
       <HistoryRouter history={browserHistory}>
-        <ErrorMessage />
+        <ToastContainer autoClose = {2000}/>
         <App />
       </HistoryRouter>
     </Provider>

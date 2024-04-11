@@ -3,27 +3,29 @@ import ReviewItem from '../review-item/review-item';
 import {useAppSelector} from '../../hooks';
 import {AuthorizationStatus} from '../../const';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
-import {getReviews} from '../../store/reviews-process/selectors.ts';
+import {useMemo, memo} from 'react';
+import {Reviews} from '../../types/review.ts';
 
 type ReviewsListProps = {
   offerId?: string;
+  reviews: Reviews;
 };
 
-function ReviewsList({offerId}: ReviewsListProps): JSX.Element {
-  const reviewsActive = useAppSelector(getReviews);
+function ReviewsList({offerId, reviews}: ReviewsListProps): JSX.Element {
   const DEFAULT_BEGIN = 0;
   const MAX_REVIEWS_LENGTH = 10;
+  const reviewsActive = useMemo(() => [...reviews].sort((a,b) => new Date(b.date).getTime() - new Date(a.date).getTime()).slice(DEFAULT_BEGIN, Math.min(MAX_REVIEWS_LENGTH, reviews.length)), [reviews]);
+
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
-  const maxReviews = reviewsActive.slice(DEFAULT_BEGIN, Math.min(MAX_REVIEWS_LENGTH, reviewsActive.length));
 
   return (
-    <section className="offer__reviews reviews">
+    <section className="offer__reviews reviews" data-testid="reviews-container">
       <div>
         <h2 className="reviews__title">
-          Reviews · <span className="reviews__amount">{reviewsActive.length}</span>
+          Reviews · <span className="reviews__amount">{reviews.length}</span>
         </h2>
         <ul className="reviews__list">
-          {maxReviews.map((review) => {
+          {reviewsActive.map((review) => {
             const keyValue = review.id;
             return (
               <ReviewItem key = {keyValue} reviewItem = {review} />
@@ -38,4 +40,5 @@ function ReviewsList({offerId}: ReviewsListProps): JSX.Element {
   );
 }
 
-export default ReviewsList;
+const MemorizedReviewList = memo(ReviewsList);
+export default MemorizedReviewList;

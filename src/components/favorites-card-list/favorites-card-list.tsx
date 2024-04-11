@@ -16,7 +16,7 @@ function FavoritesCardList({city, list, elementType}: FavoritesCardListProps) {
 
   const dispatch = useAppDispatch();
 
-  function handlCityButton (cityActive:string) {
+  function handleCityButton (cityActive:string) {
     dispatch(setCityActive(cityActive));
   }
 
@@ -25,7 +25,7 @@ function FavoritesCardList({city, list, elementType}: FavoritesCardListProps) {
       <div className="favorites__locations locations locations--current">
         <div className="locations__item">
           {city && (
-            <Link className="locations__item-link" to={AppRoute.Main} onClick={() => handlCityButton(city)}>
+            <Link className="locations__item-link" to={AppRoute.Main} onClick={() => handleCityButton(city)}>
               <span>{city}</span>
             </Link>
           )}
