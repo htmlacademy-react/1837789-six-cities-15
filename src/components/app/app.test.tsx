@@ -1,7 +1,7 @@
 import {render, screen} from '@testing-library/react';
 import {MemoryHistory, createMemoryHistory} from 'history';
 import App from './app';
-import {AppRoute, AuthorizationStatus, NameSpace} from '../../const';
+import {AppRoute, AuthorizationStatus, DEFAULT_CITY, DEFAULT_SORT} from '../../const';
 import {withHistory, withStore} from '../../utils/mock-component';
 import {
   makeFakeOffer,
@@ -36,53 +36,33 @@ describe('Component: <App />', () => {
     });
 
     it('should render <MainPage /> when the user navigates to "/"', () => {
-      const fakeOffers = makeFakeOffers();
-      fakeOffers[0].city.name = 'Paris';
-      const fakeStore = makeFakeStore();
-
-      const {withStoreComponent} = withStore(withHistoryApp, fakeStore);
+      const {withStoreComponent} = withStore(withHistoryApp, makeFakeStore(
+        {OFFERS: {cityActive: DEFAULT_CITY,
+          sortType: DEFAULT_SORT,
+          offers: makeFakeOffers(),
+          offersIsLoading: false,
+          offersIsNotFound: false}}
+      ));
       mockHistory.push(AppRoute.Main);
 
       render(withStoreComponent);
 
-      const mapContainerId = 'map-container';
-
-      expect(screen.getByTestId(mapContainerId)).toBeInTheDocument();
+      expect(screen.getByText('Paris')).toBeInTheDocument();
     });
   });
 
   describe('route "/favorites"', () => {
-    it('should render <Favorite /> when the user is logged in and has favorites', () => {
-      const fakeOfferOne = makeFakeOffer();
-      const fakeOfferTwo = makeFakeOffer();
-      const {withStoreComponent} = withStore(
-        withHistoryApp,
-        makeFakeStore({
-          [NameSpace.User]: {
-            authorizationStatus: AuthorizationStatus.Auth,
-            userConnect: null,
-          },
-          [NameSpace.Favorites]: {
-            favorites: [fakeOfferOne, fakeOfferTwo],
-            favoritesIsLoading: false,
-            favoritesIsNotFound: false
-          },
-        })
-      );
-
-      const expectedCount = 2;
-      const favoritesItemId = 'favorites-item';
-      const expectedTitle = 'Saved listing';
-      const unexpectedTitle = 'Favorites (empty)';
-
+    it('should render "Favorites" when user navigate to "/favorites and Authorized"', () => {
+      const withHistoryComponent = withHistory(<App />, mockHistory);
+      const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore(
+        {USER: {userConnect: null, authorizationStatus: AuthorizationStatus.Auth} }
+      ));
       mockHistory.push(AppRoute.Favorites);
+
       render(withStoreComponent);
 
-      const favoritesItems = screen.getAllByTestId(favoritesItemId);
-
-      expect(screen.getByText(expectedTitle)).toBeInTheDocument();
-      expect(favoritesItems.length).toBe(expectedCount);
-      expect(screen.queryByText(unexpectedTitle)).not.toBeInTheDocument();
+      expect(screen.getByText('Nothing yet saved.')).toBeInTheDocument();
+      expect(screen.getByText('Save properties to narrow down search or plan your future trips.')).toBeInTheDocument();
     });
   });
 

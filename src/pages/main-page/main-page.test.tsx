@@ -4,11 +4,11 @@ import {withHistory, withStore} from '../../utils/mock-component';
 import {makeFakeStore} from '../../utils/fake-mock-by-test';
 
 describe('Component: MainPage', () => {
-  const notFoundPageWithHistory = withHistory(<MainPage />);
+  const mainPagePageWithHistory = withHistory(<MainPage />);
   it('should render correctly', () => {
     const initialState = makeFakeStore();
     const {withStoreComponent} = withStore(
-      notFoundPageWithHistory,
+      mainPagePageWithHistory,
       initialState
     );
     const expectedHeaderText = /Cities/i;
